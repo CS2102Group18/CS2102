@@ -1,1 +1,2 @@
-# CS2102
+# CS2102 - Crowdfunding
+A catalogue of projects looking for crowdfunding. Entrepreneurs can advertise their projects (title, description, start date, duration, keywords or categories, the amount of funding sought). Users can browse the projects and fund projects. Users can play both roles of entrepreneurs and investors. The system tracks the current amount of funding raised, brings the project to the status of “funded” and advertises this success on a page of funded projects. Each user has an account. Administrators can create, modify and delete all entries.
