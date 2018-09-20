@@ -1,7 +1,7 @@
 CREATE TABLE member (
 	username VARCHAR(16) PRIMARY KEY,
 	password VARCHAR(16) NOT NULL,
-	is_admin INT NOT NULL CHECK(is_admin=0 OR is_admin=1)
+	is_admin INT NOT NULL DEFAULT 0 CHECK(is_admin=0 OR is_admin=1)
 );
 
 CREATE TABLE project (
