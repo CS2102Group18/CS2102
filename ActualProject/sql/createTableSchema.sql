@@ -19,7 +19,7 @@ CREATE TABLE advertise (
 	amt_needed NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_needed >= 0),
 	amt_raised NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_raised<=amt_needed AND amt_raised>=0),
 	status INT NOT NULL DEFAULT 0 CHECK(status=0 OR status=1),
-	PRIMARY KEY(entrepreneur, proj_id)
+	PRIMARY KEY(entrepreneur)
 );
 
 CREATE TABLE invest (
