@@ -22,7 +22,7 @@ CREATE TABLE advertise (
 	PRIMARY KEY(entrepreneur, proj_id)
 );
 
-CREATE TABLE fund (
+CREATE TABLE invest (
 	investor VARCHAR(16) REFERENCES member(username),
 	proj_id NUMERIC(16) REFERENCES project(id),
 	amount NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amount >= 0),
