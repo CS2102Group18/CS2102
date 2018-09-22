@@ -14,8 +14,8 @@ CREATE TABLE project (
 );
 
 CREATE TABLE advertise (
-	entrepreneur VARCHAR(16) REFERENCES member(username),
-	proj_id NUMERIC(16) REFERENCES project(id),
+	entrepreneur VARCHAR(16) REFERENCES member(username) ON DELETE CASCADE,
+	proj_id NUMERIC(16) REFERENCES project(id) ON DELETE CASCADE,
 	amt_needed NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_needed >= 0),
 	amt_raised NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_raised<=amt_needed AND amt_raised>=0),
 	status INT NOT NULL DEFAULT 0 CHECK(status=0 OR status=1),
@@ -23,8 +23,8 @@ CREATE TABLE advertise (
 );
 
 CREATE TABLE invest (
-	investor VARCHAR(16) REFERENCES member(username),
-	proj_id NUMERIC(16) REFERENCES project(id),
+	investor VARCHAR(16) REFERENCES member(username) ON DELETE CASCADE,
+	proj_id NUMERIC(16) REFERENCES project(id) ON DELETE CASCADE,
 	amount NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amount >= 0),
 	PRIMARY KEY(investor, proj_id)
 );
