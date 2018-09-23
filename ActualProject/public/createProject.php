@@ -1,45 +1,66 @@
-<div class="row">
-    <div class="col-md-6 col-md-offset-3" id="form_container">
-        <h2>Start a Project</h2>
-        <p>
-           Please fill in the details below to create a new Project.
-        </p>
-        <form role="form" method="post" id="reused_form">
+<!DOCTYPE html>
+<html>
+<form class="form-horizontal" role="form" method="post" action="index.php">
+  <h2> Create a new Project </h2>
+	<div class="form-group">
+		<label for="name" class="col-sm-2 control-label">Name of Project</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="name" name="title" placeholder="Project Title" value="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="message" class="col-sm-2 control-label">Description of Project</label>
+		<div class="col-sm-10">
+			<textarea class="form-control" rows="4" name="description"></textarea>
+		</div>
+	</div>
+  <div class="form-group">
+		<label for="name" class="col-sm-2 control-label">Funds Required</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Entered the required amount for investment" value="">
+		</div>
+	<div class="form-group">
+    <div class="form-group">
+      <label for="name" class="col-sm-2 control-label">Choose the Category of Project</label>
+      <div class="col-sm-10">
+        <label for="select_1">Select list:</label>
+        <select class="form-control" id="select_1" name="category">
+          <option value="Fashion">Fashion</option>
+          <option value="Technology">Technology</option>
+          <option value="Games">Games</option>
+          <option value="Food">Food</option>
+          <option value="Music">Music</option>
+          <option value="Photography">Photography</option>
+          <option value="Handicraft">Handicraft</option>
+          <option value="Community">Community</option>
+      </select>
+      </div>
+    <div class="form-group">
+		<div class="col-sm-10 col-sm-offset-2">
+			<input id="submit" name="submit" type="submit" value="Create" class="btn btn-primary">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-10 col-sm-offset-2">
+			<! Will be used to display an alert to the user>
+		</div>
+	</div>
+</form>
 
+<?php
+$session_start();
+    $username = $_SESSION['user'];
+    $db     = init_db();
 
-            <div class="row">
-                <div class="col-sm-6 form-group">
-                    <label for="name">
-                        Your Project Title:</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="col-sm-6 form-group">
-                    <label for="email">
-                        Category:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 form-group">
-                        <label for="message">
-                            Description:</label>
-                        <textarea class="form-control" type="textarea" name="message" id="message" maxlength="6000" rows="7"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 form-group">
-                    <button type="submit" class="btn btn-lg btn-default pull-right" >Create</button>
-                </div>
-            </div>
+    //Run the following 2 together
+    $projectResult = pg_query($db, "INSERT INTO project(title, description, category) VALUES('$_POST[title]', '$_POST[description]', '$_POST[category]')");
+    $advertiseResult = pg_query($db, "INSERT INTO advertise(entrepreneur, amt_needed, amt_raised, status) VALUES('$username', '$_POST[amtNeeded]', '0', '0')")
 
-        </form>
-        <div id="success_message" style="width:100%; height:100%; display:none; ">
-            <h3>Posted your message successfully!</h3>
-        </div>
-        <div id="error_message"
-                style="width:100%; height:100%; display:none; ">
-                    <h3>Error</h3>
-                    Sorry there was an error sending your form.
-        </div>
-    </div>
-</div>
+    if($projectResult && $advertiseResult) {
+      echo "<script>alert('Created Project Successfully');</script>";
+    } else {
+      echo "<script>alert('Error occured creating Project');</script>";
+    }
+
+    ?>
+</html>
