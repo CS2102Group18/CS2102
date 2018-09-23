@@ -97,3 +97,22 @@ AFTER DELETE ON invest
 FOR EACH ROW
 EXECUTE PROCEDURE update_amt_raised_when_delete_invest();
 --------------------------------------------------------------------------------------------------------------------
+
+-------------------------------Trigger when updating a record in TABLE advertise----------------------------------------------
+CREATE OR REPLACE FUNCTION change_status_after_update_advertise()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.status=0 THEN
+        UPDATE advertise SET status=1 WHERE proj_id = NEW.proj_id;
+    ELSE
+        UPDATE advertise SET status=0 WHERE proj_id = NEW.proj_id;
+    END IF;
+    RETURN NEW;
+END; $$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER trigger_change_status_after_update_advertise
+AFTER UPDATE on advertise
+FOR EACH ROW
+WHEN (NEW.amt_raised = OLD.amt_needed AND OLD.status=0 OR NEW.amt_raised <> OLD.amt_needed AND OLD.status=1)
+EXECUTE PROCEDURE change_status_after_update_advertise();
+--------------------------------------------------------------------------------------------------------------------
