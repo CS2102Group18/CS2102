@@ -1,7 +1,7 @@
 <?php
 echo "Starting Session";
 session_start();
-$db = pg_connect("host=localhost port=5432 dbname=cs2102 user=postgres password=group18@CS2102");
+include 'db.php';
 
 //$userResult = pg_query($db, "SELECT username FROM member WHERE username='$_POST[uname]' AND password = '$_POST[psw]'");
 //$isAdminResult = pg_query($db, "SELECT isAdmin FROM member WHERE username = '$_POST[uname]' AND password = '$_POST[psw]'");

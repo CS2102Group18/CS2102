@@ -90,7 +90,7 @@
     </div>
 
     <div class="container signin">
-      <p>Already have an account? <a href="http://localhost/Project/ActualProject/public/login.php">Sign in</a>.</p>
+      <p>Already have an account? <a href="login.php">Sign in</a>.</p>
 
     </div>
 
@@ -100,12 +100,9 @@
 </body>
 
 <?php
-$db     = pg_connect("host=localhost port=5432 dbname=cs2102 user=postgres password=group18@CS2102");
-
+include 'db.php';
 
 if (isset($_POST['submit'])) {
-
-
   if ($_POST[password] == $_POST[passwordRepeat]){
 
     $sqlInsert = pg_query($db, "INSERT INTO member(username, password, is_admin) VALUES ('$_POST[username]', '$_POST[password]', '0' )");
@@ -114,22 +111,17 @@ if (isset($_POST['submit'])) {
 
     $sqlResultUserRow = pg_fetch_assoc($sqlCheckUsername);
     $isExist = pg_num_rows($sqlResultUserRow);
-
-    $insertSuccess = pg_query($db, $sqlInsert);
-    if (!$insertSuccess && $isExist != 0) {
-      echo "<script>alert('Error Occured!');</script>";
+	if ($isExist != 0) {
+		echo "<script>alert('There is already an existing user!');</script>";
+		exit();
+	} else {
+		if($sqlInsert){
+			echo "<script>alert('Created Account Successfully!');</script>";
+		}
+		else
+			echo "<script>alert('Error Occured!');</script>";
     }
-
-    else if (!$insertSuccess && $isExist == 0){
-      echo "<script>alert('There is already an existing user!');</script>";
-    }
-
-    else {
-      echo "<script>alert('Created Account Successfully!');</script>";
-    }
-
   }
-
   else {
       echo "<script>alert('Password does not match!');</script>";
   }

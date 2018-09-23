@@ -29,7 +29,7 @@
 			opacity: 0.8;
 		  }
 
-		  .cancelbtn {
+		  .registerbtn {
 			width: auto;
 			padding: 10px 18px;
 			background-color: #f44336;
@@ -60,7 +60,7 @@
 			  display: block;
 			  float: none;
 			}
-			.cancelbtn {
+			.registerbtn {
 			  width: 100%;
 			}
 		  }
@@ -86,10 +86,10 @@
 			<input type="checkbox" checked="checked" name="remember"> Remember me
 			</label>
 			</div>
-
 			<div class="container" style="background-color:#f1f1f1">
-			<button type="button" class="cancelbtn">Cancel</button>
-			<span class="psw">Forgot <a href="#">password?</a></span>
+				<a href="createMember.php">
+					<button type="button" class="registerbtn">Register</button>
+				</a>
 			</div>
 		</form>
 	</body>
