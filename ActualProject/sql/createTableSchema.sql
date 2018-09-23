@@ -19,7 +19,7 @@ CREATE TABLE advertise (
 	amt_needed NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_needed >= 0),
 	amt_raised NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_raised<=amt_needed AND amt_raised>=0),
 	status INT NOT NULL DEFAULT 0 CHECK(status=0 OR status=1),
-	PRIMARY KEY(entrepreneur)
+	PRIMARY KEY(proj_id)
 );
 
 CREATE TABLE invest (
@@ -110,9 +110,15 @@ BEGIN
     RETURN NEW;
 END; $$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER trigger_change_status_after_update_advertise
+CREATE TRIGGER trigger_change_status_after_update_amtRaised
 AFTER UPDATE on advertise
 FOR EACH ROW
 WHEN (NEW.amt_raised = OLD.amt_needed AND OLD.status=0 OR NEW.amt_raised <> OLD.amt_needed AND OLD.status=1)
+EXECUTE PROCEDURE change_status_after_update_advertise();
+
+CREATE TRIGGER trigger_change_status_after_update_amtNeeded
+AFTER UPDATE on advertise
+FOR EACH ROW
+WHEN (NEW.amt_needed = OLD.amt_raised AND OLD.status=0 OR NEW.amt_needed <> OLD.amt_raised AND OLD.status=1)
 EXECUTE PROCEDURE change_status_after_update_advertise();
 --------------------------------------------------------------------------------------------------------------------
