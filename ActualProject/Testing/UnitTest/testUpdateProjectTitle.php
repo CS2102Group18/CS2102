@@ -2,8 +2,8 @@
     include './connectionToDatabase.php';
     include './displayTable.php';
 
-    include '../../php/deleteProject.php';
-	
+    include '../../php/updateProject.php';
+    
     $db = getDB();
     
     // Insert a project
@@ -20,10 +20,10 @@
     echo "<br><br>";
     
     
-    // Delete the member
-    $result_deletion = pg_query($db, deleteProject($db, 1));
+    // Update Title
+    $result = pg_query($db, updateProjectTitle($db, 1, 'I will follow my Nindo!'));
     
-    echo "<u><b>AFTER Deletion</b></u>";
+    echo "<u><b>AFTER updating</b></u>";
     echo "<br>";
     displayTableProject($db);
     echo "<br><br>";
@@ -31,6 +31,6 @@
     echo "<br><br>";
     echo "Things to note:";
     echo "<ul>";
-    echo "<li>Project with id=1 is removed from the table</li>";
+    echo "<li>The title of project with id=1 will change from 'Chasing a girl named Sakura' to 'I will follow my Nindo!'</li>";
     echo "</ul>";
 ?>  

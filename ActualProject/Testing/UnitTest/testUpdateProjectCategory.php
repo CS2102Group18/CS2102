@@ -2,8 +2,8 @@
     include './connectionToDatabase.php';
     include './displayTable.php';
 
-    include '../../php/deleteProject.php';
-	
+    include '../../php/updateProject.php';
+    
     $db = getDB();
     
     // Insert a project
@@ -20,10 +20,10 @@
     echo "<br><br>";
     
     
-    // Delete the member
-    $result_deletion = pg_query($db, deleteProject($db, 1));
+    // Update Category
+    $result = pg_query($db, updateProjectCategory($db, 1, 'Games'));
     
-    echo "<u><b>AFTER Deletion</b></u>";
+    echo "<u><b>AFTER updating</b></u>";
     echo "<br>";
     displayTableProject($db);
     echo "<br><br>";
@@ -31,6 +31,6 @@
     echo "<br><br>";
     echo "Things to note:";
     echo "<ul>";
-    echo "<li>Project with id=1 is removed from the table</li>";
+    echo "<li>The category of project with id=1 will change from 'Community' to 'Games'</li>";
     echo "</ul>";
 ?>  
