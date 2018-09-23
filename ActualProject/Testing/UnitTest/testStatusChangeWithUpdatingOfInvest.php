@@ -1,8 +1,8 @@
 <?php
     include './displayTable.php';
     
-    include '../../php/deleteInvest.php';
-	// Connect to the database. Please change the password in the following line accordingly
+    include '../../php/updateInvest.php';
+	// Connect to the database.
     $db = pg_connect("host=localhost port=5432 dbname=cs2102 user=postgres password=group18@CS2102");
 	
 	// Delete all tables from database - a clean start
@@ -35,10 +35,8 @@
     
     styleTable();
     
-    echo "<u><b>AFTER INSERTION</b></u>";
+    echo "<u><b>AFTER INSERTION - Original Tables</b></u>";
     echo "<br>";
-    displayTableProject($db);
-    echo "<br><br>";
     displayTableAdvertise($db);
     echo "<br><br>";
     displayTableInvest($db);
@@ -46,22 +44,58 @@
     echo "------------------------------------------------------------------------------------------------------";
     echo "<br><br>";
     
-    // Delete the member
-    deleteInvest($db, 'Shikamaru', 1);
-    
-    echo "<u><b>AFTER Deletion</b></u>";
-    echo "<br>";
-    displayTableProject($db);
+    echo "<u><b>AFTER Update</b></u>";
     echo "<br><br>";
+    
+    // Update investment to a lower value than previously invested
+    // Expect: status in TABLE advertise is still 0
+    updateInvestmentAmount($db, 'Sakura', 2, 50);
+    echo "<u>Action: Changed Sakura's investment from 90 to 50</u>";
+    echo "<br>";
     displayTableAdvertise($db);
     echo "<br><br>";
     displayTableInvest($db);
     echo "<br><br>";
+    echo "Things to note:";
+    echo "<ul>";
+    echo "<li>Sakura investment change from 90 to 50 in TABLE invest</li>";
+    echo "<li>Status of Project 2 is still 0</li>";
+    echo "</ul>";
+    echo "<br><br>";
+    echo "------------------------------------------------------------------------------------------------------";
+    echo "<br><br>";
     
+    // Update investment to a higher value than previously invested witch results in max amount raised
+    // Expect: status in TABLE advertise is changed to 1
+    updateInvestmentAmount($db, 'Sakura', 2, 100);
+    echo "<u>Action: Changed Sakura's investment from 50 to 100</u>";
+    echo "<br>";
+    displayTableAdvertise($db);
+    echo "<br><br>";
+    displayTableInvest($db);
     echo "<br><br>";
     echo "Things to note:";
     echo "<ul>";
-    echo "<li>Shikamaru is removed from TABLE invest</li>";
-    echo "<li>Amount raised in TABLE advertise is reduced</li>";
+    echo "<li>Sakura investment change from 50 to 100 in TABLE invest</li>";
+    echo "<li>Status of Project 2 is now 1</li>";
     echo "</ul>";
+    echo "<br><br>";
+    echo "------------------------------------------------------------------------------------------------------";
+    echo "<br><br>";
+    
+    // Update investment such that amount_raised in TABLE advertise will not be max
+    // Expect: status in TABLE advertise is changed to 0
+    updateInvestmentAmount($db, 'Sakura', 2, 20);
+    echo "<u>Action: Changed Sakura's investment from 100 to 20</u>";
+    echo "<br>";
+    displayTableAdvertise($db);
+    echo "<br><br>";
+    displayTableInvest($db);
+    echo "<br><br>";
+    echo "Things to note:";
+    echo "<ul>";
+    echo "<li>Sakura investment change from 100 to 20 in TABLE invest</li>";
+    echo "<li>Status of Project 2 is now 0</li>";
+    echo "</ul>";
+    echo "<br><br>";
 ?>  
