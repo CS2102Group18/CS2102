@@ -122,3 +122,17 @@ FOR EACH ROW
 WHEN (NEW.amt_needed = OLD.amt_raised AND OLD.status=0 OR NEW.amt_needed <> OLD.amt_raised AND OLD.status=1)
 EXECUTE PROCEDURE change_status_after_update_advertise();
 --------------------------------------------------------------------------------------------------------------------
+
+-------------------------------Trigger when deleting a record in TABLE advertise----------------------------------------------
+CREATE OR REPLACE FUNCTION delete_all_investment_when_delete_advertisement()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM invest WHERE proj_id = OLD.proj_id;
+    RETURN NEW;
+END; $$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER trigger_delete_all_investment_when_delete_advertisement
+AFTER DELETE on advertise
+FOR EACH ROW
+EXECUTE PROCEDURE delete_all_investment_when_delete_advertisement();
+--------------------------------------------------------------------------------------------------------------------
