@@ -30,7 +30,9 @@
 					</a>
 				  </li>
 				</ul>
-				<button class="btn btn-primary btn-sm">Logout</button>
+				<a href="logout.php">
+					<button class="btn btn-primary btn-sm" name="logout">Logout</button>
+				</a>
 			  </div>
 			</div>
 		  </div>
