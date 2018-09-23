@@ -11,7 +11,6 @@ if( isset($_POST['Login'])) {
 	if(isset( $_POST['uid'] ) && isset( $_POST['pw'])){
 	  // check user/pass against database, .htaccess file, etc.
 	  $_SESSION['uid'] = $uid;
-	  $_SESSION['pw'] = $pw;
 	  $userResult = pg_query($db, "SELECT * FROM member WHERE username = '$_POST[uid]' AND password = '$_POST[pw]'");
 	  $rowResult = pg_num_rows($userResult);
 	  if($rowResult == 0){
