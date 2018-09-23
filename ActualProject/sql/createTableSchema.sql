@@ -80,3 +80,20 @@ BEFORE UPDATE ON invest
 FOR EACH ROW
 EXECUTE PROCEDURE update_amt_raised_when_update_invest();
 --------------------------------------------------------------------------------------------------------------------
+
+-------------------------------Trigger when deleting a record in TABLE Invest----------------------------------------------
+CREATE OR REPLACE FUNCTION update_amt_raised_when_delete_invest()
+RETURNS TRIGGER AS $$
+DECLARE 
+    currentAmtRaised NUMERIC(15,2);
+BEGIN
+    currentAmtRaised = (SELECT a.amt_raised FROM advertise a WHERE a.proj_id = OLD.proj_id);
+    UPDATE advertise SET amt_raised=(currentAmtRaised-OLD.amount) WHERE proj_id=OLD.proj_id;
+    RETURN NEW;
+END; $$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER trigger_update_amt_raised_when_delete_invest
+AFTER DELETE ON invest 
+FOR EACH ROW
+EXECUTE PROCEDURE update_amt_raised_when_delete_invest();
+--------------------------------------------------------------------------------------------------------------------
