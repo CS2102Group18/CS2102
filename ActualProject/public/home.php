@@ -83,7 +83,7 @@
 				  $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
 				  $rowAdmin = pg_num_rows($resultAdmin);
 				  if($rowAdmin > 0){
-					  echo '<li class="nav-item">';	
+					  echo '<li class="nav-item">';
 					  echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
 					  echo '</a>';
 					  echo '</li>';
@@ -96,7 +96,7 @@
 		  </div>
 		</nav>
 		<section class="pb-0">
-		  <div class="container">
+		 <div class="container">
 			<div class="row text-center mb-4">
 			  <div class="col">
 				<h2>Entrepreneur Projects</h2>
@@ -115,38 +115,54 @@
 						  </div>
 						  <div class="card-footer">
 								<div class="d-flex align-items-center justify-content-between">
-									<a href="#!" data-toggle="modal" data-target="#exampleModal">Invest</a>
-									<!-- Modal -->
-									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									  <div class="modal-dialog" role="document">
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <h5 class="modal-title"><?php echo $projectRow['title'];?></h5>
-									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-									      </div>
-									      <div class="modal-body">
-									        <?php echo $projectRow['description'];?>
-									      </div>
-												<div class="modal-body">
-									        <p>Amount Needed: <?php echo $projectRow['amt_needed'];?></p>
-									      </div>
-												<div class="modal-body">
-									        <p>Current Amount Raised: <?php echo $projectRow['amt_raised'];?></p>
-									      </div>
-									      <div class="modal-footer">
-									        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="invest()">Invest</button>
-									      </div>
-									    </div>
-									  </div>
-									</div>
+									<a href="#!" data-toggle="modal" data-target="#exampleModal"
+										onClick="displayPopupInformation('<?php echo $projectRow['id'];?>',
+																										 '<?php echo $projectRow['title'];?>',
+																										 '<?php echo $projectRow['description'];?>',
+																										 '<?php echo $projectRow['category'];?>',
+																										 '<?php echo $projectRow['start_date'];?>',
+																										 '<?php echo $projectRow['duration'];?>',
+																										 '<?php echo $projectRow['amt_needed'];?>',
+																										 '<?php echo $projectRow['amt_raised'];?>')">Invest</a>
 								</div>
 						  </div>
 						</div>
 					</div>
 				<?php endforeach; ?>
+				<!-- Modal Popup-->
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modalProjectTitle"></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+							</div>
+							<div class="modal-body">
+								<p id="modalProjectDescription"></p>
+							</div>
+							<div class="modal-body">
+								<p>Amount Needed: <span id="modalProjectAmtNeeded"></span></p>
+								<p>Current Amount Raised: <span id="modalProjectAmtRaised"></span></p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Invest</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		 </div>
 		</section>
+
+		<script>
+			function displayPopupInformation(id, title, description, category, startDate, duration, amtNeeded, amtRaised) {
+				console.log("Project id: " + id);
+				document.getElementById("modalProjectTitle").innerHTML = title;
+				document.getElementById("modalProjectDescription").innerHTML = description;
+				document.getElementById("modalProjectAmtNeeded").innerHTML = amtNeeded;
+				document.getElementById("modalProjectAmtRaised").innerHTML = amtRaised;
+			}
+		</script>
 	</body>
 </html>
