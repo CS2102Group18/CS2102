@@ -10,7 +10,7 @@
 	$UNAME = $_SESSION['username'];	//retrieve USERNAME
 	include 'db.php';
 	$currentId = '0';
-	
+
 	//Get list of projects that are advertising
 	$result = pg_query($db, "SELECT * FROM project a LEFT JOIN advertise b ON a.id = b.proj_id");
 	$totalSize = pg_num_rows($result);
@@ -35,13 +35,13 @@
 	//Using the proj_id, find the required Project Name and Description and category
 	//Use this Example query: Replace $currentId with value obtained previously. Other details you may require are : start_date
 	//$resultProjId = pg_query($db, "SELECT title, description, category FROM project WHERE id = $currentId");
-	
+
 	//Display the Project, Description, amt_needed, amt_raised, category, status through looping
 ?>
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 		<style>
 			a.logout {
 				color: white;
@@ -73,7 +73,7 @@
 				  <li class="nav-item">
 					<a href="documentation/index.html" class="text-small nav-link px-2">Explore</a>
 				  </li>
-				  <li class="nav-item">	
+				  <li class="nav-item">
 					<a href="documentation/changelog.html" class="text-small nav-link px-2">My Investments
 					</a>
 				  </li>
@@ -102,9 +102,33 @@
 							</div>
 						  </div>
 						  <div class="card-footer">
-							<div class="d-flex align-items-center justify-content-between">
-							  <a href="pages-landing.html">Invest</a>
-							</div>
+								<div class="d-flex align-items-center justify-content-between">
+									<a href="#!" data-toggle="modal" data-target="#exampleModal">Invest</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title"><?php echo $projectRow['title'];?></h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+									      </div>
+									      <div class="modal-body">
+									        <?php echo $projectRow['description'];?>
+									      </div>
+												<div class="modal-body">
+									        <p>Amount Needed: <?php echo $projectRow['amt_needed'];?></p>
+									      </div>
+												<div class="modal-body">
+									        <p>Current Amount Raised: <?php echo $projectRow['amt_raised'];?></p>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="invest()">Invest</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								</div>
 						  </div>
 						</div>
 					</div>
