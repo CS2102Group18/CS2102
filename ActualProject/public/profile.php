@@ -80,6 +80,21 @@ if(isset($_POST['update'])) {
   }
 }
 ?>
+<?php
+//php for My project
+include '../public/php/updateMember.php';
+include 'db.php';
+session_start();
+if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
+  //	echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
+} else {
+  header("location:login.php");
+}
+$UNAME = $_SESSION['username'];	//retrieve USERNAME
+ $projectResult = pg_query()
+?>
+
+
 <html>
 <head>
   <title>My Profile Page</title>
@@ -149,7 +164,8 @@ card {
     <h2>Profile Page</h2>
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#home">My Profile</a></li>
-      <li><a data-toggle="tab" href="#menu1">My Project & Investments</a></li>
+      <li><a data-toggle="tab" href="#menu1">My Project</a></li>
+      <li><a data-toggle="tab" href="#menu2">My Investments</a></li>
     </ul>
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active">
@@ -193,6 +209,37 @@ card {
                   <th>Project Name</th>
                   <th>Project Id</th>
                   <th>Amount Raised</th>
+                  <th>Target Amount</th>
+                  <th>Status</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                  <tbody>
+                  </thead>
+                </div>
+                <tr>
+                  <td>Dummy Name</td>
+                  <td>Dummy Id</td>
+                  <td>Dummy Amount Raised</td>
+                  <td>Target Amount</td>
+                  <td>Dummy Status</td>
+                  <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                  <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+      <div id="menu2" class="tab-pane fade">
+        <h3>My Investments</h3>
+        <form action = "profile.php", method = "POST">
+          <div class="form-group row">
+            <div class="table-responsive">
+              <table id="myProjectTable" class="table table-striped">
+                <thead>
+                  <th>Project Name</th>
+                  <th>Project Id</th>
+                  <th>Amount Invested</th>
                   <th>Target Amount</th>
                   <th>Status</th>
                   <th>Edit</th>
