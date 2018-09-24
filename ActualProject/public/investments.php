@@ -132,21 +132,22 @@
 					</div>
 				  </div>
 				  <div class="card-footer">
-						<a href="#!" data-toggle="modal" data-target="#exampleModal"> Launch demo modal </a>
+						<a href="#!" data-toggle="modal" data-target="#exampleModal" onClick="popUpTransaction()"> Launch demo modal </a>
 
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <h5 class="modal-title" id="projectTitle">Modal Title</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">×</span>
+	          <span aria-hidden="true">x</span>
 	        </button>
 	      </div>
-	      <div class="modal-body">
+	      <div class="modal-body" id="projectDescription">
 	        Modal body text goes here.
-	      </div>
+	      </div
+				<p>Amount Needed: $50(placeholder)</p>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	        <button type="button" class="btn btn-primary">Save changes</button>
@@ -177,5 +178,12 @@
 			<?php endforeach; ?>
 		 </div>
 		</section>
+
+		<script>
+			function popUpTransaction() {
+				document.getElementById("projectDescription").innerHTML = "Title";
+			  document.getElementById("projectDescription").innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec luctus metus. Maecenas eu risus dignissim, viverra nulla et, porttitor justo. Praesent vitae arcu eget eros vestibulum convallis in in risus. Nam eleifend nunc eget mauris mollis egestas. Morbi sed blandit orci. Vestibulum in risus eget libero tincidunt ultrices. Vestibulum placerat leo at libero faucibus commodo. Donec sed sapien tortor. Suspendisse ut orci nulla. Suspendisse in massa elit. Quisque fermentum risus elit, ut rutrum nunc convallis eget. Sed volutpat lacus sit amet nisi hendrerit, non commodo ante consequat. Curabitur laoreet pulvinar tellus a facilisis. Praesent orci magna, finibus vestibulum nulla quis, malesuada euismod risus.";
+			}
+		</script>
 	</body>
 </html>
