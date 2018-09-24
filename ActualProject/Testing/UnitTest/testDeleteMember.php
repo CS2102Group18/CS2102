@@ -9,6 +9,7 @@
     // Insert a member
     pg_query($db, "INSERT INTO member(username, password) VALUES('Naruto', '12r42345f')");
     pg_query($db, "INSERT INTO member(username, password) VALUES('Saskuke', 'wg453g25')");
+    pg_query($db, "INSERT INTO member(username, password, email) VALUES('Kakashi', 'g4bv454t34', 'kakashi@leafvillage.com')");
     
     styleTable();
     

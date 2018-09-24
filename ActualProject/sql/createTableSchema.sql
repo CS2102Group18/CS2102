@@ -1,13 +1,14 @@
 CREATE TABLE member (
 	username VARCHAR(16) PRIMARY KEY,
 	password VARCHAR(16) NOT NULL,
+    email VARCHAR(64) NOT NULL DEFAULT '',
 	is_admin INT NOT NULL DEFAULT 0 CHECK(is_admin=0 OR is_admin=1)
 );
 
 CREATE TABLE project (
 	id SERIAL PRIMARY KEY CHECK(id >=0),
 	title VARCHAR(256) NOT NULL,
-	description VARCHAR(2048) DEFAULT '' NOT NULL,
+	description VARCHAR(2048) NOT NULL DEFAULT '',
 	category VARCHAR(256) NOT NULL CHECK(category='Fashion' OR category='Technology' OR category='Games' OR category='Food' OR category='Music' OR category='Photography' OR category='Handicraft' OR category='Community'),
 	start_date DATE NOT NULL DEFAULT CURRENT_DATE,
 	duration TIME NOT NULL DEFAULT '00:00:00'
@@ -29,6 +30,20 @@ CREATE TABLE invest (
 	PRIMARY KEY(investor, proj_id)
 );
 
+-------------------------------Trigger when modifying email in TABLE member----------------------------------------------
+CREATE OR REPLACE FUNCTION modify_email()
+RETURNS TRIGGER AS $$
+BEGIN
+    RAISE 'Please enter a valid email address';
+    RETURN NULL;
+END; $$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER trigger_modify_email
+BEFORE INSERT OR UPDATE ON member
+FOR EACH ROW
+WHEN (NEW.email <> '' AND NEW.email !~ '\w+@\w+[.]\w+')
+EXECUTE PROCEDURE modify_email();
+---------------------------------------------------------------------------------------------------------------------
 
 -------------------------------Trigger when inserting into TABLE Invest----------------------------------------------
 CREATE OR REPLACE FUNCTION update_amt_raised_when_insert_invest()
