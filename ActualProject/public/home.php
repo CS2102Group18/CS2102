@@ -122,8 +122,10 @@
 																										 '<?php echo $projectRow['category'];?>',
 																										 '<?php echo $projectRow['start_date'];?>',
 																										 '<?php echo $projectRow['duration'];?>',
+																										 '<?php echo $projectRow['entrepreneur'];?>',
 																										 '<?php echo $projectRow['amt_needed'];?>',
-																										 '<?php echo $projectRow['amt_raised'];?>')">Invest</a>
+																										 '<?php echo $projectRow['amt_raised'];?>',
+																										 '<?php echo $projectRow['status'];?>')">Invest</a>
 								</div>
 						  </div>
 						</div>
@@ -141,12 +143,25 @@
 								<p id="modalProjectDescription"></p>
 							</div>
 							<div class="modal-body">
-								<p>Amount Needed: <span id="modalProjectAmtNeeded"></span></p>
-								<p>Current Amount Raised: <span id="modalProjectAmtRaised"></span></p>
+								<table>
+									<tr>
+										<td>Amount Needed: </td>
+										<td style="padding-left:10px;"><span id="modalProjectAmtNeeded"></span></td>
+									</tr>
+									<tr>
+										<td>Current Amount Raised: </td>
+										<td style="padding-left:10px;"><span id="modalProjectAmtRaised"></span></td>
+									</tr>
+								</table>
+								<br>
+								<form action="home.php" method="POST" id="modalFormPledge">
+									<label>SGD</label>
+								  <input type="text" name="amtPledged" value="10">
+								</form>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Invest</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" id="modalButtonInvest">Invest</button>
 							</div>
 						</div>
 					</div>
@@ -155,13 +170,26 @@
 		 </div>
 		</section>
 
+
+
 		<script>
-			function displayPopupInformation(id, title, description, category, startDate, duration, amtNeeded, amtRaised) {
+			function displayPopupInformation(id, title, description, category, startDate, duration, entrepreneur, amtNeeded, amtRaised, status) {
 				console.log("Project id: " + id);
 				document.getElementById("modalProjectTitle").innerHTML = title;
 				document.getElementById("modalProjectDescription").innerHTML = description;
 				document.getElementById("modalProjectAmtNeeded").innerHTML = amtNeeded;
 				document.getElementById("modalProjectAmtRaised").innerHTML = amtRaised;
+
+				var username = '<?php echo $UNAME?>';
+
+				// Hide invest button so entrepreneur cannot invest his/her own advertisement
+				if (username === entrepreneur) {
+					document.getElementById("modalButtonInvest").hidden = true;
+					document.getElementById("modalFormPledge").hidden = true;
+				} else {
+					document.getElementById("modalButtonInvest").hidden = false;
+					document.getElementById("modalFormPledge").hidden = false;
+				}
 			}
 		</script>
 	</body>
