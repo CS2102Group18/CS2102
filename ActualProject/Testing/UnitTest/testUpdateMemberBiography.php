@@ -2,14 +2,14 @@
     include './connectionToDatabase.php';
     include './displayTable.php';
 
-    include '../../php/deleteMember.php';
-
+    include '../../php/updateMember.php';
+    
     $db = getDB();
     
-    // Insert a member
+    // Insert members
     pg_query($db, "INSERT INTO member(username, password) VALUES('Naruto', '12r42345f')");
-    pg_query($db, "INSERT INTO member(username, password) VALUES('Saskuke', 'wg453g25')");
-    pg_query($db, "INSERT INTO member(username, password, email) VALUES('Kakashi', 'g4bv454t34', 'kakashi@leafvillage.com')");
+    pg_query($db, "INSERT INTO member(username, password, biography) VALUES('Sasuke', 'wg453g25', 'I love Sakura')");
+    pg_query($db, "INSERT INTO member(username, password, biography) VALUES('Shikamaru', 't14g3f4ge', 'I have a friend called Naruto')");
     
     styleTable();
     
@@ -21,10 +21,10 @@
     echo "<br><br>";
     
     
-    // Delete the member
-    $result_deletion = pg_query($db, deleteMember($db, 'Naruto'));
+    // Update member biography
+    $result = pg_query($db, updateBiography($db, 'Shikamaru', 'I am part of the Shika-Ino-Cho Team'));
     
-    echo "<u><b>AFTER Deletion</b></u>";
+    echo "<u><b>AFTER updating</b></u>";
     echo "<br>";
     displayTableMember($db);
     echo "<br><br>";
@@ -32,6 +32,6 @@
     echo "<br><br>";
     echo "Things to note:";
     echo "<ul>";
-    echo "<li>Naruto is removed from the table</li>";
+    echo "<li>The biography of Shikamaru will change from 'I have a friend called Naruto' to 'I am part of the Shika-Ino-Cho Team'</li>";
     echo "</ul>";
 ?>  
