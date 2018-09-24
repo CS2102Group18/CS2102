@@ -77,6 +77,18 @@
 					<a href="documentation/changelog.html" class="text-small nav-link px-2">My Investments
 					</a>
 				  </li>
+				  <?php
+				  include 'db.php';
+				  $queryUser = $_SESSION['username'];
+				  $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
+				  $rowAdmin = pg_num_rows($resultAdmin);
+				  if($rowAdmin > 0){
+					  echo '<li class="nav-item">';	
+					  echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+					  echo '</a>';
+					  echo '</li>';
+				  }
+				  ?>
 				</ul>
 				<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
 			  </div>
