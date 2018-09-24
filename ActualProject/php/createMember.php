@@ -1,6 +1,6 @@
-
-<?sql
-  function createMember($db, $username, $password) {
-    $sqlInsert = pg_query($db, "INSERT INTO member(username, password, is_admin) VALUES ('$_POST[username]', '$_POST[password]', '0' )");
+<?php
+    function createMember($db, $username, $password) {
+        $result = pg_query($db, "INSERT INTO member(username, password) VALUES ('$username', '$password')");
+        return $result;
   }
 ?>
