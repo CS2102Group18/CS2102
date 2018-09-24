@@ -13,6 +13,64 @@ $resultBiography = pg_query($db, "SELECT biography FROM member WHERE username = 
 $rowBiography = pg_fetch_row($resultBiography);
 $resultEmail = pg_query($db, "SELECT email FROM member WHERE username = '$UNAME'");
 $rowEmail = pg_fetch_row($resultEmail);
+
+if(isset($_POST['update'])) {
+
+	$email = $_POST[emailInput];
+	$biography = $_POST[biographyInput];
+	$password = $_POST[password];
+	$rePassword = $_POST[password];
+	$isUpdateEmail = false;
+	$isUpdatePassword = false;
+	$matchPassword = true;
+	$isUpdateBiography = false;
+
+	echo "<script>console.log( 'new Biography Object: " . $biography . "' );</script>";
+	echo "<script>console.log( 'new Email Object: " . $email . "' );</script>";
+	echo "<script>console.log( 'userName Object: " . $UNAME . "' );</script>";
+
+	//If password fields are not empty
+	if(!empty($password) && !empty($rePassword)) {
+		if($password == $rePassword) {
+			$mismatchPassword = true;
+			$isUpdatePassword = true;
+		} else {
+			echo"<script>console.log( 'There is mismatch in password' );</script>";
+			$matchPassword = false;
+		}
+	}
+	if(!empty($biography)) {
+		$isUpdateBiography = true;
+	}
+	if(!empty($email)) {
+		$isUpdateEmail = true;
+	}
+
+	//If no password reset is required
+	if($matchPassword) {
+		if($isUpdatePassword) {
+			$sqlUpdatePassword = pg_query($db, updatePassword($db, $UNAME, $password));
+			if(!$sqlUpdatePassword) {
+					echo "<script>alert('Update Password');</script>";
+			}
+		}
+		if($isUpdateEmail) {
+			$sqlUpdateEmail = pg_query($db, updateEmail($db, $UNAME, $email));
+			if(!$sqlUpdateEmail) {
+					echo "<script>alert('Update Email');</script>";
+			}
+		}
+		if($isUpdateBiography) {
+			$sqlUpdateBiography = pg_query($db, updateBiography($db, $UNAME, $biography));
+			if(!$sqlUpdateBiography) {
+					echo "<script>alert('Update Biography');</script>";
+			}
+		}
+	}
+	else {
+		  echo "<script>alert('Please check your fields again');</script>";
+	}
+}
 ?>
 <html>
 <head>
@@ -30,20 +88,19 @@ $rowEmail = pg_fetch_row($resultEmail);
 	.myInvestmentTable {
 		width: 95%;
 	}
-	</style>
+</style>
 </head>
 <body>
 
 	<div class="container">
-		<h2>Profile Page</h2>
+		<h2>Profile Page Test</h2>
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#home">My Profile</a></li>
-			<li><a data-toggle="tab" href="#menu1">My Project & Investments</a></li>
+			<li><a data-toggle="tab" href="#menu1">My Project & Investments test</a></li>
 		</ul>
-
 		<div class="tab-content">
 			<div id="home" class="tab-pane fade in active">
-				<form>
+				<form action="profile.php", method = "POST">
 					<div class="form-group row">
 						<label for="username" class="col-4 col-form-label">User Name : <?php echo "$UNAME";?> </label>
 					</div>
@@ -73,127 +130,7 @@ $rowEmail = pg_fetch_row($resultEmail);
 					</div>
 				</form>
 			</div>
-			<div id="menu1" class="tab-pane fade">
-				<h3>My Projects</h3>
-				<form>
-					<div class="form-group row">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="table-responsive">
-									<table id="myProjectTable" class="table table-bordred table-striped">
-										<thead>
-											<th>Project Name</th>
-											<th>Project Id</th>
-											<th>Amount Raised</th>
-											<th>Target Amount</th>
-											<th>Status</th>
-											<th>Edit</th>
-											<th>Delete</th>
-											<tbody>
-											</thead>
-										</div>
-										<tr>
-											<td>Dummy Name</td>
-											<td>Dummy Id</td>
-											<td>Dummy Amount Raised</td>
-											<td>Target Amount</td>
-											<td>Dummy Status</td>
-											<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-											<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</form>
-				<h3>My Investments</h3>
-				<form>
-					<div class="form-group row">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="table-responsive">
-									<table id="myInvestmentTable" class="table table-bordred table-striped">
-										<thead>
-											<th>Project Name</th>
-											<th>Project Id</th>
-											<th>Amount Invested</th>
-											<th>Target Amount</th>
-											<th>Status</th>
-											<th>Withdraw</th>
-											<tbody>
-											</thead>
-										</div>
-										<tr>
-											<td>Dummy Name</td>
-											<td>Dummy Id</td>
-											<td>Dummy Amount Invested</td>
-											<td>Target Amount</td>
-											<td>Dummy Status</td>
-											<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
 		</div>
 	</div>
 </body>
-<?php
-if(isset(($_POST['update']))) {
-
-	$email = $_POST[emailInput];
-	$isUpdateEmail = false;
-	$password = $_POST[newpass];
-	$rePassword = $_POST[newPassRepeat];
-	$isUpdatePassword = false;
-	$mismatchPassword = false;
-
-	$biography = $_POST[biographyInput];
-	$isUpdateBiography = false;
-
-	echo "<script>console.log('TEST');</script>";
-	echo "<script>alert('TEST');</script>";
-	//Following backend queries are needed for update of Profile
-	//Check for Password first
-	if(empty($password)) {
-		echo "<script>console.log('Password empty');</script>";
-		echo "<script>alert('Password empty');</script>";
-	}
-	if(!empty($password) && !empty($rePassword)) {
-		if($password == $rePassword) {
-			$isUpdatePassword = true;
-			echo "<script>alert('Password Correct or un needed');</script>";
-		} else {
-			echo "<script>console.log('Password mismatch');</script>";
-			echo "<script>alert('Password mismatch');</script>";
-			$mismatchPassword = true;
-		}
-	}
-	if(!empty($email)) {
-		$isUpdateEmail = true;
-	}
-	if(!empty($biography)) {
-		$isUpdateBiography = true;
-	}
-	if(!$mismatchPassword) {
-		// echo "Entered no mismatch password or no password reset required";
-		if($isUpdatePassword) {
-			$sqlUpdatePassword = pg_query($db, updatePassword($db, $UNAME, $password));
-			// echo "<script>console.log('Update Success Password');</script>";
-		}
-		if($isUpdateEmail) {
-			$sqlUpdateEmail = pg_query($db, updateEmail($db, $UNAME, $email));
-			// echo "<script>console.log('Update Success Email');</script>";
-		}
-		if($isUpdateBiography) {
-			$sqlUpdateBiography = pg_query($db, updateBiography($db, $UNAME, $biography));
-			// echo "<script>console.log('Update Success Biography');</script>";
-		}
-	}
-}
-?>
 </html>
