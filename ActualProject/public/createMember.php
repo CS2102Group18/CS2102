@@ -101,21 +101,21 @@
 
 <?php
 include 'db.php';
+include '../php/createMember.php';
 
 if (isset($_POST['submit'])) {
   if ($_POST[password] == $_POST[passwordRepeat]){
-
-    $sqlInsert = pg_query($db, "INSERT INTO member(username, password, is_admin) VALUES ('$_POST[username]', '$_POST[password]', '0' )");
-
     $sqlCheckUsername = pg_query($db, "SELECT * FROM member WHERE username = '$_POST[username]'");
-
-    $sqlResultUserRow = pg_fetch_assoc($sqlCheckUsername);
-    $isExist = pg_num_rows($sqlResultUserRow);
-	if ($isExist != 0) {
+    $numRows = pg_num_rows($sqlCheckUsername);
+    
+    if ($numRows > 0) {
 		echo "<script>alert('There is already an existing user!');</script>";
-		exit();
-	} else {
-		if($sqlInsert){
+	}
+    else if ($numRows == -1) {
+        echo "<script>console.log('Error Occured!');</script>";
+    }
+    else {
+		if(createMember($db, $_POST[username], $_POST[password])) {
 			echo "<script>alert('Created Account Successfully!');</script>";
 		}
 		else
