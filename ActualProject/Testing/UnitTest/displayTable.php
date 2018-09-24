@@ -9,12 +9,14 @@
         $col2 = NULL;
         $col3 = NULL;
         $col4 = NULL;
+        $col5 = NULL;
         echo "<b>TABLE member</b>";
         echo "<table id='table'>";
         echo "<tr>";
         echo "<th>username</th>";
         echo "<th>password</th>";
         echo "<th>email</th>";
+        echo "<th>biography</th>";
         echo "<th>is_admin</th>";
         echo "</tr>";
         while ($row = pg_fetch_assoc($result)) {
@@ -22,25 +24,30 @@
             $text2 = '';
             $text3 = '';
             $text4 = '';
+            $text5 = '';
             if ($row['username'] != $col1 ||
                 $row['password'] != $col2 ||
                 $row['email'] != $col3 ||
-                $row['is_admin'] != $col4) {
+                $row['biography'] != $col4 ||
+                $row['is_admin'] != $col5) {
                 $col1 = $row['username'];
                 $col2 = $row['password'];
                 $col3 = $row['email'];
-                $col4 = $row['is_admin'];
+                $col4 = $row['biography'];
+                $col5 = $row['is_admin'];
                 $text1 = $col1;
                 $text2 = $col2;
                 $text3 = $col3;
                 $text4 = $col4;
+                $text5 = $col5;
             }
             
             echo "<tr>";
             echo "<td align='left' width='200'>" . $text1 . "</td>";
             echo "<td align='left' width='200'>" . $text2 . "</td>";
             echo "<td align='left' width='200'>" . $text3 . "</td>";
-            echo "<td align='left' width='50'>" . $text4 . "</td>";
+            echo "<td align='left' width='300'>" . $text4 . "</td>";
+            echo "<td align='left' width='50'>" . $text5 . "</td>";
             echo "</tr>";
         }
         echo "</table>";
