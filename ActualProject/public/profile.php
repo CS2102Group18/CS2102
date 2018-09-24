@@ -54,32 +54,47 @@ if(isset($_POST['update'])) {
   //If no password reset is required
   if($matchPassword) {
     echo"<script>console.log( 'Entered matchassword' );</script>";
-  	if($isUpdatePassword) {
+    if($isUpdatePassword) {
       $sqlUpdatePassword = pg_query($db, "UPDATE member SET password='$password' WHERE username='$UNAME'");
-  		if(!$sqlUpdatePassword) {
-          echo"<script>console.log( 'Error in update Password' );</script>";
-  		}
-  	}
-  	if($isUpdateEmail) {
-  	  $sqlUpdateEmail = pg_query($db, "UPDATE member SET email='$email' WHERE username='$UNAME'");
-  		if(!$sqlUpdateEmail) {
-  			  echo"<script>console.log( 'Error in update Email' );</script>";
-  		}
-  	}
-  	if($isUpdateBiography) {
+      if(!$sqlUpdatePassword) {
+        echo"<script>console.log( 'Error in update Password' );</script>";
+      }
+    }
+    if($isUpdateEmail) {
+      $sqlUpdateEmail = pg_query($db, "UPDATE member SET email='$email' WHERE username='$UNAME'");
+      if(!$sqlUpdateEmail) {
+        echo"<script>console.log( 'Error in update Email' );</script>";
+      }
+    }
+    if($isUpdateBiography) {
       $sqlUpdateBiography = pg_query($db, "UPDATE member SET biography='$biography' WHERE username='$UNAME'");
-  		if(!$sqlUpdateBiography) {
-  				echo "<script>alert('Update Biography');</script>";
-  		}
-  	}
+      if(!$sqlUpdateBiography) {
+        echo "<script>alert('Update Biography');</script>";
+      }
+    }
     //Refresh after updating
     echo "<meta http-equiv='refresh' content='0'>";
   }
   else {
-  	  echo "<script>alert('matchPassword not true');</script>";
+    echo "<script>alert('matchPassword not true');</script>";
   }
 }
 ?>
+<?php
+//php for My project
+include '../public/php/updateMember.php';
+include 'db.php';
+session_start();
+if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
+  //	echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
+} else {
+  header("location:login.php");
+}
+$UNAME = $_SESSION['username'];	//retrieve USERNAME
+ $projectResult = pg_query()
+?>
+
+
 <html>
 <head>
   <title>My Profile Page</title>
@@ -98,62 +113,59 @@ if(isset($_POST['update'])) {
   }
 </style>
 <style>
-  a.logout {
-    color: white;
-  }
-  card {
-    padding-top: 15px;
-  }
+a.logout {
+  color: white;
+}
+card {
+  padding-top: 15px;
+}
 </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
     <div class="container">
-    <div class="collapse navbar-collapse navMenu justify-content-between">
-      <div class="d-flex justify-content-end justify-content-lg-start pt-1 pt-lg-0">
-      <div class="dropdown">
-        <button class="btn dropdown-toggle btn-dark btn-sm"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img src="img/user.png" alt="user image" class="btn-image" width="60" height="40">
-        <span>Welcome! <?php echo "$UNAME";?>
-        </span>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Profile</a>
+      <div class="collapse navbar-collapse navMenu justify-content-between">
+        <div class="d-flex justify-content-end justify-content-lg-start pt-1 pt-lg-0">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle btn-dark btn-sm"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="img/user.png" alt="user image" class="btn-image" width="60" height="40">
+              <span>Welcome! <?php echo "$UNAME";?>
+              </span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Profile</a>
+            </div>
+          </div>
+        </div>
+        <div class="py-1 d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-item">
+              <a href="home.php" class="text-small nav-link px-2">Explore</a>
+            </li>
+            <?php
+            include 'db.php';
+            $queryUser = $_SESSION['username'];
+            $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
+            $rowAdmin = pg_num_rows($resultAdmin);
+            if($rowAdmin > 0){
+              echo '<li class="nav-item">';
+              echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+              echo '</a>';
+              echo '</li>';
+            }
+            ?>
+          </ul>
+          <button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
         </div>
       </div>
-      </div>
-      <div class="py-1 d-flex align-items-center justify-content-end">
-      <ul class="navbar-nav d-flex flex-row">
-        <li class="nav-item">
-        <a href="documentation/index.html" class="text-small nav-link px-2">Explore</a>
-        </li>
-        <li class="nav-item">
-        <a href="documentation/changelog.html" class="text-small nav-link px-2">My Investments
-        </a>
-        </li>
-        <?php
-        include 'db.php';
-        $queryUser = $_SESSION['username'];
-        $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
-        $rowAdmin = pg_num_rows($resultAdmin);
-        if($rowAdmin > 0){
-          echo '<li class="nav-item">';
-          echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
-          echo '</a>';
-          echo '</li>';
-        }
-        ?>
-      </ul>
-      <button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
-      </div>
-    </div>
     </div>
   </nav>
   <div class="container">
     <h2>Profile Page</h2>
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#home">My Profile</a></li>
-      <li><a data-toggle="tab" href="#menu1">My Project & Investments</a></li>
+      <li><a data-toggle="tab" href="#menu1">My Project</a></li>
+      <li><a data-toggle="tab" href="#menu2">My Investments</a></li>
     </ul>
     <div class="tab-content">
       <div id="home" class="tab-pane fade in active">
@@ -184,6 +196,68 @@ if(isset($_POST['update'])) {
             <div class="offset-4 col-8">
               <button name="update" type="submit" class="btn btn-primary">Update My Profile</button>
             </div>
+          </div>
+        </form>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+        <h3>My Projects</h3>
+        <form action = "profile.php", method = "POST">
+          <div class="form-group row">
+            <div class="table-responsive">
+              <table id="myProjectTable" class="table table-striped">
+                <thead>
+                  <th>Project Name</th>
+                  <th>Project Id</th>
+                  <th>Amount Raised</th>
+                  <th>Target Amount</th>
+                  <th>Status</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                  <tbody>
+                  </thead>
+                </div>
+                <tr>
+                  <td>Dummy Name</td>
+                  <td>Dummy Id</td>
+                  <td>Dummy Amount Raised</td>
+                  <td>Target Amount</td>
+                  <td>Dummy Status</td>
+                  <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                  <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+      <div id="menu2" class="tab-pane fade">
+        <h3>My Investments</h3>
+        <form action = "profile.php", method = "POST">
+          <div class="form-group row">
+            <div class="table-responsive">
+              <table id="myProjectTable" class="table table-striped">
+                <thead>
+                  <th>Project Name</th>
+                  <th>Project Id</th>
+                  <th>Amount Invested</th>
+                  <th>Target Amount</th>
+                  <th>Status</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                  <tbody>
+                  </thead>
+                </div>
+                <tr>
+                  <td>Dummy Name</td>
+                  <td>Dummy Id</td>
+                  <td>Dummy Amount Raised</td>
+                  <td>Target Amount</td>
+                  <td>Dummy Status</td>
+                  <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                  <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </form>
       </div>
