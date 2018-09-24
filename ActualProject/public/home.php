@@ -17,14 +17,14 @@
 	echo "row size = $totalSize";
 	$project = array();
 	//extracts list from $result into 2d array
-	for($i =0; $i < $totalSize; $i++ ){
-		while($row = pg_fetch_assoc($result)){
-			$project[$i] = $row;
-		}
-		//echo "hello";
-		//echo $project[$i]['title'];
-		//echo $project[$i]['entrepreneur'];
+	$i=0;
+	while($row = pg_fetch_assoc($result)){
+		$project[$i] = $row;
+		$i++;
 	}
+	//echo "hello";
+	//echo $project[$i]['title'];
+	//echo $project[$i]['entrepreneur'];
 	if(!result) {
 		echo "Unable to retrieve result";
 	}
@@ -45,6 +45,9 @@
 		<style>
 			a.logout {
 				color: white;
+			}
+			card {
+				padding-top: 15px;
 			}
 		</style>
 	</head>
@@ -88,69 +91,25 @@
 			  </div>
 			</div>
 			<div class="row">
-			  <div class="col-12 col-md-4">
-				<div class="card">
-				  <div class="card-body py-3">
-					<h5>Stub Project 1</h5>
-					<div class="mb-4">
-					  <p>Description 1</p>
+				<?php foreach($project as $projectRow): ?>
+					<?php echo "<script> console.log('Iterating project') </script>"; ?>
+					  <div class="col-12 col-md-4" style="padding-top: 15px;">
+						<div class="card">
+						  <div class="card-body py-3">
+							<h5><?php echo $projectRow['title'];?></h5>
+							<div class="mb-4">
+							  <p><?php echo $projectRow['description'];?></p>
+							</div>
+						  </div>
+						  <div class="card-footer">
+							<div class="d-flex align-items-center justify-content-between">
+							  <a href="pages-landing.html">Invest</a>
+							</div>
+						  </div>
+						</div>
 					</div>
-				  </div>
-				  <div class="card-footer">
-					<div class="d-flex align-items-center justify-content-between">
-					  <a href="pages-landing.html">Invest</a>
-					</div>
-				  </div>
-				</div>
-			  </div>
-			  <div class="col-12 col-md-4">
-				<div class="card">
-				  <div class="card-body py-3">
-					<h5>Stub Project 2</h5>
-					<div class="mb-4">
-					  <p>Description 2</p>
-					</div>
-				  </div>
-				  <div class="card-footer">
-					<div class="d-flex align-items-center justify-content-between">
-					  <a href="pages-inner.html">Invest</a>
-					</div>
-				  </div>
-				</div>
-			  </div>
-			  <div class="col-12 col-md-4">
-				<div class="card">
-				  <div class="card-body py-3">
-					<h5>Stub Project 3</h5>
-					<div class="mb-4">
-					  <p>Description 3</p>
-					</div>
-				  </div>
-				  <div class="card-footer">
-					<div class="d-flex align-items-center justify-content-between">
-					  <a href="pages-utility.html">Invest</a>
-					</div>
-				  </div>
-				</div>
-			  </div>
+				<?php endforeach; ?>
 			</div>
-			<?php foreach($project as $projectRow): ?>
-				  <div class="col-12 col-md-4">
-				  <div class="card">
-				  <div class="card-body py-3">
-					<h5><?php echo $projectRow['title'];?></h5>
-					<div class="mb-4">
-					  <p><?php echo $projectRow['description'];?></p>
-					</div>
-				  </div>
-				  <div class="card-footer">
-					<div class="d-flex align-items-center justify-content-between">
-					  <a href="pages-landing.html">Invest</a>
-					</div>
-				  </div>
-				</div>
-				</div>
-			<?php endforeach; ?>
 		 </div>
 		</section>
 	</body>
