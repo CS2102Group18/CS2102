@@ -10,7 +10,7 @@
 			header("location:home.php");
 		}
 		else {
-			echo "You're logged into the admin's area " . $_SESSION['username'] . "!";
+			//echo "You're logged into the admin's area " . $_SESSION['username'] . "!";
 		}
 	} else {
 		header("location:logout.php");
@@ -30,7 +30,7 @@
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 		<style>
 			a.logout {
 				color: white;
@@ -52,18 +52,14 @@
 					</span>
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Profile</a>
+					<a class="dropdown-item" href="profile.php">Profile</a>
 				  </div>
 				</div>
 			  </div>
 			  <div class="py-1 d-flex align-items-center justify-content-end">
 				<ul class="navbar-nav d-flex flex-row">
 				  <li class="nav-item">
-					<a href="documentation/index.html" class="text-small nav-link px-2">Explore</a>
-				  </li>
-				  <li class="nav-item">	
-					<a href="documentation/changelog.html" class="text-small nav-link px-2">My Investments
-					</a>
+					<a href="home.php" class="text-small nav-link px-2">Explore</a>
 				  </li>
 				   <li class="nav-item">	
 					<a href="admin.php" class="text-small nav-link px-2">Admin
@@ -76,36 +72,44 @@
 		  </div>
 		</nav>
 		<section class="pb-0">
-		  <div class="container">
-			<div class="row text-center mb-4">
-			  <div class="col">
-				<h2>Admin Page 123</h2>
-			  </div>
+			 <div class="container" style="padding-top: 25px">
+				<div class="row text-center mb-4">
+				  <div class="col">
+					<h2>Admin Page</h2>
+				  </div>
+				</div>
+			 </div>
+			 <div class="row">
+				<div class="col-2">
+				</div>
+				<div class="col-8">
+				  <table class="table table-bordered">
+					 <thead>
+						<tr>
+						  <th>Username</th>
+						  <th>Email</th>
+						  <th>Admin Action</th>
+						</tr>
+					 </thead>
+					 <tbody>
+						<?php foreach($project as $projectRow): ?>
+							<tr>
+							  <td><?php echo $projectRow['username'];?></td>
+							  <td><?php echo $projectRow['email'];?></td>
+							  <td>
+								<form id="myForm" action="deleteMember.php" method="POST">
+									<input type="hidden" name="deletedUser" value="<?php echo $projectRow['username'];?>" id="hiddenForm">
+									<button id="sub">Delete</button>
+								</form>
+							  </td>
+							</tr>
+						<?php endforeach; ?>
+					 </tbody>
+					</table>
+				</div>
+				<div class="col-2">
+				</div>
 			</div>
-		 </div>
-		  <table class="table table-bordered">
-			 <thead>
-				<tr>
-				  <th>Username</th>
-				  <th>Email</th>
-				  <th></th>
-				</tr>
-			 </thead>
-			 <tbody>
-			 	<?php foreach($project as $projectRow): ?>
-					<tr>
-					  <td><?php echo $projectRow['username'];?></td>
-					  <td><?php echo $projectRow['email'];?></td>
-					  <td>
-						<form id="myForm" action="deleteMember.php" method="POST">
-							<input type="hidden" name="deletedUser" value="<?php echo $projectRow['username'];?>" id="hiddenForm">
-							<button id="sub">Delete</button>
-						</form>
-					  </td>
-					</tr>
-				<?php endforeach; ?>
-			 </tbody>
-			</table>
 		</section>
 		<script src="script/custom.js" type="text/javascript">
 		</script>

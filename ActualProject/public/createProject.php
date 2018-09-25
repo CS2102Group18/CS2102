@@ -153,50 +153,57 @@ if(isset($_POST['Create'])) {
       </div>
     </div>
   </nav>
-  <h2> Create a new Project </h2>
-  <p>Please fill in this form to create a new Project</p>
   <body>
-    <div class="form-group">
-      <label for="name" class="col-sm-2 control-label">Name of Project</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" name="title" placeholder="Project Title" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="message" class="col-sm-2 control-label">Description of Project</label>
-      <div class="textboxarea">
-        <textarea class="form-control" rows="4" name="description" required></textarea>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="name" class="col-sm-2 control-label">Funds Required</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Entered the required amount for investment" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Choose the Category of Project</label>
-        <div class="col-sm-10">
-          <select class="btn btn-primary dropdown-toggle" id="select_1" name="category" required>
-            <option value="Fashion">Fashion</option>
-            <option value="Technology">Technology</option>
-            <option value="Games">Games</option>
-            <option value="Food">Food</option>
-            <option value="Music">Music</option>
-            <option value="Photography">Photography</option>
-            <option value="Handicraft">Handicraft</option>
-            <option value="Community">Community</option>
-          </select>
-          <button type="submit" class="registerbtn" name = "Create">Register</button>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-10 col-sm-offset-2">
-            <! Will be used to display an alert to the user>
-          </div>
-        </div>
-      </div>
-    </div>
+	<div class="row" style="padding-top: 25px">
+		<div class="col-2">
+		</div>
+		<div class="col-8">
+			<h2 style="font-size: 4rem; text-align: center;"> Create a new Project </h2>
+			<div class="form-group">
+			  <label for="name" class="col-sm-2 control-label">Name of Project</label>
+			  <div class="col-sm-10">
+				<input type="text" class="form-control" id="name" name="title" placeholder="Project Title" required>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="message" class="col-sm-2 control-label">Description of Project</label>
+			  <div class="textboxarea">
+				<textarea class="form-control" rows="4" name="description" required></textarea>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="name" class="col-sm-2 control-label">Funds Required</label>
+			  <div class="col-sm-10">
+				<input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Entered the required amount for investment" required>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Choose the Category of Project</label>
+				<div class="col-sm-10">
+				  <select class="btn btn-primary dropdown-toggle" id="select_1" name="category" required>
+					<option value="Fashion">Fashion</option>
+					<option value="Technology">Technology</option>
+					<option value="Games">Games</option>
+					<option value="Food">Food</option>
+					<option value="Music">Music</option>
+					<option value="Photography">Photography</option>
+					<option value="Handicraft">Handicraft</option>
+					<option value="Community">Community</option>
+				  </select>
+				  <button type="submit" class="registerbtn" name = "Create">Register</button>
+				</div>
+				<div class="form-group">
+				  <div class="col-sm-10 col-sm-offset-2">
+					<! Will be used to display an alert to the user>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-2">
+		</div>
+	</div>
   </body>
 </form>
 </html>
