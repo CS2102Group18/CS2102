@@ -5,11 +5,9 @@
   include '../php/updateProject.php';
   include '../php/updateAdvertise.php';
 
-  $projectId = $_POST['formId'];
+  $projectId = $_POST['projectId'];
   $description = $_POST['descriptionInput'];
   $amtNeeded = $_POST['targetAmount'];
-
-  echo "<script>console.log('inside update.php')</script>";
 
   updateProjectDescription($db, $projectId, $description);
   updateAmountNeeded($db, $projectId, $amtNeeded);

@@ -219,7 +219,7 @@
 					</form>
 				</div>
 				<div id="menu1" class="tab-pane fade">
-					<h3>My Project</h3>
+					<h3>My Projects</h3>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
 							<div class="table-responsive">
@@ -272,8 +272,8 @@
 										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['proj_id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="./updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['proj_id'];?>">
-											<input type="hidden" name="formId" value="" id="modalFormIdForProject<?php echo $projectRow['proj_id'];?>">
+										<form action="updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['proj_id'];?>">
+											<input type="hidden" name="projectId" value="<?php echo $projectRow['proj_id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Description</label>
 												<div class="col-8">
@@ -299,18 +299,16 @@
 							console.log("HERE: " + '<?php echo $projectRow['proj_id'];?>');
 
 							var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
-
-							console.log("Data: " + data);
+							document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
 
 							$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
 
-							console.log("update: <?php echo $_POST[descriptionInput];?>");
-						});
+							});
 
-						$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
-							return false;
-						});
-					</script>
+							$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
+								return false;
+							});
+						</script>
 					<?php endforeach; ?>
 				</div>
 				<div id="menu2" class="tab-pane fade">
