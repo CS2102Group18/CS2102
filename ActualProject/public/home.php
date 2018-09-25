@@ -145,7 +145,7 @@
 							<div class="modal-body">
 								<table>
 									<tr>
-										<td>Project will begin on: </td>
+										<td>Funding started on: </td>
 										<td style="padding-left:10px;"><span id="modalProjectStartDate"></span></td></p>
 									</tr>
 									<tr>
@@ -171,6 +171,7 @@
 									<label id="modalFormLabel">SGD</label>
 								  <input type="text" name="amtPledged" value="10" id="modalFormAmt" required>
 								</form>
+								<p id="investmentStatus">Fully Funded</p>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -206,6 +207,8 @@
 					document.getElementById("modalFormLabel").hidden = false;
 					document.getElementById("modalFormAmt").hidden = false;
 				}
+
+				document.getElementById("investmentStatus").hidden = status == 0;
 			}
 
 			function sendInvestment() {
