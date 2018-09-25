@@ -145,6 +145,18 @@
 							<div class="modal-body">
 								<table>
 									<tr>
+										<td>Project will begin on: </td>
+										<td style="padding-left:10px;"><span id="modalProjectStartDate"></span></td></p>
+									</tr>
+									<tr>
+										<td>It will last for: </td>
+										<td style="padding-left:10px;"><span id="modalProjectDuration"></span></td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-body">
+								<table>
+									<tr>
 										<td>Amount Needed: </td>
 										<td style="padding-left:10px;"><span id="modalProjectAmtNeeded"></span></td>
 									</tr>
@@ -177,6 +189,8 @@
 				document.getElementById("modalFormId").value = id;
 				document.getElementById("modalProjectTitle").innerHTML = title;
 				document.getElementById("modalProjectDescription").innerHTML = description;
+				document.getElementById("modalProjectStartDate").innerHTML = startDate;
+				document.getElementById("modalProjectDuration").innerHTML = duration;
 				document.getElementById("modalProjectAmtNeeded").innerHTML = amtNeeded;
 				document.getElementById("modalProjectAmtRaised").innerHTML = amtRaised;
 
