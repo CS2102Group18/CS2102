@@ -86,8 +86,7 @@
 	include '../public/php/updateMember.php';
 	//Need to obtain My Project Info: Project Name/title, Project Id, Amt Raised , Target Amt, Status
 	//First send the query to get the project List
-	$projectListResult = pg_query("SELECT p.title, a.proj_id, a.amt_raised, a.amt_needed, a.status
-																 FROM advertise a, project p WHERE a.entrepreneur = '$UNAME' AND a.proj_id = p.id;");
+	$projectListResult = pg_query("SELECT * FROM advertise a, project p WHERE a.entrepreneur = '$UNAME' AND a.proj_id = p.id;");
 	$projectListSize = pg_num_rows($projectListResult);
 	echo "<script>console.log( 'Project List size test is: " . $projectListSize . "' );</script>";
 	$projectList = array();
@@ -186,7 +185,7 @@
 			<h2>Profile Page</h2>
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#home">My Profile</a></li>
-				<li><a data-toggle="tab" href="#menu1">My Project</a></li>
+				<li><a data-toggle="tab" href="#menu1">My Projects</a></li>
 				<li><a data-toggle="tab" href="#menu2">My Investments</a></li>
 			</ul>
 			<div class="tab-content">
@@ -245,8 +244,19 @@
 												<td align="center" width="100"><?php echo $projectRow['amt_raised'];?></td>
 												<td align="center" width="100"><?php echo $projectRow['amt_needed'];?></td>
 												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
-												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+												<td align="center" width="50">
+													<div class="input-group">
+														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForProject<?php echo $projectRow['proj_id'];?>" >
+														<span class="glyphicon glyphicon-pencil"></span></input>
+													</div>
+												</td>
+												<td align="center" width="50">
+													<p data-placement="top" data-toggle="tooltip" title="Delete">
+														<input type="button" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+															<span class="glyphicon glyphicon-trash"></span>
+														</button>
+													</p>
+												</td>
 											</tr>
 										<?php endforeach; ?>
 									</tbody>
@@ -254,6 +264,40 @@
 							</div>
 						</div>
 					</form>
+					<?php foreach($projectList as $projectRow): ?>
+						<!-- Modal Popup-->
+						<div class="modal fade" id="modalForProject<?php echo $projectRow['proj_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title"><?php echo $projectRow['title'];?></h3>
+										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['proj_id'];?></span></span>
+									</div>
+									<div class="modal-body">
+										<form action="home.php" method="POST" id="modalFormForProject<?php echo $projectRow['proj_id'];?>">
+											<!-- <input type="hidden" name="formId" value="" id="modalFormId"> -->
+											<div class="form-group row">
+												<label class="col-4 col-form-label">Description</label>
+												<div class="col-8">
+													<textarea name="descriptionInput" cols="40" rows="4" class="form-control"><?php echo $projectRow['description'];?></textarea>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-4 col-form-label">Target Amount</label>
+												<div class="col-8">
+													<input name="descriptionInput" cols="40" rows="4" class="form-control" value='<?php echo $projectRow['amt_needed'];?>'>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button type="submit" form="modalFormPledge" class="btn btn-primary" data-dismiss="modal" id="modalButtonInvest" onClick="sendInvestment()">Save</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?php endforeach; ?>
 				</div>
 				<div id="menu2" class="tab-pane fade">
 					<h3>My Investments</h3>
@@ -263,7 +307,7 @@
 								<table id="myInvestmentTable" class="table table-striped">
 									<thead>
 										<th style="text-align:left" width="200">Project Name</th>
-										<th style="text-align:center" width="100">Project Id</th>
+										<th style="text-align:center" width="50">Project Id</th>
 										<th style="text-align:center" width="100">Amount Invested</th>
 										<th style="text-align:center" width="100">Amount Raised</th>
 										<th style="text-align:center" width="100">Target Amount</th>
@@ -275,11 +319,11 @@
 										<?php foreach($investmentList as $investmentRow): ?>
 											<tr>
 												<td align="left" width="200"><?php echo $investmentRow['title'];?></td>
-												<td align="center" width="100"><?php echo $investmentRow['proj_id'];?></td>
+												<td align="center" width="50"><?php echo $investmentRow['proj_id'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amount'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_raised'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_needed'];?></td>
-												<td align="center" width="50"><?php echo $investmentRow['status'];?></td>
+												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
 												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
 											</tr>
