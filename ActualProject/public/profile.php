@@ -281,9 +281,27 @@
 												</div>
 											</div>
 											<div class="form-group row">
+												<label class="col-4 col-form-label">Category</label>
+												<div class="col-8">
+													<input name="category" class="form-control" value='<?php echo $projectRow['category'];?>'>
+												</div>
+											</div>
+											<div class="form-group row">
 												<label class="col-4 col-form-label">Target Amount</label>
 												<div class="col-8">
-													<input name="targetAmount" cols="40" rows="4" class="form-control" value='<?php echo $projectRow['amt_needed'];?>'>
+													<input name="targetAmount" class="form-control" value='<?php echo $projectRow['amt_needed'];?>'>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-4 col-form-label">Start Date</label>
+												<div class="col-8">
+													<input name="startDate" class="form-control" value='<?php echo $projectRow['start_date'];?>'>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-4 col-form-label">Duration</label>
+												<div class="col-8">
+													<input name="duration" class="form-control" value='<?php echo $projectRow['duration'];?>'>
 												</div>
 											</div>
 										</form>
@@ -302,7 +320,6 @@
 							document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
 
 							$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
-
 							});
 
 							$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
@@ -336,7 +353,12 @@
 												<td align="center" width="100"><?php echo $investmentRow['amt_raised'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_needed'];?></td>
 												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
-												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+												<td align="center" width="50">
+													<div class="input-group">
+														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForInvestment<?php echo $investmentRow['proj_id'];?>" >
+														<span class="glyphicon glyphicon-pencil"></span></input>
+													</div>
+												</td>
 												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
 											</tr>
 										<?php endforeach; ?>
@@ -345,6 +367,47 @@
 							</div>
 						</div>
 					</form>
+					<?php foreach($investmentList as $investmentRow): ?>
+						<!-- Modal Popup-->
+						<div class="modal fade" id="modalForInvestment<?php echo $investmentRow['proj_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title"><?php echo $investmentRow['title'];?></h3>
+										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $investmentRow['proj_id'];?></span></span>
+									</div>
+									<div class="modal-body">
+										<form action="updateMyInvestment.php" method="POST" id="modalFormForInvestment<?php echo $investmentRow['proj_id'];?>">
+											<input type="hidden" name="projectId" value="<?php echo $investmentRow['proj_id'];?>">
+											<div class="form-group row">
+												<label class="col-4 col-form-label">Amount Invested</label>
+												<div class="col-8">
+													<input name="amtInvested" cols="40" rows="4" class="form-control" value='<?php echo $investmentRow['amount'];?>'>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										<button id="modalButtonForInvestment<?php echo $investmentRow['proj_id'];?>" name="saveInvestment" type="submit" form="modalFormForInvestment<?php echo $investmentRow['proj_id'];?>" class="btn btn-primary" data-dismiss="modal">Save</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<script>$("#modalButtonForInvestment<?php echo $investmentRow['proj_id'];?>").click(function (){
+							console.log("HERE: " + '<?php echo $investmentRow['proj_id'];?>');
+
+							var data = $("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>:input").serializeArray();
+							document.getElementById("modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").submit();
+
+							$.post($("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").attr("action"), data, function(info){} );
+							});
+
+							$("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").submit(function() {
+								return false;
+							});
+						</script>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</div>
