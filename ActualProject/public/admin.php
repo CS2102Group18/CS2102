@@ -10,7 +10,7 @@
 			header("location:home.php");
 		}
 		else {
-			echo "You're logged into the admin's area " . $_SESSION['username'] . "!";
+			//echo "You're logged into the admin's area " . $_SESSION['username'] . "!";
 		}
 	} else {
 		header("location:logout.php");
@@ -72,7 +72,7 @@
 		  </div>
 		</nav>
 		<section class="pb-0">
-			 <div class="container">
+			 <div class="container" style="padding-top: 25px">
 				<div class="row text-center mb-4">
 				  <div class="col">
 					<h2>Admin Page</h2>

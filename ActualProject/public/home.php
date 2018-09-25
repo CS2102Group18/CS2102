@@ -2,7 +2,7 @@
 <?php
 session_start();
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
-	echo "You're logged into the member's area " . $_SESSION['username'] . "!";
+	//echo "You're logged into the member's area " . $_SESSION['username'] . "!";
 } else {
 	header("location:login.php");
 }
@@ -13,7 +13,7 @@ $currentId = '0';
 //Get list of projects that are advertising
 $result = pg_query($db, "SELECT * FROM project a LEFT JOIN advertise b ON a.id = b.proj_id");
 $totalSize = pg_num_rows($result);
-echo "row size = $totalSize";
+//echo "row size = $totalSize";
 $project = array();
 //extracts list from $result into 2d array
 $i=0;
@@ -113,7 +113,7 @@ if(!result) {
 			</div>
 		</nav>
 		<section class="pb-0">
-			<div class="container">
+			<div class="container" style="padding-top: 25px">
 				<div class="row text-center mb-4">
 					<div class="col">
 						<h2>Entrepreneur Projects</h2>
