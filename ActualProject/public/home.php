@@ -64,17 +64,17 @@
 					</span>
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Profile</a>
+					<a class="dropdown-item" href="profile.php">Profile</a>
 				  </div>
 				</div>
 			  </div>
 			  <div class="py-1 d-flex align-items-center justify-content-end">
 				<ul class="navbar-nav d-flex flex-row">
 				  <li class="nav-item">
-					<a href="documentation/index.html" class="text-small nav-link px-2">Explore</a>
+					<a href="home.php" class="text-small nav-link px-2">Explore</a>
 				  </li>
 				  <li class="nav-item">
-					<a href="documentation/changelog.html" class="text-small nav-link px-2">My Investments
+					<a href="createProject.php" class="text-small nav-link px-2">Start a New Project
 					</a>
 				  </li>
 				  <?php
