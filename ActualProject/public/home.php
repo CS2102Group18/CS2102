@@ -155,13 +155,14 @@
 								</table>
 								<br>
 								<form action="home.php" method="POST" id="modalFormPledge">
+									<input type="hidden" name="formId" value="" id="modalFormId">
 									<label>SGD</label>
-								  <input type="text" name="amtPledged" value="10">
+								  <input type="text" name="amtPledged" value="10" required>
 								</form>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary" data-dismiss="modal" id="modalButtonInvest">Invest</button>
+								<button type="submit" form="modalFormPledge" class="btn btn-primary" data-dismiss="modal" id="modalButtonInvest" onClick="sendInvestment()">Invest</button>
 							</div>
 						</div>
 					</div>
@@ -170,11 +171,10 @@
 		 </div>
 		</section>
 
-
-
 		<script>
 			function displayPopupInformation(id, title, description, category, startDate, duration, entrepreneur, amtNeeded, amtRaised, status) {
 				console.log("Project id: " + id);
+				document.getElementById("modalFormId").value = id;
 				document.getElementById("modalProjectTitle").innerHTML = title;
 				document.getElementById("modalProjectDescription").innerHTML = description;
 				document.getElementById("modalProjectAmtNeeded").innerHTML = amtNeeded;
@@ -190,6 +190,11 @@
 					document.getElementById("modalButtonInvest").hidden = false;
 					document.getElementById("modalFormPledge").hidden = false;
 				}
+			}
+
+			function sendInvestment() {
+				document.forms[0].submit();
+				<?php  pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')"); ?>;
 			}
 		</script>
 	</body>
