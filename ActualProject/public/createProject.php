@@ -21,6 +21,7 @@ if(isset($_POST['Create'])) {
     if($projectResult) {
       echo "<script>console.log('Entered Project Result!');</script>";
       $advertiseResult = pg_query($db, "INSERT INTO advertise(entrepreneur, amt_needed) VALUES('$UNAME', '$getFunds')");
+      
       if($advertiseResult) {
         echo "<script>alert('Created Project Successfully!');</script>";
         // sleep(10);
