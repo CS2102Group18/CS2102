@@ -183,7 +183,7 @@
 				var username = '<?php echo $UNAME?>';
 
 				// Hide invest button so entrepreneur cannot invest his/her own advertisement
-				if (username === entrepreneur) {
+				if (username === entrepreneur || status==1) {
 					document.getElementById("modalButtonInvest").hidden = true;
 					document.getElementById("modalFormPledge").hidden = true;
 				} else {
@@ -194,7 +194,20 @@
 
 			function sendInvestment() {
 				document.forms[0].submit();
-				<?php  pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')"); ?>;
+				<?php
+					include '../php/updateInvest.php';
+					$investment = pg_query($db, "SELECT * FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
+					$numRows = pg_num_rows($investment);
+
+					if ($numRows > 0) {
+						//pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')");
+						$result = pg_query($db, "SELECT amount FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
+						$prevAmount = pg_fetch_result($result, 0, 0);
+						updateInvestmentAmount($db, $UNAME, $_POST[formId], $_POST[amtPledged]+$prevAmount);
+					} else {
+						pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')");
+					}
+				?>;
 			}
 		</script>
 	</body>
