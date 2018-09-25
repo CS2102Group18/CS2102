@@ -94,7 +94,6 @@
 	$i=0;
 	while($row = pg_fetch_assoc($projectListResult)){
 		$projectList[$i] = $row;
-		echo "<script>console.log( 'Printing in console: " . $projectList[$i] . "' );</script>";
 		$i++;
 	}
 ?>
@@ -111,7 +110,6 @@
 	$i=0;
 	while($row = pg_fetch_assoc($investmentListResult)){
 		$investmentList[$i] = $row;
-		echo "<script>console.log( 'Printing in console: " . $investmentList[$i] . "' );</script>";
 		$i++;
 	}
 ?>
@@ -221,8 +219,8 @@
 					</form>
 				</div>
 				<div id="menu1" class="tab-pane fade">
-					<h3>My Projects</h3>
-					<form action = "profile.php", method = "POST">
+					<h3>My Project</h3>
+					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
 							<div class="table-responsive">
 								<table id="myProjectTable" class="table table-striped">
@@ -274,8 +272,8 @@
 										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['proj_id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="home.php" method="POST" id="modalFormForProject<?php echo $projectRow['proj_id'];?>">
-											<!-- <input type="hidden" name="formId" value="" id="modalFormId"> -->
+										<form action="./updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['proj_id'];?>">
+											<input type="hidden" name="formId" value="" id="modalFormIdForProject<?php echo $projectRow['proj_id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Description</label>
 												<div class="col-8">
@@ -285,18 +283,34 @@
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Target Amount</label>
 												<div class="col-8">
-													<input name="descriptionInput" cols="40" rows="4" class="form-control" value='<?php echo $projectRow['amt_needed'];?>'>
+													<input name="targetAmount" cols="40" rows="4" class="form-control" value='<?php echo $projectRow['amt_needed'];?>'>
 												</div>
 											</div>
 										</form>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="submit" form="modalFormPledge" class="btn btn-primary" data-dismiss="modal" id="modalButtonInvest" onClick="sendInvestment()">Save</button>
+										<button id="modalButtonForProject<?php echo $projectRow['proj_id'];?>" name="saveProject" type="submit" form="modalFormForProject<?php echo $projectRow['proj_id'];?>" class="btn btn-primary" data-dismiss="modal">Save</button>
 									</div>
 								</div>
 							</div>
 						</div>
+						<script>$("#modalButtonForProject<?php echo $projectRow['proj_id'];?>").click(function (){
+							console.log("HERE: " + '<?php echo $projectRow['proj_id'];?>');
+
+							var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
+
+							console.log("Data: " + data);
+
+							$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+
+							console.log("update: <?php echo $_POST[descriptionInput];?>");
+						});
+
+						$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
+							return false;
+						});
+					</script>
 					<?php endforeach; ?>
 				</div>
 				<div id="menu2" class="tab-pane fade">
