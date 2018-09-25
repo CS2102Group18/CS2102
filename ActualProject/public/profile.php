@@ -283,7 +283,17 @@
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Category</label>
 												<div class="col-8">
-													<input name="category" class="form-control" value='<?php echo $projectRow['category'];?>'>
+													<select class="btn btn-primary dropdown-toggle" id="categoryForProject<?php echo $projectRow['proj_id'];?>" name="category" required>
+														<option value="Fashion">Fashion</option>
+								            <option value="Technology">Technology</option>
+								            <option value="Games">Games</option>
+								            <option value="Food">Food</option>
+								            <option value="Music">Music</option>
+								            <option value="Photography">Photography</option>
+								            <option value="Handicraft">Handicraft</option>
+								            <option value="Community">Community</option>
+								          </select>
+													<script>document.getElementById("categoryForProject<?php echo $projectRow['proj_id'];?>").value = "<?php echo $projectRow['category'];?>";</script>
 												</div>
 											</div>
 											<div class="form-group row">
