@@ -1,13 +1,14 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
 include 'db.php';
 session_start();
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
-  echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
+  // echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
 } else {
   header("location:login.php");
 }
 $UNAME = $_SESSION['username'];	//retrieve USERNAME
- if(isset($_POST['Create'])) {
+if(isset($_POST['Create'])) {
   //Run the following 2 together
   $getTitle = $_POST['title'];
   $getDescripton = $_POST['description'];
@@ -16,10 +17,9 @@ $UNAME = $_SESSION['username'];	//retrieve USERNAME
 
   if(!empty($getTitle) && !empty($getDescripton) && !empty($getCategory) && !empty($getFunds)) {
     $projectResult = pg_query($db, "INSERT INTO project(title, description, category) VALUES('$getTitle', '$getDescripton', '$getCategory')");
-    $advertiseResult = pg_query($db, "INSERT INTO advertise(entrepreneur, amt_needed) VALUES('$username', '$getFunds')");
-    redirect_to("public/home.php");
+    $advertiseResult = pg_query($db, "INSERT INTO advertise(entrepreneur, amt_needed) VALUES('$UNAME', '$getFunds')");
   }
- }
+}
 
 // if($projectResult && $advertiseResult) {
 //   echo "<script>alert('Created Project Successfully');</script>";
@@ -38,15 +38,14 @@ $UNAME = $_SESSION['username'];	//retrieve USERNAME
     font-family: Arial, Helvetica, sans-serif;
     background-color: GhostWhite;
   }
-
+  a.logout {
+    color: white;
+  }
+  card {
+    padding-top: 15px;
+  }
   * {
     box-sizing: border-box;
-  }
-
-  /* Add padding to containers */
-  .container {
-    padding: 12px;
-    background-color: lightgrey;
   }
 
   /* Overwrite default styles of hr */
@@ -99,8 +98,45 @@ $UNAME = $_SESSION['username'];	//retrieve USERNAME
 </style>
 </head>
 <form class="form-vertical" role="form" method="post" action="createProject.php">
-
-  <h1> Create a new Project </h1>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+    <div class="container">
+      <div class="collapse navbar-collapse navMenu justify-content-between">
+        <div class="d-flex justify-content-end justify-content-lg-start pt-1 pt-lg-0">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle btn-dark btn-sm"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="img/user.png" alt="user image" class="btn-image" width="60" height="40">
+              <span>Welcome! <?php echo "$UNAME";?>
+              </span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Profile</a>
+            </div>
+          </div>
+        </div>
+        <div class="py-1 d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-item">
+              <a href="home.php" class="text-small nav-link px-2">Explore</a>
+            </li>
+            <?php
+            include 'db.php';
+            $queryUser = $_SESSION['username'];
+            $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
+            $rowAdmin = pg_num_rows($resultAdmin);
+            if($rowAdmin > 0){
+              echo '<li class="nav-item">';
+              echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+              echo '</a>';
+              echo '</li>';
+            }
+            ?>
+          </ul>
+          <button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <h2> Create a new Project </h2>
   <p>Please fill in this form to create a new Project</p>
   <body>
     <div class="form-group">
