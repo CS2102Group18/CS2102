@@ -15,7 +15,16 @@
 	} else {
 		header("location:logout.php");
 	}
+	
+	$result = pg_query($db, "SELECT * FROM member WHERE is_admin = 0");
+	
 	$UNAME = $_SESSION['username'];
+	$project = array();
+	$i=0;
+	while($row = pg_fetch_assoc($result)){
+		$project[$i] = $row;
+		$i++;
+	}
 ?>
 
 <html>
@@ -31,7 +40,6 @@
 			}
 		</style>
 	</head>
-	  <form = "form-vertical" method="post" action="home.php">
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
 		  <div class="container">
@@ -71,10 +79,35 @@
 		  <div class="container">
 			<div class="row text-center mb-4">
 			  <div class="col">
-				<h2>Admin Page asd</h2>
+				<h2>Admin Page 123</h2>
 			  </div>
 			</div>
 		 </div>
+		  <table class="table table-bordered">
+			 <thead>
+				<tr>
+				  <th>Username</th>
+				  <th>Email</th>
+				  <th></th>
+				</tr>
+			 </thead>
+			 <tbody>
+			 	<?php foreach($project as $projectRow): ?>
+					<tr>
+					  <td><?php echo $projectRow['username'];?></td>
+					  <td><?php echo $projectRow['email'];?></td>
+					  <td>
+						<form id="myForm" action="deleteMember.php" method="POST">
+							<input type="hidden" name="deletedUser" value="<?php echo $projectRow['username'];?>" id="hiddenForm">
+							<button id="sub">Delete</button>
+						</form>
+					  </td>
+					</tr>
+				<?php endforeach; ?>
+			 </tbody>
+			</table>
 		</section>
+		<script src="script/custom.js" type="text/javascript">
+		</script>
 	</body>
 </html>
