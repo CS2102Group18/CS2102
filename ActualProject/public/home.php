@@ -168,8 +168,8 @@
 								<br>
 								<form action="home.php" method="POST" id="modalFormPledge">
 									<input type="hidden" name="formId" value="" id="modalFormId">
-									<label>SGD</label>
-								  <input type="text" name="amtPledged" value="10" required>
+									<label id="modalFormLabel">SGD</label>
+								  <input type="text" name="amtPledged" value="10" id="modalFormAmt" required>
 								</form>
 							</div>
 							<div class="modal-footer">
@@ -199,10 +199,12 @@
 				// Hide invest button so entrepreneur cannot invest his/her own advertisement
 				if (username === entrepreneur || status==1) {
 					document.getElementById("modalButtonInvest").hidden = true;
-					document.getElementById("modalFormPledge").hidden = true;
+					document.getElementById("modalFormLabel").hidden = true;
+					document.getElementById("modalFormAmt").hidden = true;
 				} else {
 					document.getElementById("modalButtonInvest").hidden = false;
-					document.getElementById("modalFormPledge").hidden = false;
+					document.getElementById("modalFormLabel").hidden = false;
+					document.getElementById("modalFormAmt").hidden = false;
 				}
 			}
 
