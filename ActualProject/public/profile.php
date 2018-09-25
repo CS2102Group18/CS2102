@@ -140,37 +140,43 @@ $projectListResult = pg_query("SELECT p.title, a.proj_id, a.amt_raised, a.amt_ne
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
 			<div class="container">
 				<div class="collapse navbar-collapse navMenu justify-content-between">
-					<div class="d-flex justify-content-end justify-content-lg-start pt-1 pt-lg-0">
-						<div class="dropdown">
-							<button class="btn dropdown-toggle btn-dark btn-sm"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img src="img/user.png" alt="user image" class="btn-image" width="60" height="40">
-								<span>Welcome! <?php echo "$UNAME";?>
-								</span>
-							</button>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#">Profile</a>
+					<div class="row">
+					<div class="col-6">
+						<div class="d-flex justify-content-end justify-content-lg-start pt-1 pt-lg-0">
+							<div class="dropdown">
+								<button class="btn dropdown-toggle btn-dark btn-sm"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src="img/user.png" alt="user image" class="btn-image" width="60" height="40">
+									<span>Welcome! <?php echo "$UNAME";?>
+									</span>
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="#">Profile</a>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="py-1 d-flex align-items-center justify-content-end">
-						<ul class="navbar-nav d-flex flex-row">
-							<li class="nav-item">
-								<a href="home.php" class="text-small nav-link px-2">Explore</a>
-							</li>
-							<?php
-							include 'db.php';
-							$queryUser = $_SESSION['username'];
-							$resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
-							$rowAdmin = pg_num_rows($resultAdmin);
-							if($rowAdmin > 0){
-								echo '<li class="nav-item">';
-								echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
-								echo '</a>';
-								echo '</li>';
-							}
-							?>
-						</ul>
-						<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+					<div class="col-6">
+						<div class="py-1 d-flex align-items-center justify-content-end">
+							<ul class="navbar-nav d-flex flex-row">
+								<li class="nav-item">
+									<a href="home.php" class="text-small nav-link px-2">Explore</a>
+								</li>
+								<?php
+								include 'db.php';
+								$queryUser = $_SESSION['username'];
+								$resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
+								$rowAdmin = pg_num_rows($resultAdmin);
+								if($rowAdmin > 0){
+									echo '<li class="nav-item">';
+									echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+									echo '</a>';
+									echo '</li>';
+								}
+								?>
+							</ul>
+							<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+						</div>
+					</div>
 					</div>
 				</div>
 			</div>
