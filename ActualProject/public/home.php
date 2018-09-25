@@ -131,18 +131,26 @@ if(!result) {
 									</div>
 								</div>
 								<div class="card-footer">
-									<div class="d-flex align-items-center justify-content-between">
-										<a href="#!" data-toggle="modal" data-target="#exampleModal"
-										onClick="displayPopupInformation('<?php echo $projectRow['id'];?>',
-										'<?php echo $projectRow['title'];?>',
-										'<?php echo $projectRow['description'];?>',
-										'<?php echo $projectRow['category'];?>',
-										'<?php echo $projectRow['start_date'];?>',
-										'<?php echo $projectRow['duration'];?>',
-										'<?php echo $projectRow['entrepreneur'];?>',
-										'<?php echo $projectRow['amt_needed'];?>',
-										'<?php echo $projectRow['amt_raised'];?>',
-										'<?php echo $projectRow['status'];?>')">Invest</a>
+									<div class="row">
+										<div class="col-md-8">
+											<div class="d-flex align-items-center">Amount needed : <?php echo $projectRow['amt_needed'];?></div>
+											<div class="d-flex align-items-center">Amount raised : <?php echo $projectRow['amt_raised'];?></div>
+										</div>
+										<div class="col-md-4">
+											<div class="d-flex align-items-center justify-content-between">
+												<a href="#!" data-toggle="modal" data-target="#exampleModal"
+												onClick="displayPopupInformation('<?php echo $projectRow['id'];?>',
+												'<?php echo $projectRow['title'];?>',
+												'<?php echo $projectRow['description'];?>',
+												'<?php echo $projectRow['category'];?>',
+												'<?php echo $projectRow['start_date'];?>',
+												'<?php echo $projectRow['duration'];?>',
+												'<?php echo $projectRow['entrepreneur'];?>',
+												'<?php echo $projectRow['amt_needed'];?>',
+												'<?php echo $projectRow['amt_raised'];?>',
+												'<?php echo $projectRow['status'];?>')">Invest</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
