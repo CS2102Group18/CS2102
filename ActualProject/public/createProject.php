@@ -109,7 +109,7 @@ if(isset($_POST['Create'])) {
               </span>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="profile.php">Profile</a>
             </div>
           </div>
         </div>
