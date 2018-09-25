@@ -144,6 +144,7 @@ CREATE OR REPLACE FUNCTION delete_all_investment_when_delete_advertisement()
 RETURNS TRIGGER AS $$
 BEGIN
     DELETE FROM invest WHERE proj_id = OLD.proj_id;
+	DELETE FROM project WHERE id = OLD.proj_id;
     RETURN NEW;
 END; $$ LANGUAGE PLPGSQL;
 
