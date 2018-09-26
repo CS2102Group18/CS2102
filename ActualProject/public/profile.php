@@ -101,8 +101,7 @@
 <?php
 	//php for My Investments
 	//First send the query to get the investment List
-	$investmentListResult = pg_query("SELECT p.title, a.proj_id, i.amount, a.amt_needed, a.amt_raised, a.status
-																		FROM advertise a, invest i, project p WHERE a.proj_id = p.id AND i.proj_id=p.id AND i.investor='$UNAME';");
+	$investmentListResult = pg_query("SELECT * FROM advertise a, invest i, project p WHERE a.proj_id = p.id AND i.proj_id=p.id AND i.investor='$UNAME';");
 	$investmentListSize = pg_num_rows($investmentListResult);
 	echo "<script>console.log( 'Investment List size test is: " . $investmentListSize . "' );</script>";
 	$investmentList = array();
@@ -227,6 +226,9 @@
 				</div>
 				<div id="menu1" class="tab-pane fade">
 					<h3>My Projects</h3>
+					<?php foreach($projectList as $projectRow): ?>
+						<form id="profileFormDeleteProject<?php echo $projectRow['proj_id'];?>" action="deleteProfileProject.php" method="POST"></form>
+					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
 							<div class="table-responsive">
@@ -250,16 +252,17 @@
 												<td align="center" width="100"><?php echo $projectRow['amt_needed'];?></td>
 												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50">
-													<div class="input-group">
+													<p data-placement="top" data-toggle="tooltip" title="Edit">
 														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForProject<?php echo $projectRow['proj_id'];?>" >
-														<span class="glyphicon glyphicon-pencil"></span></input>
-													</div>
+															<span class="glyphicon glyphicon-pencil"></span>
+														</input>
+													</p>
 												</td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Delete">
-														<input type="button" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
+														<input type="hidden" name="projId" value="<?php echo $projectRow['proj_id'];?>" form="profileFormDeleteProject<?php echo $projectRow['proj_id'];?>">
+														<input type="button" id="profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
+														<span class="glyphicon glyphicon-trash"></span>
 													</p>
 												</td>
 											</tr>
@@ -330,16 +333,26 @@
 								</div>
 							</div>
 						</div>
-						<script>$("#modalButtonForProject<?php echo $projectRow['proj_id'];?>").click(function (){
-							console.log("HERE: " + '<?php echo $projectRow['proj_id'];?>');
-
-							var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
-							document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
-
-							$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+						<script>
+							$("#modalButtonForProject<?php echo $projectRow['proj_id'];?>").click(function (){
+								var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
+								document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
+								$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
 							});
 
 							$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
+								return false;
+							});
+
+							$("#profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>").click(function (){
+								if (confirm('Are you sure you want to permanently delete this project? All funds will be lost.')) {
+									var data = $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
+									document.getElementById("profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit();
+									$.post( $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+						    } else {/*do nothing*/}
+							});
+
+							$("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit(function() {
 								return false;
 							});
 						</script>
@@ -347,7 +360,10 @@
 				</div>
 				<div id="menu2" class="tab-pane fade">
 					<h3>My Investments</h3>
-					<form action = "profile.php", method = "POST">
+					<?php foreach($investmentList as $investmentRow): ?>
+						<form id="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>" action="deleteProfileInvestment.php" method="POST"></form>
+					<?php endforeach; ?>
+					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
 							<div class="table-responsive">
 								<table id="myInvestmentTable" class="table table-striped">
@@ -369,14 +385,20 @@
 												<td align="center" width="100"><?php echo $investmentRow['amount'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_raised'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_needed'];?></td>
-												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
+												<td align="center" width="50"><?php echo ($investmentRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50">
-													<div class="input-group">
+													<p data-placement="top" data-toggle="tooltip" title="Edit">
 														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForInvestment<?php echo $investmentRow['proj_id'];?>" >
 														<span class="glyphicon glyphicon-pencil"></span></input>
-													</div>
+													</p>
 												</td>
-												<td align="center" width="50"><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+												<td align="center" width="50">
+													<p data-placement="top" data-toggle="tooltip" title="Delete">
+														<input type="hidden" name="projId" value="<?php echo $investmentRow['proj_id'];?>" form="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>">
+														<input type="button" id="profileFormDeleteInvestmentButton<?php echo $investmentRow['proj_id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
+															<span class="glyphicon glyphicon-trash"></span>
+														</input>
+													</p>
 											</tr>
 										<?php endforeach; ?>
 									</tbody>
@@ -411,16 +433,27 @@
 								</div>
 							</div>
 						</div>
-						<script>$("#modalButtonForInvestment<?php echo $investmentRow['proj_id'];?>").click(function (){
-							console.log("HERE: " + '<?php echo $investmentRow['proj_id'];?>');
+						<script>
+							$("#modalButtonForInvestment<?php echo $investmentRow['proj_id'];?>").click(function (){
+								var data = $("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>:input").serializeArray();
+								document.getElementById("modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").submit();
 
-							var data = $("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>:input").serializeArray();
-							document.getElementById("modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").submit();
+								$.post($("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").attr("action"), data, function(info){} );
+								});
 
-							$.post($("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").attr("action"), data, function(info){} );
+								$("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").submit(function() {
+									return false;
 							});
 
-							$("#modalFormForInvestment<?php echo $investmentRow['proj_id'];?>").submit(function() {
+							$("#profileFormDeleteInvestmentButton<?php echo $investmentRow['proj_id'];?>").click(function (){
+								if (confirm('Are you sure you want to permanently delete this investment?')) {
+									var data = $("#profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>:input").serializeArray();
+									document.getElementById("profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>").submit();
+									$.post( $("#profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>").attr("action"), data, function(info){} );
+						    } else {/*do nothing*/}
+							});
+
+							$("#profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>").submit(function() {
 								return false;
 							});
 						</script>
@@ -428,5 +461,7 @@
 				</div>
 			</div>
 		</div>
+		<script src="script/custom.js" type="text/javascript">
+		</script>
 	</body>
 </html>
