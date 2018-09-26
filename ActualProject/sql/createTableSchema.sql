@@ -1,8 +1,8 @@
 CREATE TABLE member (
 	username VARCHAR(16) PRIMARY KEY,
 	password VARCHAR(16) NOT NULL,
-    email VARCHAR(64) NOT NULL DEFAULT '',
-    biography VARCHAR(256) NOT NULL DEFAULT '',
+  email VARCHAR(64) NOT NULL DEFAULT '',
+  biography text NOT NULL DEFAULT '',
 	is_admin INT NOT NULL DEFAULT 0 CHECK(is_admin=0 OR is_admin=1)
 );
 
@@ -49,7 +49,7 @@ EXECUTE PROCEDURE modify_email();
 -------------------------------Trigger when inserting into TABLE Invest----------------------------------------------
 CREATE OR REPLACE FUNCTION update_amt_raised_when_insert_invest()
 RETURNS TRIGGER AS $$
-DECLARE 
+DECLARE
     amtNeeded NUMERIC(15,2);
     currentAmtRaised NUMERIC(15,2);
     resultingAmtRaised NUMERIC(15,2);
@@ -66,7 +66,7 @@ BEGIN
 END; $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER trigger_update_amt_raised_when_insert_invest
-BEFORE INSERT ON invest 
+BEFORE INSERT ON invest
 FOR EACH ROW
 EXECUTE PROCEDURE update_amt_raised_when_insert_invest();
 ---------------------------------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ EXECUTE PROCEDURE update_amt_raised_when_insert_invest();
 -------------------------------Trigger when updating amount in TABLE Invest----------------------------------------------
 CREATE OR REPLACE FUNCTION update_amt_raised_when_update_invest()
 RETURNS TRIGGER AS $$
-DECLARE 
+DECLARE
     amtNeeded NUMERIC(15,2);
     currentAmtRaised NUMERIC(15,2);
     resultingAmtRaised NUMERIC(15,2);
@@ -92,7 +92,7 @@ BEGIN
 END; $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER trigger_update_amt_raised_when_update_invest
-BEFORE UPDATE ON invest 
+BEFORE UPDATE ON invest
 FOR EACH ROW
 EXECUTE PROCEDURE update_amt_raised_when_update_invest();
 --------------------------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ EXECUTE PROCEDURE update_amt_raised_when_update_invest();
 -------------------------------Trigger when deleting a record in TABLE Invest----------------------------------------------
 CREATE OR REPLACE FUNCTION update_amt_raised_when_delete_invest()
 RETURNS TRIGGER AS $$
-DECLARE 
+DECLARE
     currentAmtRaised NUMERIC(15,2);
 BEGIN
     currentAmtRaised = (SELECT a.amt_raised FROM advertise a WHERE a.proj_id = OLD.proj_id);
@@ -109,7 +109,7 @@ BEGIN
 END; $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER trigger_update_amt_raised_when_delete_invest
-AFTER DELETE ON invest 
+AFTER DELETE ON invest
 FOR EACH ROW
 EXECUTE PROCEDURE update_amt_raised_when_delete_invest();
 --------------------------------------------------------------------------------------------------------------------
