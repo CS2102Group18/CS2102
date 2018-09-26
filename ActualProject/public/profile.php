@@ -331,27 +331,23 @@
 								</div>
 							</div>
 						</div>
-						<script>$("#modalButtonForProject<?php echo $projectRow['proj_id'];?>").click(function (){
-							console.log("HERE: " + '<?php echo $projectRow['proj_id'];?>');
-
-							var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
-							document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
-
-							$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+						<script>
+							$("#modalButtonForProject<?php echo $projectRow['proj_id'];?>").click(function (){
+								var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
+								document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
+								$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
 							});
 
 							$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
 								return false;
 							});
 
-
 							$("#profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>").click(function (){
-
-								var data = $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
-								document.getElementById("profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit();
-
-								$.post( $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
-
+								if (confirm('Are you sure you want to permanently delete this project? All funds will be lost.')) {
+									var data = $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
+									document.getElementById("profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit();
+									$.post( $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+						    } else {/*do nothing*/}
 							});
 
 							$("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit(function() {
