@@ -227,6 +227,9 @@
 				</div>
 				<div id="menu1" class="tab-pane fade">
 					<h3>My Projects</h3>
+					<?php foreach($projectList as $projectRow): ?>
+						<form id="profileFormDeleteProject<?php echo $projectRow['proj_id'];?>" action="deleteProfileProject.php" method="POST"></form>
+					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
 							<div class="table-responsive">
@@ -256,11 +259,9 @@
 													</div>
 												</td>
 												<td align="center" width="50">
-													<p data-placement="top" data-toggle="tooltip" title="Delete">
-														<input type="button" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
-													</p>
+													<input type="hidden" name="projId" value="<?php echo $projectRow['proj_id'];?>" form="profileFormDeleteProject<?php echo $projectRow['proj_id'];?>">
+													<input type="button" id="profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
+													<span class="glyphicon glyphicon-trash"></span>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -340,6 +341,20 @@
 							});
 
 							$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
+								return false;
+							});
+
+
+							$("#profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>").click(function (){
+
+								var data = $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
+								document.getElementById("profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit();
+
+								$.post( $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+
+							});
+
+							$("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit(function() {
 								return false;
 							});
 						</script>
@@ -428,5 +443,7 @@
 				</div>
 			</div>
 		</div>
+		<script src="script/custom.js" type="text/javascript">
+		</script>
 	</body>
 </html>

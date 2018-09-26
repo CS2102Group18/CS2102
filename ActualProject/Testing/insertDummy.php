@@ -35,6 +35,13 @@
   pg_query($db, "INSERT INTO project(title, description, category, start_date) VALUES('Bikochu Search Mission', 'Help Naruto find a bikochu, so that he can use it to locate Sasuke by scent.', 'Food', '2009-02-18')");
   pg_query($db, "INSERT INTO project(title, description, category, duration) VALUES('Itachi Pursuit Mission', 'This is a mission to locate Sasuke or Itachi. May have contact with Kabuto Yakushi and the Akatsuki.', 'Fashion', '18:30:55')");
   pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Land of Tea Escort Mission', 'To protext Idate Morino as he runs a race. May encounter Team oboro and Aoi Rokusho. Returns to Konoha after the race', 'Music', '1998-09-03', '00:15:20')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Search for Tsunade', 'Reward for finding shall be to learn a technique stronger than Chidori.', 'Handicraft', '1978-11-06', '10:00:20')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Kazekage Rescue Mission', 'Go to Sunagakure to assist in rescuing Gaara. There may be many confrontation enroute to Sunagakure.', 'Photography', '2015-01-27', '0:00:20')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Fourth Shinobi World War', 'Gather all Jinchurikis to fight together as one!', 'Community', '2008-12-11', '15:00:00')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Fourth Shinobi World War', 'Bring the reincarnated Hokages to fight in this war', 'Community', '2008-12-11', '24:00:00')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Fourth Shinobi World War', 'Join the healing forces in this war', 'Community', '2008-12-11', '24:00:00')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Learning Taijutsu', 'Inclues Gentle Fist fighting style and Eight Trigrams Palms Revolving Heaven', 'Handicraft', '1889-05-30', '02:10:06')");
+  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Kaima Capture Mission', 'Escort a delivery ship in the Land of the Sea as well as investigating a possible sea monster', 'Technology', '1955-08-17', '09:02:14')");
 
   // Insert advertisement
   pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 1, 200)");
@@ -45,14 +52,24 @@
   pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Hinata', 6, 600)");
   pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Hinata', 7, 1000)");
   pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sakura', 8, 222)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 9, 925)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 10, 777)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 11, 9000000)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sasuke', 12, 500)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sakura', 13, 800)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Hinata', 14, 80)");
+  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Ino', 15, 700)");
 
   // Insert investments
   pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Ino', 1, 100)");
   pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Shikamaru', 1, 50)");
   pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Sakura', 2, 90)");
   pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 6, 400)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Kiba', 6, 200)");  //Make Project 7 fully funded
+  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Kiba', 6, 200)");  //Make Project 6 fully funded
   pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Kiba', 7, 500)");
+  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 12, 400)");
+  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 14, 20)");
+  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 15, 200)");
 
   // Display Tables
   include 'UnitTest/displayTable.php';
