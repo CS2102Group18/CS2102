@@ -101,8 +101,7 @@
 <?php
 	//php for My Investments
 	//First send the query to get the investment List
-	$investmentListResult = pg_query("SELECT p.title, a.proj_id, i.amount, a.amt_needed, a.amt_raised, a.status
-																		FROM advertise a, invest i, project p WHERE a.proj_id = p.id AND i.proj_id=p.id AND i.investor='$UNAME';");
+	$investmentListResult = pg_query("SELECT * FROM advertise a, invest i, project p WHERE a.proj_id = p.id AND i.proj_id=p.id AND i.investor='$UNAME';");
 	$investmentListSize = pg_num_rows($investmentListResult);
 	echo "<script>console.log( 'Investment List size test is: " . $investmentListSize . "' );</script>";
 	$investmentList = array();
@@ -386,7 +385,7 @@
 												<td align="center" width="100"><?php echo $investmentRow['amount'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_raised'];?></td>
 												<td align="center" width="100"><?php echo $investmentRow['amt_needed'];?></td>
-												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
+												<td align="center" width="50"><?php echo ($investmentRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Edit">
 														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForInvestment<?php echo $investmentRow['proj_id'];?>" >
