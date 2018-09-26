@@ -2,9 +2,9 @@
     function styleTable() {
         echo "<style>td{text-align: center;}</style>";
     }
-    
+
     function displayTableMember($db) {
-        $result = pg_query($db, "SELECT * FROM member");	
+        $result = pg_query($db, "SELECT * FROM member");
         $col1 = NULL;
         $col2 = NULL;
         $col3 = NULL;
@@ -41,20 +41,20 @@
                 $text4 = $col4;
                 $text5 = $col5;
             }
-            
+
             echo "<tr>";
-            echo "<td align='left' width='200'>" . $text1 . "</td>";
-            echo "<td align='left' width='200'>" . $text2 . "</td>";
-            echo "<td align='left' width='200'>" . $text3 . "</td>";
-            echo "<td align='left' width='300'>" . $text4 . "</td>";
-            echo "<td align='left' width='50'>" . $text5 . "</td>";
+            echo "<td align='center' width='200'>" . $text1 . "</td>";
+            echo "<td align='center' width='200'>" . $text2 . "</td>";
+            echo "<td align='center' width='200'>" . $text3 . "</td>";
+            echo "<td align='center' width='500'>" . $text4 . "</td>";
+            echo "<td align='center' width='50'>" . $text5 . "</td>";
             echo "</tr>";
         }
         echo "</table>";
     }
 
     function displayTableProject($db) {
-        $result = pg_query($db, "SELECT * FROM project");	
+        $result = pg_query($db, "SELECT * FROM project");
         $col1 = NULL;
         $col2 = NULL;
         $col3 = NULL;
@@ -97,21 +97,21 @@
                 $text5 = $col5;
                 $text6 = $col6;
             }
-            
+
             echo "<tr>";
-            echo "<td align='left' width='100'>" . $text1 . "</td>";
-            echo "<td align='left' width='350'>" . $text2 . "</td>";
-            echo "<td align='left' width='350'>" . $text3 . "</td>";
-            echo "<td align='left' width='200'>" . $text4 . "</td>";
-            echo "<td align='left' width='350'>" . $text5 . "</td>";
-            echo "<td align='left' width='350'>" . $text6 . "</td>";
+            echo "<td align='center' width='100'>" . $text1 . "</td>";
+            echo "<td align='center' width='350'>" . $text2 . "</td>";
+            echo "<td align='center' width='350'>" . $text3 . "</td>";
+            echo "<td align='center' width='200'>" . $text4 . "</td>";
+            echo "<td align='center' width='350'>" . $text5 . "</td>";
+            echo "<td align='center' width='350'>" . $text6 . "</td>";
             echo "</tr>";
         }
         echo "</table>";
     }
-    
+
     function displayTableAdvertise($db) {
-        $result = pg_query($db, "SELECT * FROM advertise");	
+        $result = pg_query($db, "SELECT * FROM advertise");
         $col1 = NULL;
         $col2 = NULL;
         $col3 = NULL;
@@ -132,7 +132,7 @@
             $text3 = '';
             $text4 = '';
             $text5 = '';
-            
+
             if ($row['entrepreneur'] != $col1 ||
                 $row['proj_id'] != $col2 ||
                 $row['amt_needed'] != $col3 ||
@@ -150,18 +150,18 @@
                 $text5 = $col5;
             }
             echo "<tr>";
-            echo "<td align='left' width='200'>" . $text1 . "</td>";
-            echo "<td align='left' width='350'>" . $text2 . "</td>";
-            echo "<td align='left' width='350'>" . $text3 . "</td>";
-            echo "<td align='left' width='350'>" . $text4 . "</td>";
-            echo "<td align='left' width='50'>" . $text5 . "</td>";
+            echo "<td align='center' width='200'>" . $text1 . "</td>";
+            echo "<td align='center' width='100'>" . $text2 . "</td>";
+            echo "<td align='center' width='200'>" . $text3 . "</td>";
+            echo "<td align='center' width='200'>" . $text4 . "</td>";
+            echo "<td align='center' width='50'>" . $text5 . "</td>";
             echo "</tr>";
         }
         echo "</table>";
     }
-    
+
     function displayTableInvest($db) {
-        $result = pg_query($db, "SELECT * FROM invest");	
+        $result = pg_query($db, "SELECT * FROM invest");
         $col1 = NULL;
         $col2 = NULL;
         $col3 = NULL;
@@ -187,9 +187,9 @@
                 $text3 = $col3;
             }
             echo "<tr>";
-            echo "<td align='left' width='200'>" . $text1 . "</td>";
-            echo "<td align='left' width='100'>" . $text2 . "</td>";
-            echo "<td align='left' width='350'>" . $text3 . "</td>";
+            echo "<td align='center' width='200'>" . $text1 . "</td>";
+            echo "<td align='center' width='100'>" . $text2 . "</td>";
+            echo "<td align='center' width='350'>" . $text3 . "</td>";
             echo "</tr>";
         }
         echo "</table>";
