@@ -11,7 +11,7 @@ include 'db.php';
 $currentId = '0';
 
 //Pagination Implementation
-$resultPage = pg_query($db, "SELECT COUNT(*) FROM advertise");
+$resultPage = pg_query($db, "SELECT COUNT(*) FROM project a LEFT JOIN advertise b ON a.id = b.proj_id");
 $r = pg_fetch_row($resultPage);
 $numrows = $r[0];
 // num of rows to show per page
