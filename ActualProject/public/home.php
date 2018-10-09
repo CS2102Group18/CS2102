@@ -10,33 +10,48 @@ $UNAME = $_SESSION['username'];	//retrieve USERNAME
 include 'db.php';
 $currentId = '0';
 
-//Get list of projects that are advertising
-$result = pg_query($db, "SELECT * FROM project a LEFT JOIN advertise b ON a.id = b.proj_id");
-$totalSize = pg_num_rows($result);
-//echo "row size = $totalSize";
-$project = array();
-//extracts list from $result into 2d array
+//Pagination Implementation
+$resultPage = pg_query($db, "SELECT COUNT(*) FROM advertise");
+$r = pg_fetch_row($resultPage);
+$numrows = $r[0];
+// num of rows to show per page
+$rowsperpage = 9;
+$totalpages = ceil($numrows/$rowsperpage);
+
+if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+   // cast var as int
+   $currentpage = (int) $_GET['currentpage'];
+} else {
+   // default page num
+   $currentpage = 1;
+} // end if
+
+// if current page is greater than total pages...
+if ($currentpage > $totalpages) {
+   // set current page to last page
+   $currentpage = $totalpages;
+} // end if
+// if current page is less than first page...
+if ($currentpage < 1) {
+   // set current page to first page
+   $currentpage = 1;
+} // end if
+
+// the offset of the list, based on current page 
+$offset = ($currentpage - 1) * $rowsperpage;
+// get the info from the db 
+$sql = "SELECT * FROM project a LEFT JOIN advertise b ON a.id = b.proj_id LIMIT $rowsperpage OFFSET $offset";
+$result = pg_query($db, $sql);
+
 $i=0;
+$project = array();
 while($row = pg_fetch_assoc($result)){
 	$project[$i] = $row;
 	$i++;
 }
-//echo "hello";
-//echo $project[$i]['title'];
-//echo $project[$i]['entrepreneur'];
 if(!result) {
 	echo "Unable to retrieve result";
 }
-
-
-//Loop through the rows then assign the value required into the list of project.
-
-//Using the proj_id, find the required Project Name and Description and category
-//Use this Example query: Replace $currentId with value obtained previously. Other details you may require are : start_date
-//$resultProjId = pg_query($db, "SELECT title, description, category FROM project WHERE id = $currentId");
-
-//Display the Project, Description, amt_needed, amt_raised, category, status through looping
-
 ?>
 
 <html>
@@ -206,9 +221,56 @@ if(!result) {
 						</div>
 					</div>
 				</div>
+				<div class = "row" style="padding-top: 25">
+					<div class="col-4">
+					</div>
+					<div class="col-4" style="text-align: center;">
+						<?php
+							/******  build the pagination links ******/
+							// if not on page 1, don't show back links
+							if ($currentpage > 1) {
+							   // show << link to go back to page 1
+							   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=1'><<</a> ";
+							   // get previous page num
+							   $prevpage = $currentpage - 1;
+							   // show < link to go back to 1 page
+							   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage'><</a> ";
+							} // end if
+							// range of num links to show
+							$range = 3;
+
+							// loop to show links to range of pages around current page
+							for ($x = ($currentpage - $range); $x < (($currentpage + $range)  + 1); $x++) {
+							   // if it's a valid page number...
+							   if (($x > 0) && ($x <= $totalpages)) {
+								  // if we're on current page...
+								  if ($x == $currentpage) {
+									 // 'highlight' it but don't make a link
+									 echo " [<b>$x</b>] ";
+								  // if not current page...
+								  } else {
+									 // make it a link
+									 echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x'>$x</a> ";
+								  } // end else
+							   } // end if 
+							} // end for
+							// if not on last page, show forward and last page links        
+							if ($currentpage != $totalpages) {
+							   // get next page
+							   $nextpage = $currentpage + 1;
+								// echo forward link for next page 
+							   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'>></a> ";
+							   // echo forward link for lastpage
+							   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'>>></a> ";
+							} // end if
+							/****** end build pagination links ******/
+						?>
+					</div>
+					<div class="col-4">
+					</div>
+				</div>
 			</div>
 		</section>
-
 		<script>
 		function displayPopupInformation(id, title, description, category, startDate, duration, entrepreneur, amtNeeded, amtRaised, status) {
 			console.log("Project id: " + id);
