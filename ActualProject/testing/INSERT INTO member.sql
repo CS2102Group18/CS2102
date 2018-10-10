@@ -86,4 +86,4 @@ INSERT INTO member (username, password)
 VALUES ('Randall', 'gxuhq5');
 
 INSERT INTO member (username, password)
-VALUES ('Adrian', 'hxs8e);
+VALUES ('Adrian', 'hxs8e');
