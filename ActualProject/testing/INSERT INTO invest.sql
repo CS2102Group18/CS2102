@@ -169,13 +169,13 @@ INSERT INTO invest (investor, proj_id, amount)
 VALUES ('Darrell', 16, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jaqueline', 4, 1);
+VALUES ('Jacqueline', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jaqueline', 8, 1);
+VALUES ('Jacqueline', 8, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jaqueline', 12, 1);
+VALUES ('Jacqueline', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
 VALUES ('Judy', 18, 1);
