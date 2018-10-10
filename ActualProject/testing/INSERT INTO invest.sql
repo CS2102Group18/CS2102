@@ -1,268 +1,268 @@
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jose', 2, 100);
+VALUES ('Jose', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jose', 4, 100);
+VALUES ('Jose', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jose', 20, 100);
+VALUES ('Jose', 20, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Christine', 4, 200);
+VALUES ('Christine', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Christine', 5, 200);
+VALUES ('Christine', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Christine', 12, 200);
+VALUES ('Christine', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ignacio', 11, 300);
+VALUES ('Ignacio', 11, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ignacio', 14, 300);
+VALUES ('Ignacio', 14, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ignacio', 18, 300);
+VALUES ('Ignacio', 18, 1);
 
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Genevieve', 2, 400);
+VALUES ('Genevieve', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Genevieve', 16, 400);
+VALUES ('Genevieve', 16, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Genevieve', 17, 400);
+VALUES ('Genevieve', 17, 1);
 
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Shaun', 1, 500);
+VALUES ('Shaun', 1, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Shaun', 7, 500);
+VALUES ('Shaun', 7, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Shaun', 14, 500);
+VALUES ('Shaun', 14, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Andre', 2, 600);
+VALUES ('Andre', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Andre', 5, 600);
+VALUES ('Andre', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Andre', 15, 600);
+VALUES ('Andre', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Perry', 5, 700);
+VALUES ('Perry', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Perry', 19, 700);
+VALUES ('Perry', 19, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Lana', 12, 800);
+VALUES ('Lana', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Lana', 9, 800);
+VALUES ('Lana', 9, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Lana', 6, 800);
+VALUES ('Lana', 6, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Hope', 1, 900);
+VALUES ('Hope', 1, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Hope', 6, 900);
+VALUES ('Hope', 6, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Hope', 17, 900);
+VALUES ('Hope', 17, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Diana', 5, 1000);
+VALUES ('Diana', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Diana', 15, 1000);
+VALUES ('Diana', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Diana', 20, 1000);
+VALUES ('Diana', 20, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Patsy', 12, 1100);
+VALUES ('Patsy', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Patsy', 4, 1100);
+VALUES ('Patsy', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Patsy', 18, 1100);
+VALUES ('Patsy', 18, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Phil', 1, 1200);
+VALUES ('Phil', 1, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Phil', 6, 1200);
+VALUES ('Phil', 6, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Phil', 16, 1200);
+VALUES ('Phil', 16, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Brandy', 4, 1300);
+VALUES ('Brandy', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Brandy', 9, 1300);
+VALUES ('Brandy', 9, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Brandy', 18, 1300);
+VALUES ('Brandy', 18, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Flora', 2, 1400);
+VALUES ('Flora', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Flora', 5, 1400);
+VALUES ('Flora', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Flora', 8, 1400);
+VALUES ('Flora', 8, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Gilbert', 12, 1500);
+VALUES ('Gilbert', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Gilbert', 4, 1500);
+VALUES ('Gilbert', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Gilbert', 7, 1500);
+VALUES ('Gilbert', 7, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ed', 12, 1600);
+VALUES ('Ed', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ed', 5, 1600);
+VALUES ('Ed', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ed', 14, 1600);
+VALUES ('Ed', 14, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Tom', 12, 1700);
+VALUES ('Tom', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Tom', 15, 1700);
+VALUES ('Tom', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Tom', 2, 1700);
+VALUES ('Tom', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Gerald', 15, 1800);
+VALUES ('Gerald', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Gerald', 18, 1800);
+VALUES ('Gerald', 18, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Gerald', 1, 1800);
+VALUES ('Gerald', 1, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Darrell', 12, 1900);
+VALUES ('Darrell', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Darrell', 18, 1900);
+VALUES ('Darrell', 18, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Darrell', 16, 1900);
+VALUES ('Darrell', 16, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jaqueline', 4, 2000);
+VALUES ('Jaqueline', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jaqueline', 8, 2000);
+VALUES ('Jaqueline', 8, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jaqueline', 12, 2000);
+VALUES ('Jaqueline', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Judy', 18, 2100);
+VALUES ('Judy', 18, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Judy', 15, 2100);
+VALUES ('Judy', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Judy', 4, 2100);
+VALUES ('Judy', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Guadalupe', 12, 2200);
+VALUES ('Guadalupe', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Guadalupe', 14, 2200);
+VALUES ('Guadalupe', 14, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Guadalupe', 15, 2200);
+VALUES ('Guadalupe', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Marshall', 14, 2300);
+VALUES ('Marshall', 14, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Marshall', 19, 2300);
+VALUES ('Marshall', 19, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Marshall', 12, 2300);
+VALUES ('Marshall', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Tim', 2, 2400);
+VALUES ('Tim', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Tim', 5, 2400);
+VALUES ('Tim', 5, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Tim', 15, 2400);
+VALUES ('Tim', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ethel', 15, 2500);
+VALUES ('Ethel', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ethel', 12, 2500);
+VALUES ('Ethel', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Ethel', 2, 2500);
+VALUES ('Ethel', 2, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Roxanne', 4, 2600);
+VALUES ('Roxanne', 4, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Roxanne', 19, 2600);
+VALUES ('Roxanne', 19, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Roxanne', 12, 2600);
+VALUES ('Roxanne', 12, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jake', 18, 2700);
+VALUES ('Jake', 18, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jake', 8, 2700);
+VALUES ('Jake', 8, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Jake', 19, 2700);
+VALUES ('Jake', 19, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Virginia', 15, 2800);
+VALUES ('Virginia', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Virginia', 6, 2800);
+VALUES ('Virginia', 6, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Virginia', 19, 2800);
+VALUES ('Virginia', 19, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Randall', 13, 2900);
+VALUES ('Randall', 13, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Randall', 15, 2900);
+VALUES ('Randall', 15, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Randall', 17, 2900);
+VALUES ('Randall', 17, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Adrian', 7, 3000);
+VALUES ('Adrian', 7, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Adrian', 9, 3000);
+VALUES ('Adrian', 9, 1);
 
 INSERT INTO invest (investor, proj_id, amount)
-VALUES ('Adrian', 12, 3000);
+VALUES ('Adrian', 12, 1);
