@@ -23,7 +23,7 @@ INSERT INTO advertise (entrepreneur, proj_id, amt_needed)
 VALUES ('Lana', 8, 8000);
 
 INSERT INTO advertise (entrepreneur, proj_id, amt_needed)
-VALUES ('Hope', 9, 0000);
+VALUES ('Hope', 9, 10000);
 
 INSERT INTO advertise (entrepreneur, proj_id, amt_needed)
 VALUES ('Diana', 10, 10000);
