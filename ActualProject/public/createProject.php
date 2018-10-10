@@ -17,6 +17,9 @@ if(isset($_POST['Create'])) {
 
   if(!empty($getTitle) && !empty($getDescripton) && !empty($getCategory) && !empty($getFunds) && is_numeric($getFunds)) {
     echo "<script>console.log('All fields are filled!');</script>";
+	echo "<script>console.log('$getTitle');</script>";
+	echo "<script>console.log('$getDescripton');</script>";
+	echo "<script>console.log('$getCategory');</script>";
     $projectResult = pg_query($db, "INSERT INTO project(title, description, category) VALUES('$getTitle', '$getDescripton', '$getCategory')");
     if($projectResult) {
       echo "<script>console.log('Entered Project Result!');</script>";
@@ -27,12 +30,12 @@ if(isset($_POST['Create'])) {
         // sleep(10);
         // header("location:home.php");
       } else {
-        header("location:createProject.php");
-        echo "<script>alert('Error Occured! Please Ensure that all the fields are filled correctly');</script>";
+      //  header("location:createProject.php");
+        echo "<script>alert('Error Occured here! Please Ensure that all the fields are filled correctly');</script>";
       }
     } else {
-      header("location:createProject.php");
-      echo "<script>alert('Error Occured! Please Ensure that all the fields are filled correctly');</script>";
+   //   header("location:createProject.php");
+      echo "<script>alert('Error Occured there! Please Ensure that all the fields are filled correctly');</script>";
     }
   } else {
     // header("location:createProject.php");
