@@ -114,9 +114,9 @@ CREATE OR REPLACE FUNCTION toggle_status()
 RETURNS TRIGGER AS $$
 BEGIN
     IF OLD.status=0 THEN
-        UPDATE advertised_project SET status=1 WHERE id=NEW.proj_id;
+        UPDATE advertised_project SET status=1 WHERE id=NEW.id;
     ELSE
-        UPDATE advertised_project SET status=0 WHERE id=NEW.proj_id;
+        UPDATE advertised_project SET status=0 WHERE id=NEW.id;
     END IF;
     RETURN NEW;
 END; $$ LANGUAGE PLPGSQL;
