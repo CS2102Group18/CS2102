@@ -11,7 +11,7 @@ include 'db.php';
 $currentId = '0';
 
 //Pagination Implementation
-$resultPage = pg_query($db, "SELECT COUNT(*) FROM advertise a LEFT JOIN project b ON a.proj_id = b.id");
+$resultPage = pg_query($db, "SELECT COUNT(*) FROM advertised_project");
 $r = pg_fetch_row($resultPage);
 $numrows = $r[0];
 // num of rows to show per page
@@ -40,7 +40,7 @@ if ($currentpage < 1) {
 // the offset of the list, based on current page 
 $offset = ($currentpage - 1) * $rowsperpage;
 // get the info from the db 
-$sql = "SELECT * FROM advertise a LEFT JOIN project b ON a.proj_id = b.id LIMIT $rowsperpage OFFSET $offset";
+$sql = "SELECT * FROM advertised_project LIMIT $rowsperpage OFFSET $offset";
 $result = pg_query($db, $sql);
 
 $i=0;

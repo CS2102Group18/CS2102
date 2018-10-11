@@ -20,27 +20,16 @@ if(isset($_POST['Create'])) {
 	echo "<script>console.log('$getTitle');</script>";
 	echo "<script>console.log('$getDescripton');</script>";
 	echo "<script>console.log('$getCategory');</script>";
-    $projectResult = pg_query($db, "INSERT INTO project(title, description, category) VALUES('$getTitle', '$getDescripton', '$getCategory')");
+    $projectResult = pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('$UNAME','$getTitle', '$getDescripton', '$getCategory','$getFunds')");
     if($projectResult) {
-      echo "<script>console.log('Entered Project Result!');</script>";
-      $advertiseResult = pg_query($db, "INSERT INTO advertise(entrepreneur, amt_needed) VALUES('$UNAME', '$getFunds')");
-      
-      if($advertiseResult) {
-        echo "<script>alert('Created Project Successfully!');</script>";
-        // sleep(10);
-        // header("location:home.php");
-      } else {
-      //  header("location:createProject.php");
-        echo "<script>alert('Error Occured here! Please Ensure that all the fields are filled correctly');</script>";
-      }
+      echo "<script>console.log('Entered Project Result!');</script>";      
+	  echo "<script>alert('Successfully created project');</script>";
     } else {
-   //   header("location:createProject.php");
       echo "<script>alert('Error Occured there! Please Ensure that all the fields are filled correctly');</script>";
     }
   } else {
-    // header("location:createProject.php");
-    echo "<script>console.log('Error Occured!');</script>";
-    echo "<script>alert('Error Occured! Please Ensure that all the fields are filled correctly');</script>";
+	echo "<script>console.log('Error Occured!');</script>";
+	echo "<script>alert('Error Occured! Please Ensure that all the fields are filled correctly');</script>";
   }
 }
 
