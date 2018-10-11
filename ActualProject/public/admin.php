@@ -17,11 +17,11 @@
 	}
 	
 	//Pagination Implementation
-	$resultPage = pg_query($db, "SELECT * FROM member WHERE is_admin = 0");
+	$resultPage = pg_query($db, "SELECT * FROM member WHERE is_admin = 0 ORDER BY username ASC");
 	$numrows = pg_num_rows($resultPage);
 	echo "num of rows = $numrows";
 	// num of rows to show per page
-	$rowsperpage = 5;
+	$rowsperpage = 10;
 	$totalpages = ceil($numrows/$rowsperpage);
 	echo "total pages = $totalpages";
 	if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
@@ -46,7 +46,7 @@
 	// the offset of the list, based on current page 
 	$offset = ($currentpage - 1) * $rowsperpage;
 	// get the info from the db 
-	$sql = "SELECT * FROM member WHERE is_admin = 0 LIMIT $rowsperpage OFFSET $offset";
+	$sql = "SELECT * FROM member WHERE is_admin = 0 ORDER BY username ASC LIMIT $rowsperpage OFFSET $offset";
 	$result = pg_query($db, $sql);
 	$project = array();
 	$i=0;
