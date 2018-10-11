@@ -2,8 +2,7 @@
   echo "Starting Session";
   session_start();
   include 'db.php';
-  include '../php/updateProject.php';
-  include '../php/updateAdvertise.php';
+  include '../php/updateAdvertisedProject.php';
 
   $projectId = $_POST['projectId'];
   $description = $_POST['descriptionInput'];
