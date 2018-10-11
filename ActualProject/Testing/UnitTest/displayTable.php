@@ -53,7 +53,7 @@
         echo "</table>";
     }
 
-    function displayTableAdvertisedProject($db) {
+    function displayTableProject($db) {
         $result = pg_query($db, "SELECT * FROM advertised_project ORDER BY id");
         $col1 = NULL;
         $col2 = NULL;
@@ -65,7 +65,7 @@
         $col8 = NULL;
         $col9 = NULL;
         $col10 = NULL;
-        echo "<b>TABLE project</b>";
+        echo "<b>TABLE advertised_project</b>";
         echo "<table id='table'>";
         echo "<tr>";
         echo "<th>id</th>";

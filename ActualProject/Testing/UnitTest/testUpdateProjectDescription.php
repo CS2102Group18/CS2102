@@ -2,13 +2,17 @@
     include './connectionToDatabase.php';
     include './displayTable.php';
 
-    include '../../php/updateProject.php';
+    include '../../php/updateAdvertisedProject.php';
     
     $db = getDB();
     
-    // Insert a project
-    pg_query($db, "INSERT INTO project(title, description, category) VALUES('Chasing a girl named Sakura', 'A quest that Naruto sets out for', 'Community')");
-    pg_query($db, "INSERT INTO project(title, description, category) VALUES('A Rogue Ninja', 'Sasuke finding his own identity', 'Games')");
+    // Insert members
+    pg_query($db, "INSERT INTO member(username, password) VALUES('Naruto', '12r42345f')");
+    pg_query($db, "INSERT INTO member(username, password) VALUES('Sasuke', 'wg453g25')");
+    
+    // Insert projects
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('Naruto', 'Chasing a girl named Sakura', 'A quest that Naruto sets out for', 'Community', 500)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('Sasuke', 'A Rogue Ninja', 'Sasuke finding his own identity', 'Games', 1000)");
     
     styleTable();
     
