@@ -102,7 +102,7 @@
     include 'UnitTest/displayTable.php';
     displayTableMember($db);
     echo "<br><br>";
-    displayTableAdvertisedProject($db);
+    displayTableProject($db);
     echo "<br><br>";
     displayTableInvest($db);
     echo "<br><br>";
