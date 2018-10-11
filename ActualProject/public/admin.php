@@ -19,11 +19,11 @@
 	//Pagination Implementation
 	$resultPage = pg_query($db, "SELECT * FROM member WHERE is_admin = 0 ORDER BY username ASC");
 	$numrows = pg_num_rows($resultPage);
-	echo "num of rows = $numrows";
+	//echo "num of rows = $numrows";
 	// num of rows to show per page
 	$rowsperpage = 10;
 	$totalpages = ceil($numrows/$rowsperpage);
-	echo "total pages = $totalpages";
+	//echo "total pages = $totalpages";
 	if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
 	   // cast var as int
 	   $currentpage = (int) $_GET['currentpage'];
