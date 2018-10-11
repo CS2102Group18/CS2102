@@ -2,7 +2,7 @@
   echo "Starting Session";
   session_start();
   include 'db.php';
-  include '../php/deleteProject.php';
+  include '../php/deleteAdvertisedProject.php';
 
   $id = $_POST['projId'];
   deleteProject($db, $id);

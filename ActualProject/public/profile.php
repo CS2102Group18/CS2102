@@ -82,11 +82,11 @@
 ?>
 
 <?php
-	//php for My Projec
+	//php for My Projects
 	include '../public/php/updateMember.php';
 	//Need to obtain My Project Info: Project Name/title, Project Id, Amt Raised , Target Amt, Status
 	//First send the query to get the project List
-	$projectListResult = pg_query("SELECT * FROM advertise a, project p WHERE a.entrepreneur = '$UNAME' AND a.proj_id = p.id;");
+	$projectListResult = pg_query("SELECT * FROM advertised_project p WHERE p.entrepreneur = '$UNAME' ORDER BY p.title;");
 	$projectListSize = pg_num_rows($projectListResult);
 	echo "<script>console.log( 'Project List size test is: " . $projectListSize . "' );</script>";
 	$projectList = array();
@@ -101,7 +101,7 @@
 <?php
 	//php for My Investments
 	//First send the query to get the investment List
-	$investmentListResult = pg_query("SELECT * FROM advertise a, invest i, project p WHERE a.proj_id = p.id AND i.proj_id=p.id AND i.investor='$UNAME';");
+	$investmentListResult = pg_query("SELECT * FROM advertised_project p, invest i WHERE i.proj_id=p.id AND i.investor='$UNAME' ORDER BY p.title;");
 	$investmentListSize = pg_num_rows($investmentListResult);
 	echo "<script>console.log( 'Investment List size test is: " . $investmentListSize . "' );</script>";
 	$investmentList = array();
@@ -227,7 +227,7 @@
 				<div id="menu1" class="tab-pane fade">
 					<h3>My Projects</h3>
 					<?php foreach($projectList as $projectRow): ?>
-						<form id="profileFormDeleteProject<?php echo $projectRow['proj_id'];?>" action="deleteProfileProject.php" method="POST"></form>
+						<form id="profileFormDeleteProject<?php echo $projectRow['id'];?>" action="deleteProfileProject.php" method="POST"></form>
 					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
@@ -247,21 +247,21 @@
 										<?php foreach($projectList as $projectRow): ?>
 											<tr>
 												<td align="left" width="150"><?php echo $projectRow['title'];?></td>
-												<td align="center" width="100"><?php echo $projectRow['proj_id'];?></td>
+												<td align="center" width="100"><?php echo $projectRow['id'];?></td>
 												<td align="center" width="100"><?php echo $projectRow['amt_raised'];?></td>
 												<td align="center" width="100"><?php echo $projectRow['amt_needed'];?></td>
 												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Edit">
-														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForProject<?php echo $projectRow['proj_id'];?>" >
+														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForProject<?php echo $projectRow['id'];?>" >
 															<span class="glyphicon glyphicon-pencil"></span>
 														</input>
 													</p>
 												</td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Delete">
-														<input type="hidden" name="projId" value="<?php echo $projectRow['proj_id'];?>" form="profileFormDeleteProject<?php echo $projectRow['proj_id'];?>">
-														<input type="button" id="profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
+														<input type="hidden" name="projId" value="<?php echo $projectRow['id'];?>" form="profileFormDeleteProject<?php echo $projectRow['id'];?>">
+														<input type="button" id="profileFormDeleteProjectButton<?php echo $projectRow['id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
 														<span class="glyphicon glyphicon-trash"></span>
 													</p>
 												</td>
@@ -274,16 +274,16 @@
 					</form>
 					<?php foreach($projectList as $projectRow): ?>
 						<!-- Modal Popup-->
-						<div class="modal fade" id="modalForProject<?php echo $projectRow['proj_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="modalForProject<?php echo $projectRow['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h3 class="modal-title"><?php echo $projectRow['title'];?></h3>
-										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['proj_id'];?></span></span>
+										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['proj_id'];?>">
-											<input type="hidden" name="projectId" value="<?php echo $projectRow['proj_id'];?>">
+										<form action="updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['id'];?>">
+											<input type="hidden" name="projectId" value="<?php echo $projectRow['id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Description</label>
 												<div class="col-8">
@@ -293,7 +293,7 @@
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Category</label>
 												<div class="col-8">
-													<select class="btn btn-primary dropdown-toggle" id="categoryForProject<?php echo $projectRow['proj_id'];?>" name="category" required>
+													<select class="btn btn-primary dropdown-toggle" id="categoryForProject<?php echo $projectRow['id'];?>" name="category" required>
 														<option value="Fashion">Fashion</option>
 								            <option value="Technology">Technology</option>
 								            <option value="Games">Games</option>
@@ -303,7 +303,7 @@
 								            <option value="Handicraft">Handicraft</option>
 								            <option value="Community">Community</option>
 								          </select>
-													<script>document.getElementById("categoryForProject<?php echo $projectRow['proj_id'];?>").value = "<?php echo $projectRow['category'];?>";</script>
+													<script>document.getElementById("categoryForProject<?php echo $projectRow['id'];?>").value = "<?php echo $projectRow['category'];?>";</script>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -328,31 +328,31 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button id="modalButtonForProject<?php echo $projectRow['proj_id'];?>" name="saveProject" type="submit" form="modalFormForProject<?php echo $projectRow['proj_id'];?>" class="btn btn-primary" data-dismiss="modal">Save</button>
+										<button id="modalButtonForProject<?php echo $projectRow['id'];?>" name="saveProject" type="submit" form="modalFormForProject<?php echo $projectRow['id'];?>" class="btn btn-primary" data-dismiss="modal">Save</button>
 									</div>
 								</div>
 							</div>
 						</div>
 						<script>
-							$("#modalButtonForProject<?php echo $projectRow['proj_id'];?>").click(function (){
-								var data = $("#modalFormForProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
-								document.getElementById("modalFormForProject<?php echo $projectRow['proj_id'];?>").submit();
-								$.post($("#modalFormForProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+							$("#modalButtonForProject<?php echo $projectRow['id'];?>").click(function (){
+								var data = $("#modalFormForProject<?php echo $projectRow['id'];?>:input").serializeArray();
+								document.getElementById("modalFormForProject<?php echo $projectRow['id'];?>").submit();
+								$.post($("#modalFormForProject<?php echo $projectRow['id'];?>").attr("action"), data, function(info){} );
 							});
 
-							$("#modalFormForProject<?php echo $projectRow['proj_id'];?>").submit(function() {
+							$("#modalFormForProject<?php echo $projectRow['id'];?>").submit(function() {
 								return false;
 							});
 
-							$("#profileFormDeleteProjectButton<?php echo $projectRow['proj_id'];?>").click(function (){
+							$("#profileFormDeleteProjectButton<?php echo $projectRow['id'];?>").click(function (){
 								if (confirm('Are you sure you want to permanently delete this project? All funds will be lost.')) {
-									var data = $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>:input").serializeArray();
-									document.getElementById("profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit();
-									$.post( $("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").attr("action"), data, function(info){} );
+									var data = $("#profileFormDeleteProject<?php echo $projectRow['id'];?>:input").serializeArray();
+									document.getElementById("profileFormDeleteProject<?php echo $projectRow['id'];?>").submit();
+									$.post( $("#profileFormDeleteProject<?php echo $projectRow['id'];?>").attr("action"), data, function(info){} );
 						    } else {/*do nothing*/}
 							});
 
-							$("#profileFormDeleteProject<?php echo $projectRow['proj_id'];?>").submit(function() {
+							$("#profileFormDeleteProject<?php echo $projectRow['id'];?>").submit(function() {
 								return false;
 							});
 						</script>
