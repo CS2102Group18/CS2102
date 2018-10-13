@@ -34,6 +34,11 @@
         return pg_query($db, "SELECT biography FROM member WHERE username = '$username'");
     }
     
+    // Get all non-admin members
+    function getAllNonAdminMembers($db) {
+        return pg_query($db, "SELECT * FROM member WHERE is_admin=0 ORDER BY username");
+    }
+    
     // Return true if specified member is an admin
     function isMemberAdmin($db, $username) {
         $result = pg_query($db, "SELECT is_admin FROM member WHERE username = '$username'");
