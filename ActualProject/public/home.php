@@ -1,57 +1,59 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
-session_start();
-if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
-	//echo "You're logged into the member's area " . $_SESSION['username'] . "!";
-} else {
-	header("location:login.php");
-}
-$UNAME = $_SESSION['username'];	//retrieve USERNAME
-include '../php/db.php';
-$currentId = '0';
+    include '../php/db.php';
+    include '../php/member.php';
 
-//Pagination Implementation
-$resultPage = pg_query($db, "SELECT COUNT(*) FROM advertised_project");
-$r = pg_fetch_row($resultPage);
-$numrows = $r[0];
-// num of rows to show per page
-$rowsperpage = 9;
-$totalpages = ceil($numrows/$rowsperpage);
+    session_start();
+    if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
+        //echo "You're logged into the member's area " . $_SESSION['username'] . "!";
+    } else {
+        header("location:login.php");
+    }
+    $UNAME = $_SESSION['username'];	//retrieve USERNAME
+    $currentId = '0';
 
-if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
-   // cast var as int
-   $currentpage = (int) $_GET['currentpage'];
-} else {
-   // default page num
-   $currentpage = 1;
-} // end if
+    //Pagination Implementation
+    $resultPage = pg_query($db, "SELECT COUNT(*) FROM advertised_project");
+    $r = pg_fetch_row($resultPage);
+    $numrows = $r[0];
+    // num of rows to show per page
+    $rowsperpage = 9;
+    $totalpages = ceil($numrows/$rowsperpage);
 
-// if current page is greater than total pages...
-if ($currentpage > $totalpages) {
-   // set current page to last page
-   $currentpage = $totalpages;
-} // end if
-// if current page is less than first page...
-if ($currentpage < 1) {
-   // set current page to first page
-   $currentpage = 1;
-} // end if
+    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+       // cast var as int
+       $currentpage = (int) $_GET['currentpage'];
+    } else {
+       // default page num
+       $currentpage = 1;
+    } // end if
 
-// the offset of the list, based on current page
-$offset = ($currentpage - 1) * $rowsperpage;
-// get the info from the db
-$sql = "SELECT * FROM advertised_project LIMIT $rowsperpage OFFSET $offset";
-$result = pg_query($db, $sql);
+    // if current page is greater than total pages...
+    if ($currentpage > $totalpages) {
+       // set current page to last page
+       $currentpage = $totalpages;
+    } // end if
+    // if current page is less than first page...
+    if ($currentpage < 1) {
+       // set current page to first page
+       $currentpage = 1;
+    } // end if
 
-$i=0;
-$project = array();
-while($row = pg_fetch_assoc($result)){
-	$project[$i] = $row;
-	$i++;
-}
-if(!result) {
-	echo "Unable to retrieve result";
-}
+    // the offset of the list, based on current page
+    $offset = ($currentpage - 1) * $rowsperpage;
+    // get the info from the db
+    $sql = "SELECT * FROM advertised_project LIMIT $rowsperpage OFFSET $offset";
+    $result = pg_query($db, $sql);
+
+    $i=0;
+    $project = array();
+    while($row = pg_fetch_assoc($result)){
+        $project[$i] = $row;
+        $i++;
+    }
+    if(!result) {
+        echo "Unable to retrieve result";
+    }
 ?>
 
 <html>
@@ -112,9 +114,8 @@ if(!result) {
 							<?php
 							include 'db.php';
 							$queryUser = $_SESSION['username'];
-							$resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
-							$rowAdmin = pg_num_rows($resultAdmin);
-							if($rowAdmin > 0){
+							$isAdmin = isMemberAdmin($db, $queryUser);
+							if($isAdmin){
 								echo '<li class="nav-item">';
 								echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
 								echo '</a>';
@@ -303,17 +304,17 @@ if(!result) {
 		function sendInvestment() {
 			document.forms[0].submit();
 			<?php
-			include '../php/updateInvest.php';
-			$investment = pg_query($db, "SELECT * FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
-			$numRows = pg_num_rows($investment);
+                include '../php/investment.php';
+                $investment = pg_query($db, "SELECT * FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
+                $numRows = pg_num_rows($investment);
 
-			if ($numRows > 0) {
-				$result = pg_query($db, "SELECT amount FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
-				$prevAmount = pg_fetch_result($result, 0, 0);
-				updateInvestmentAmount($db, $UNAME, $_POST[formId], $_POST[amtPledged]+$prevAmount);
-			} else {
-				pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')");
-			}
+                if ($numRows>0) {
+                    $result = pg_query($db, "SELECT amount FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
+                    $prevAmount = pg_fetch_result($result, 0, 0);
+                    updateInvestmentAmount($db, $UNAME, $_POST[formId], $_POST[amtPledged]+$prevAmount);
+                } else {
+                    pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')");
+                }
 			?>;
 		}
 		</script>
