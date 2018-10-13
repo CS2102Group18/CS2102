@@ -1,8 +1,8 @@
 <?php
   echo "Starting Session";
   session_start();
-  include '../php/db.php';
-  include '../php/updateAdvertisedProject.php';
+  include 'db.php';
+  include 'project.php';
 
   $projectId = $_POST['projectId'];
   $description = $_POST['descriptionInput'];
@@ -17,5 +17,5 @@
   updateProjectStartDate($db, $projectId, $startDate);
   updateProjectDuration($db, $projectId, $duration);
 
-  header("location:profile.php");
+  header("location:../public/profile.php");
 ?>

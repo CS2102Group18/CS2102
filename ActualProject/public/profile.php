@@ -224,7 +224,7 @@
 				<div id="menu1" class="tab-pane fade">
 					<h3>My Projects</h3>
 					<?php foreach($projectList as $projectRow): ?>
-						<form id="profileFormDeleteProject<?php echo $projectRow['id'];?>" action="deleteProfileProject.php" method="POST"></form>
+						<form id="profileFormDeleteProject<?php echo $projectRow['id'];?>" action="../php/deleteProjectFromProfile.php" method="POST"></form>
 					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
@@ -277,7 +277,7 @@
 										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['id'];?>">
+										<form action="../php/updateProjectFromProfile.php" method="POST" id="modalFormForProject<?php echo $projectRow['id'];?>">
 											<input type="hidden" name="projectId" value="<?php echo $projectRow['id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Description</label>
@@ -356,7 +356,7 @@
 				<div id="menu2" class="tab-pane fade">
 					<h3>My Investments</h3>
 					<?php foreach($investmentList as $investmentRow): ?>
-						<form id="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>" action="deleteProfileInvestment.php" method="POST"></form>
+						<form id="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>" action="../php/deleteInvestmentFromProfile.php" method="POST"></form>
 					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
@@ -409,7 +409,7 @@
 										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $investmentRow['proj_id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="updateMyInvestment.php" method="POST" id="modalFormForInvestment<?php echo $investmentRow['proj_id'];?>">
+										<form action="../php/updateInvestmentFromProfile.php" method="POST" id="modalFormForInvestment<?php echo $investmentRow['proj_id'];?>">
 											<input type="hidden" name="projectId" value="<?php echo $investmentRow['proj_id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Amount Invested</label>
