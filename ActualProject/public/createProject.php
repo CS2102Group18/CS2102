@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
 include '../php/db.php';
+include '../php/project.php';
+include '../php/member.php';
+
 session_start();
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
   // echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
@@ -11,16 +14,12 @@ $UNAME = $_SESSION['username'];	//retrieve USERNAME
 if(isset($_POST['Create'])) {
   //Run the following 2 together
   $getTitle = $_POST['title'];
-  $getDescripton = $_POST['description'];
+  $getDescription = $_POST['description'];
   $getCategory = $_POST['category'];
   $getFunds = $_POST['amtNeeded'];
 
-  if(!empty($getTitle) && !empty($getDescripton) && !empty($getCategory) && !empty($getFunds) && is_numeric($getFunds)) {
-    echo "<script>console.log('All fields are filled!');</script>";
-	echo "<script>console.log('$getTitle');</script>";
-	echo "<script>console.log('$getDescripton');</script>";
-	echo "<script>console.log('$getCategory');</script>";
-    $projectResult = pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('$UNAME','$getTitle', '$getDescripton', '$getCategory','$getFunds')");
+  if(!empty($getTitle) && !empty($getDescription) && !empty($getCategory) && !empty($getFunds) && is_numeric($getFunds)) {
+    $projectResult = createProject($db, $UNAME, $getTitle, $getDescription, $getCategory, $getFunds);
     if($projectResult) {
       echo "<script>console.log('Entered Project Result!');</script>";
 	  echo "<script>alert('Successfully created project');</script>";
@@ -129,16 +128,14 @@ if(isset($_POST['Create'])) {
               <a href="home.php" class="text-small nav-link px-2">Explore</a>
             </li>
             <?php
-            include '../php/db.php';
-            $queryUser = $_SESSION['username'];
-            $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
-            $rowAdmin = pg_num_rows($resultAdmin);
-            if($rowAdmin > 0){
-              echo '<li class="nav-item">';
-              echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
-              echo '</a>';
-              echo '</li>';
-            }
+                $queryUser = $_SESSION['username'];
+                $isAdmin = isMemberAdmin($db, $queryUser);
+                if($isAdmin){
+                  echo '<li class="nav-item">';
+                  echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+                  echo '</a>';
+                  echo '</li>';
+                }
             ?>
           </ul>
           <button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
