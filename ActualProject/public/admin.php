@@ -127,7 +127,7 @@
 							  <td><?php echo $projectRow['username'];?></td>
 							  <td><?php echo $projectRow['email'];?></td>
 							  <td>
-								<form id="myForm" action="deleteMember.php" method="POST">
+								<form id="myForm" action="../php/deleteMemberFromAdmin.php" method="POST">
 									<input type="hidden" name="deletedUser" value="<?php echo $projectRow['username'];?>" id="hiddenForm">
 									<button id="sub">Delete</button>
 								</form>

@@ -2,9 +2,10 @@
 echo "Starting Session";
 session_start();
 include 'db.php';
+include 'member.php';
 
 $user = $_POST['deletedUser'];
-$result = pg_query($db, "DELETE FROM member where username = '$user'");
+$result = deleteMember($db, $user);
 $row = pg_num_rows($result);
 if($row > 0) {
 	echo "Delete Success";
@@ -12,5 +13,5 @@ if($row > 0) {
 else{
 	echo "Delete Failed";
 }
-header("location:admin.php");
+header("location:../public/admin.php");
 ?>
