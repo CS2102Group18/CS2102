@@ -138,7 +138,7 @@ if(isset($_POST['Create'])) {
                 }
             ?>
           </ul>
-          <button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+          <button class="btn btn-primary btn-sm" name="logout"><a href="../php/logout.php" class="logout">Logout</a></button>
         </div>
       </div>
     </div>

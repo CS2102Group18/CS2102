@@ -13,7 +13,7 @@
 			//echo "You're logged into the admin's area " . $_SESSION['username'] . "!";
 		}
 	} else {
-		header("location:logout.php");
+		header("location:../php/logout.php");
 	}
 	
 	//Pagination Implementation
@@ -96,7 +96,7 @@
 					</a>
 				  </li>
 				</ul>
-				<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+				<button class="btn btn-primary btn-sm" name="logout"><a href="../php/logout.php" class="logout">Logout</a></button>
 			  </div>
 			</div>
 		  </div>
