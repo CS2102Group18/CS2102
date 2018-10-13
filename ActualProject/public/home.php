@@ -37,9 +37,9 @@ if ($currentpage < 1) {
    $currentpage = 1;
 } // end if
 
-// the offset of the list, based on current page 
+// the offset of the list, based on current page
 $offset = ($currentpage - 1) * $rowsperpage;
-// get the info from the db 
+// get the info from the db
 $sql = "SELECT * FROM advertised_project LIMIT $rowsperpage OFFSET $offset";
 $result = pg_query($db, $sql);
 
@@ -151,6 +151,7 @@ if(!result) {
 											<div class="d-flex align-items-center">Amount needed : <?php echo $projectRow['amt_needed'];?></div>
 											<div class="d-flex align-items-center">Amount raised : <?php echo $projectRow['amt_raised'];?></div>
 										</div>
+										<?php if($UNAME!=$projectRow['entrepreneur']): ?>
 										<div class="col-md-4">
 											<div class="d-flex align-items-center justify-content-between">
 												<a href="#!" data-toggle="modal" data-target="#exampleModal"
@@ -166,6 +167,7 @@ if(!result) {
 												'<?php echo $projectRow['status'];?>')">Invest</a>
 											</div>
 										</div>
+										<?php endif; ?>
 									</div>
 								</div>
 							</div>
@@ -252,13 +254,13 @@ if(!result) {
 									 // make it a link
 									 echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x'>$x</a> ";
 								  } // end else
-							   } // end if 
+							   } // end if
 							} // end for
-							// if not on last page, show forward and last page links        
+							// if not on last page, show forward and last page links
 							if ($currentpage != $totalpages) {
 							   // get next page
 							   $nextpage = $currentpage + 1;
-								// echo forward link for next page 
+								// echo forward link for next page
 							   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'>></a> ";
 							   // echo forward link for lastpage
 							   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'>>></a> ";
@@ -306,7 +308,6 @@ if(!result) {
 			$numRows = pg_num_rows($investment);
 
 			if ($numRows > 0) {
-				//pg_query($db, "INSERT INTO invest(proj_id, investor, amount) VALUES('$_POST[formId]', '$UNAME', '$_POST[amtPledged]')");
 				$result = pg_query($db, "SELECT amount FROM invest WHERE investor='$UNAME' AND proj_id='$_POST[formId]'");
 				$prevAmount = pg_fetch_result($result, 0, 0);
 				updateInvestmentAmount($db, $UNAME, $_POST[formId], $_POST[amtPledged]+$prevAmount);
