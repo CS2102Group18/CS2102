@@ -22,7 +22,7 @@ if(isset($_POST['Create'])) {
 	echo "<script>console.log('$getCategory');</script>";
     $projectResult = pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('$UNAME','$getTitle', '$getDescripton', '$getCategory','$getFunds')");
     if($projectResult) {
-      echo "<script>console.log('Entered Project Result!');</script>";      
+      echo "<script>console.log('Entered Project Result!');</script>";
 	  echo "<script>alert('Successfully created project');</script>";
     } else {
       echo "<script>alert('Error Occured there! Please Ensure that all the fields are filled correctly');</script>";
@@ -95,6 +95,8 @@ if(isset($_POST['Create'])) {
   }
   label {
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
   }
   input {
     padding: 20px;
@@ -171,7 +173,7 @@ if(isset($_POST['Create'])) {
 			</div>
 			<div class="form-group">
 			  <div class="form-group">
-				<label for="name" class="col-sm-2 control-label">Choose the Category of Project</label>
+				<label for="name" class="col-sm-2 control-label">Choose a category</label>
 				<div class="col-sm-10">
 				  <select class="btn btn-primary dropdown-toggle" id="select_1" name="category" required>
 					<option value="Fashion">Fashion</option>
