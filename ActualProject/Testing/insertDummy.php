@@ -1,84 +1,109 @@
 <?php
-	// Connect to the database. Please change the password in the following line accordingly
-  $db = pg_connect("host=localhost port=5432 dbname=cs2102 user=postgres password=group18@CS2102");
+    // Connect to the database. Please change the password in the following line accordingly
+    $db = pg_connect("host=localhost port=5432 dbname=cs2102 user=postgres password=group18@CS2102");
 
-	// Delete all tables from database - a clean start
-	$clear_database = file_get_contents('../sql/dropTable.sql', true);
-	$database_cleaning_result = pg_query($db, $clear_database);
+    // Delete all tables from database - a clean start
+    $clear_database = file_get_contents('../sql/dropTable.sql', true);
+    $database_cleaning_result = pg_query($db, $clear_database);
 
-	// Create table in database
-	$table_schema = file_get_contents('../sql/createTableSchema.sql', true);
-	$table_creation_result = pg_query($db, $table_schema);
+    // Create table in database
+    $table_schema = file_get_contents('../sql/createTableSchema.sql', true);
+    $table_creation_result = pg_query($db, $table_schema);
 
-  // Insert members
-  pg_query($db, "INSERT INTO member(username, password, email, biography, is_admin) VALUES('admin', 'admin', 'admin@cs2102.com', 'This is an admin acount', 1)");
-  pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('user', 'pass', 'user@cs2102.com', 'This is a user account')");
-  pg_query($db, "INSERT INTO member(username, password) VALUES('Naruto', '12r42345f')");
-  pg_query($db, "INSERT INTO member(username, password) VALUES('Sasuke', 'wg453g25')"); //Just an entrepreneur
-  pg_query($db, "INSERT INTO member(username, password) VALUES('Sakura', 'qwe342b')");
-  pg_query($db, "INSERT INTO member(username, password) VALUES('Ino', 'u45b3456h')");
-  pg_query($db, "INSERT INTO member(username, password) VALUES('Shikamaru', 'g3423g45')");  //Just an Investor
-  pg_query($db, "INSERT INTO member(username, password, email) VALUES('Jiraya', '4v57i6bc5g', 'jirayathesage@konoha.com')");  // Neither entrepreneur nor investor
-  pg_query($db, "INSERT INTO member(username, password, biography) VALUES('Tsunade', 'q3v6e33', 'Gambling is my forte!')");
-  pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('Kakashi', '3v4645u75j', 'kakashi@konoha.com', 'I was the 6th Hokage of the Hidden Leaf Village. I can summon dogs.')");
-  pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('Iruka', 'mo9w3ttwo', 'iruka@konohaacademy.com', 'I who served primarily as an instructor at the Academy until being promoted to Headmaster years later. I am both big-hearted, and soft-hearted. This is most often seen through my teaching methods, often giving a watchful eye over my students as they progress. This however, does not mean that I is a pushover, as I can be stern when the situation calls for it most  often seen when I shouts at my students in order to get them to obey me.')");
-  pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('Itachi', 'jpmoilvwc5i', 'itachi@akatsuki.com', 'I was a prodigy of the Uchiha clan and also served as an Anbu Captain. I later became an international criminal after murdering my entire clan, sparing only my younger brother, Sasuke. I afterwards joined the international criminal organisation known as Akatsuki')");
-  pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('Hinata', 'hnvow44238c', 'hinata@konohagakure.com', 'I am a kunoichi and the former heiress of the Hyūga clan. Because of my meek disposition, my father doubted that I was suited for the responsibilities of leading the clan, much less life as a ninja, leading him to disinherit me. Nonetheless, Hinata persevered and from observation of Naruto Uzumaki especially, I found both an example to follow to be more assertive, and a person to love. ')");
-  pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('Kiba', 'vbaery53', 'kiba@konohateam8.com', 'I am a member of the Inuzuka clan and a member of Team Kurenai. Despite my headstrong, and at times egotistic attitude, Kiba is loyal to my comrades and will do anything to protect them with my trusted canine companion, Akamaru, by my side.')");
+    // Insert members
+    pg_query($db, "INSERT INTO member(username, password, email, biography, is_admin) VALUES('admin', 'admin', 'admin@cs2102.com', 'This is an admin acount', 1)");
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('user', 'pass', 'user@cs2102.com', 'This is a user account')");
+    pg_query($db, "INSERT INTO member(username, password) VALUES('sasuke', 'wg453g25')");     //Just an Entrepreneur
+    pg_query($db, "INSERT INTO member(username, password) VALUES('shikamaru', 'g3423g45')");  //Just an Investor
+    pg_query($db, "INSERT INTO member(username, password, email) VALUES('Jiraya', '4v57i6bc5g', 'jirayathesage@konoha.com')");  // Neither entrepreneur nor investor
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('naruto', 'wer53g42g', 'naruto@konoha.com', 'I was the 7th Hokage of the Hidden Leaf Village.')");
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('kakashi', '3v4645u75j', 'kakashi@konoha.com', 'I was the 6th Hokage of the Hidden Leaf Village. I can summon dogs.')");
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('iruka', 'mo9w3ttwo', 'iruka@konohaacademy.com', 'I who served primarily as an instructor at the Academy until being promoted to Headmaster years later. I am both big-hearted, and soft-hearted. This is most often seen through my teaching methods, often giving a watchful eye over my students as they progress. This however, does not mean that I is a pushover, as I can be stern when the situation calls for it most  often seen when I shouts at my students in order to get them to obey me.')");
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('itachi', 'jpmoilvwc5i', 'itachi@akatsuki.com', 'I was a prodigy of the Uchiha clan and also served as an Anbu Captain. I later became an international criminal after murdering my entire clan, sparing only my younger brother, Sasuke. I afterwards joined the international criminal organisation known as Akatsuki')");
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('hinata', 'hnvow44238c', 'hinata@konohagakure.com', 'I am a kunoichi and the former heiress of the Hyūga clan. Because of my meek disposition, my father doubted that I was suited for the responsibilities of leading the clan, much less life as a ninja, leading him to disinherit me. Nonetheless, Hinata persevered and from observation of Naruto Uzumaki especially, I found both an example to follow to be more assertive, and a person to love. ')");
+    pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('kiba', 'vbaery53', 'kiba@konohateam8.com', 'I am a member of the Inuzuka clan and a member of Team Kurenai. Despite my headstrong, and at times egotistic attitude, Kiba is loyal to my comrades and will do anything to protect them with my trusted canine companion, Akamaru, by my side.')");
 
-  // Insert projects
-  pg_query($db, "INSERT INTO project(title, description, category) VALUES('Chasing a girl named Sakura', 'A quest that Naruto sets out for', 'Community')");
-  pg_query($db, "INSERT INTO project(title, description, category) VALUES('A Rogue Ninja', 'Sasuke finding his own identity', 'Games')");
-  pg_query($db, "INSERT INTO project(title, description, category) VALUES('The Fourth Ninja War', 'The final showdown featuring Naruto', 'Games')");
-  pg_query($db, "INSERT INTO project(title, description, category) VALUES('Bakery Shop', 'Own by Ino', 'Food')");
-  pg_query($db, "INSERT INTO project(title, description, category) VALUES('A new gambling casino to be opened in the Hidden Leaf Vilalge', 'Fund me! The winning rate are super high. I can guarantee you that the casino will shower you with all the luck you need. The more you play, the higher chance of winning. go big or go home! Thank you for your support, see you there!', 'Games')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date) VALUES('Bikochu Search Mission', 'Help Naruto find a bikochu, so that he can use it to locate Sasuke by scent.', 'Food', '2009-02-18')");
-  pg_query($db, "INSERT INTO project(title, description, category, duration) VALUES('Itachi Pursuit Mission', 'This is a mission to locate Sasuke or Itachi. May have contact with Kabuto Yakushi and the Akatsuki.', 'Fashion', '18:30:55')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Land of Tea Escort Mission', 'To protext Idate Morino as he runs a race. May encounter Team oboro and Aoi Rokusho. Returns to Konoha after the race', 'Music', '1998-09-03', '00:15:20')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Search for Tsunade', 'Reward for finding shall be to learn a technique stronger than Chidori.', 'Handicraft', '1978-11-06', '10:00:20')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Kazekage Rescue Mission', 'Go to Sunagakure to assist in rescuing Gaara. There may be many confrontation enroute to Sunagakure.', 'Photography', '2015-01-27', '0:00:20')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Fourth Shinobi World War', 'Gather all Jinchurikis to fight together as one!', 'Community', '2008-12-11', '15:00:00')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Fourth Shinobi World War', 'Bring the reincarnated Hokages to fight in this war', 'Community', '2008-12-11', '24:00:00')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Fourth Shinobi World War', 'Join the healing forces in this war', 'Community', '2008-12-11', '24:00:00')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Learning Taijutsu', 'Inclues Gentle Fist fighting style and Eight Trigrams Palms Revolving Heaven', 'Handicraft', '1889-05-30', '02:10:06')");
-  pg_query($db, "INSERT INTO project(title, description, category, start_date, duration) VALUES('Kaima Capture Mission', 'Escort a delivery ship in the Land of the Sea as well as investigating a possible sea monster', 'Technology', '1955-08-17', '09:02:14')");
+    // Insert advertised projects
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'la doublure - Le Pantalon au féminin Pants for women', 'Je mappelle Amandine et je suis la fondatrice de la doublure.', 'Fashion', '2018-01-19', '15:25:33', '10000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'An enamel pin set', 'centered around self-care, and the bloody, capitalistic fires of Hell.', 'Fashion', '2011-02-21', '11:05:35', '750')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Club Bag: The Jetsetters Ultimate Tech Backpack', 'Exclusive Shelf & Drawer System, ScanFly Tethered Laptop Option, and Removable Shelves.', 'Fashion', '2018-12-01', '20:11:05', '250')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'HumbleWorks Standing Desk - Stan1', 'Simple, adjustable, portable - standing desks that transform the way you work', 'Fashion', '1905-12-03', '20:10:00', '241')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Bala Bangles - Wearable Wrist/Ankle Weights', 'Get fit faster with Bala Bangles weights. Best for yoga, running, aerobics, swimming, travel, gym.', 'Fashion', '1999-10-21', '20:26:00', '50')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Laserlight Core - Projection Bike Light for Safer Cycling', 'Laserlight projects the symbol of a bike 6m ahead of the rider, allowing them to be seen from the blind spot when otherwise hidden.', 'Technology', '2002-01-19', '00:05:21', '108.50')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'IRL Glasses - Glasses that Block Screens', 'Glasses that allow you to live IRL (In Real Life) and see everything except screens', 'Technology', '2015-06-30', '10:55:02', '129800')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Bushiden - A Futuristic, Ninja Action Platformer', 'Explore for cybernetic upgrades until you are powerful enough to defeat the diabolic Gaoh and his cybergenetic army once and for all!', 'Games', '2014-12-11', '03:12:55', '55360')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', '¡YAPPAH! Chicken Crisps: Rethinking Snacks, For Good', 'Helping tackle a major sustainability issue - food waste - with a delicious and nutritious snack. It’s change you can taste.', 'Food', '2002-11-06', '00:22:01', '13402')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Flashback To Never', 'An alternate history podcast told through 1962 pop radio.', 'Music', '2011-05-06', '00:23:22', '50')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Documentary Exposes Denim Manufacturing Impacts on Global Rivers', 'Filmmakers Launch 30-Day Crowdfunding Campaign Toronto, ON (June 18, 2014): How Dirty Are Your Blue Jeans? This is the question that filmmakers behind the Canadian feature documentary RiverBlue are asking.', 'Photography', '2009-10-05', '14:11:24', '300')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Nepal Handicraft Education', 'I had the idea of visiting villages in Nepal and teaching the women there how to make use of handicrafts. For that reason we are picking up bamboo waste from different farms which is still in a good condition to work with. It is also completely organic. We are teaching the women how to do carvings, work with hemp cords and use simple machines for making precise and detailed handicrafts. Thank you for supporting our campaign!', 'Handicraft', '2003-10-02', '00:50:41', '250')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('sasuke', 'Positive community', 'Nobody is ever setting up things in attawapiskat. We wanna make a change in attawapiskat, we want our people to be happy. We wanna do fun things for our community, we want to have activity nights, we want community feast. We want to donate clothes, we want to donate toys, we want to donate food, we want to donate plates,forks,cups. We want to donate stuff to children.', 'Community', '2001-05-08', '00:55:21', '23000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('naruto', 'Get Terris to NY Fashion Week!', 'For the past few years Ive been one of a small group of artists invited to work with young people in the 7th, 8th and 9th ward communities of New Orleans. With resourcefulness and the help of supporters, weve created free art workshops in music recording, sculpture and installation, and fashion design.', 'Fashion', '2011-12-16', '00:22:12', '2500')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kakashi', 'New York Fashion Week', 'Recently, I was presented with the opportunity to showcase my clothing line in New York. I am in the process of planning the trip to New York for “New York Fashion Week” September 7-13.', 'Fashion', '2015-12-19', '12:22:00', '1500')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('iruka', 'Blaack And Metiisse Fashion Support', 'Please donate a minimum of 8$-10$ due to Facebook charging us to boost post. We are very upset that we now have to pay facebook to reach the followers we paid them to advertise our page to back in 2011. Thank you for supporting the page again.', 'Fashion', '2016-08-13', '15:00:00', '3675')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('itachi', 'Fashion Line', 'I am an aspiring designer at Illinois state university endeavoring to start my first line for the 2017 ISU fashion show. As a student though I am not in the position to afford the supplies needed to execute my designs fully. For as long as I can remember, fashion, history and historical costuming have been my passion.', 'Fashion', '2017-01-13', '16:11:23', '500')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('hinata', 'Paris Fashion Week Dream Come True', 'Hello Everyone and thank you for taking the time to donate or just taking the time to share my post.', 'Fashion', '2001-12-08', '22:27:21', '575')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kiba', 'Fashion Line', 'We need travel and hotel accommodations, computers, monitors, workshop education and and money to purchase our digital fabric designs. We have lived the #metoo', 'Fashion', '2001-12-08', '00:15:11', '757')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('naruto', 'The Misen Nonstick Pan', 'The essential nonstick pan, redefined. No gimmicks.', 'Technology', '2014-11-09', '00:55:21', '1500')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('naruto', 'Kingdom Rebels Disability Soccer', 'Help the Kingdom Rebels afford a new sportschair to provide access to the sport of power soccer for people with disabilities!', 'Games', '2015-12-09', '09:12:44', '4000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('naruto', 'The Gibbard Block -- burgers, bagels, beers, and more...', 'One building to house it all! Edmontons historic Gibbard Block will be our newest venture for not one, not two, but three new ventures', 'Food', '2001-07-18', '17:22:33', '47480')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('naruto', 'Tivoli Club Brass Band', 'Tivoli Club Brass Band', 'Music', '2016-02-13', '12:22:55', '1256')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('naruto', '26 new PATCHWORK PALS', 'the second season of the animated childrens series PATCHWORK PALS - die zweite Staffel der animierten Kinderserie MEINE SCHMUSEDECKE', 'Photography', '2003-07-11', '02:32:32', '28900')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kakashi', 'Fund for saving handicraft', 'A lauh is a collapsible wooden rest for books, one of the most original articles ever produced by Uzbek woodcarvers.', 'Handicraft', '1918-06-23', '05:10:04', '5000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kakashi', 'Reforesting the Ecuadorian Amazon', 'I´m raising money to build tree nurseries in indigenous communities in the Ecuadorian Amazon to restore deforested land and give them an alternative to deforestation, with useful timber, edible, medicinal species and others they use for handicrafts.', 'Handicraft', '2005-05-15', '15:55:55', '5450')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('iruka', 'Food for cows', 'With the drought now lasting over 2 years, the dams nearly empty and only few bales of hay left I have to ask for help to feed my cows. This is something I’m not comfortable doing but my cows mean everything to my family, my workers and myself.', 'Food', '2000-05-18', '18:18:18', '268283')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('iruka', 'The New School Kitchen Food Truck', 'The New School Kitchen Food Trucks is working in collaboration with Heartbeat International Ministries and their feeding program, Taste & See  to feed the hungry and displaced people in southeastern North Carolina.', 'Food', '1915-10-11', '12:12:12', '1615')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('itachi', 'Monkey House Games Legal Battle', 'We created the classic 1979 superhero tabletop role-playing game, Villains and Vigilantes. We re-released V&V in 2010 when we learned that the original publisher, FGU Inc., ceased to exist in 1991 and that the publishing rights to V&V reverted to us at that time.', 'Games', '2001-04-11', '11:11:11', '27570')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('itachi', 'Marias Photography Equipment', 'I do take pictures since I got my very first camera, I think I was 12 years old and it was an analog camera. Ive always been inspired by people, our actions and the moments that we create but I was too scared to actually take photos of people for a really long time. Then last year I began doing portrait shots and I was and Im still overwhelmed with all the positive reactions that I got since then.', 'Photography', '2003-11-10', '10:10:10', '5500')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('hinata', 'Orly Evens photography needs you', 'While many of the things that were taken can never truly be replaced, $8,000 would get her back on her feet and behind the camera. I know how much you all deeply care for her, and I hope that together we can help her get the tools she needs to keep doing her amazing photography!', 'Photography', '2015-10-19', '00:10:02', '8000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('hinata', 'Deakin Graduates Exhibition', 'We are this year’s graduating photographic art students from Deakin University and we have decided to stage an exhibition to celebrate with our local community.', 'Photography', '2002-10-13', '19:23:44', '1000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('hinata', 'Play by Play Data and Analysis', 'Im raising money to purchase three years of play level charting data for analysis. Backers will receive a detailed document with all findings and metrics that cant currently be found anywhere else.', 'Games', '2019-12-11', '03:24:33', '8000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kiba', 'Super Bowl Challenge for ALS', 'Whoever gets the most donations for their team will get a 3 point advanatage going into the Super Bowl.', 'Games', '2020-12-11', '13:11:23', '2500')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kiba', 'NYC Jeep Club Turkey Run food drive', 'Hey Friends and Family.  This Sunday NYC Jeep Club will be having our 4th annual Turkey Run to help Long Islands hungry.  We plan to collect 10,000 pounds or more for Island Harvest as well as the BBQ Brethren.', 'Food', '2019-08-19', '15:23:44', '1000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kiba', 'Vet Bills/Dog Food', 'You, our supporters, are the only reason we can contiue to save more dogs! Thank you, thank you for helping! We have been saving Great Pyrenees for 11 years now! We have just celebrated our 11th Anniversary in March of 2017!', 'Food', '2015-10-11', '16:44:21', '6000')");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, start_date, duration, amt_needed) VALUES('kiba', 'MB 1st Responders Hotel & Food Fund', 'I was told that the Employees of Myrtle Beach Police Department are staying at a local hotel in close proximity to the Barrick’s/Station.. They are having to pay for their own rooms.', 'Food', '2019-11-05', '06:00:00', '25000')");
+    
+    // Insert investments
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 2, 100)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('naruto', 2, 500)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kakashi', 2, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('hinata', 2, 75)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('itachi', 2, 25)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 3, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 4, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 5, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 6, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 7, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 8, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 9, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 10, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 11, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 12, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 13, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('shikamaru', 14, 50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('naruto', 15, 10)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('naruto', 16, 15)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('naruto', 17, 30)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('naruto', 18, 10)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kiba', 19, 5)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kiba', 20, 3)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kiba', 21, 5)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kakashi', 22, 15)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kakashi', 23, 20)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('kakashi', 24, 20)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('itachi', 15, 10)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('itachi', 16, 10)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('itachi', 22, 10)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('itachi', 23, 10.50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('hinata', 30, 1.50)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('hinata', 31, 22)");
+    pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('hinata', 32, 5)");
 
-  // Insert advertisement
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 1, 200)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sasuke', 2, 100)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 3, 500)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Ino', 4, 75)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Tsunade', 5, 1000000)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Hinata', 6, 600)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Hinata', 7, 1000)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sakura', 8, 222)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 9, 925)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 10, 777)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 11, 9000000)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sasuke', 12, 500)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sakura', 13, 800)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Hinata', 14, 80)");
-  pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Ino', 15, 700)");
-
-  // Insert investments
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Ino', 1, 100)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Shikamaru', 1, 50)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Sakura', 2, 90)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 6, 400)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Kiba', 6, 200)");  //Make Project 6 fully funded
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Kiba', 7, 500)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 12, 400)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 14, 20)");
-  pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Naruto', 15, 200)");
-
-  // Display Tables
-  include 'UnitTest/displayTable.php';
-  displayTableMember($db);
-  echo "<br><br>";
-  displayTableProject($db);
-  echo "<br><br>";
-  displayTableAdvertise($db);
-  echo "<br><br>";
-  displayTableInvest($db);
-  echo "<br><br>";
+    // Display Tables
+    include 'UnitTest/displayTable.php';
+    displayTableMember($db);
+    echo "<br><br>";
+    displayTableProject($db);
+    echo "<br><br>";
+    displayTableInvest($db);
+    echo "<br><br>";
 ?>

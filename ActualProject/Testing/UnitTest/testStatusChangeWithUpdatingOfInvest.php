@@ -14,12 +14,8 @@
     pg_query($db, "INSERT INTO member(username, password) VALUES('Shikamaru', 'g3423g45')");
     
     // Insert projects
-    pg_query($db, "INSERT INTO project(title, description, category) VALUES('Chasing a girl named Sakura', 'A quest that Naruto sets out for', 'Community')");
-    pg_query($db, "INSERT INTO project(title, description, category) VALUES('A Rogue Ninja', 'Sasuke finding his own identity', 'Games')");
-    
-    // Insert advertisement
-    pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Naruto', 1, 200)");
-    pg_query($db, "INSERT INTO advertise (entrepreneur, proj_id, amt_needed) VALUES ('Sasuke', 2, 100)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('Naruto', 'Chasing a girl named Sakura', 'A quest that Naruto sets out for', 'Community', 500)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('Sasuke', 'A Rogue Ninja', 'Sasuke finding his own identity', 'Games', 100)");
     
     // Insert investments
     pg_query($db, "INSERT INTO invest (investor, proj_id, amount) VALUES ('Ino', 1, 100)");
@@ -30,7 +26,7 @@
     
     echo "<u><b>AFTER INSERTION - Original Tables</b></u>";
     echo "<br>";
-    displayTableAdvertise($db);
+    displayTableProject($db);
     echo "<br><br>";
     displayTableInvest($db);
     echo "<br><br>";
@@ -45,7 +41,7 @@
     updateInvestmentAmount($db, 'Sakura', 2, 50);
     echo "<u>Action: Changed Sakura's investment from 90 to 50</u>";
     echo "<br>";
-    displayTableAdvertise($db);
+    displayTableProject($db);
     echo "<br><br>";
     displayTableInvest($db);
     echo "<br><br>";
@@ -63,7 +59,7 @@
     updateInvestmentAmount($db, 'Sakura', 2, 100);
     echo "<u>Action: Changed Sakura's investment from 50 to 100</u>";
     echo "<br>";
-    displayTableAdvertise($db);
+    displayTableProject($db);
     echo "<br><br>";
     displayTableInvest($db);
     echo "<br><br>";
@@ -81,7 +77,7 @@
     updateInvestmentAmount($db, 'Sakura', 2, 20);
     echo "<u>Action: Changed Sakura's investment from 100 to 20</u>";
     echo "<br>";
-    displayTableAdvertise($db);
+    displayTableProject($db);
     echo "<br><br>";
     displayTableInvest($db);
     echo "<br><br>";

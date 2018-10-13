@@ -20,27 +20,16 @@ if(isset($_POST['Create'])) {
 	echo "<script>console.log('$getTitle');</script>";
 	echo "<script>console.log('$getDescripton');</script>";
 	echo "<script>console.log('$getCategory');</script>";
-    $projectResult = pg_query($db, "INSERT INTO project(title, description, category) VALUES('$getTitle', '$getDescripton', '$getCategory')");
+    $projectResult = pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('$UNAME','$getTitle', '$getDescripton', '$getCategory','$getFunds')");
     if($projectResult) {
       echo "<script>console.log('Entered Project Result!');</script>";
-      $advertiseResult = pg_query($db, "INSERT INTO advertise(entrepreneur, amt_needed) VALUES('$UNAME', '$getFunds')");
-      
-      if($advertiseResult) {
-        echo "<script>alert('Created Project Successfully!');</script>";
-        // sleep(10);
-        // header("location:home.php");
-      } else {
-      //  header("location:createProject.php");
-        echo "<script>alert('Error Occured here! Please Ensure that all the fields are filled correctly');</script>";
-      }
+	  echo "<script>alert('Successfully created project');</script>";
     } else {
-   //   header("location:createProject.php");
       echo "<script>alert('Error Occured there! Please Ensure that all the fields are filled correctly');</script>";
     }
   } else {
-    // header("location:createProject.php");
-    echo "<script>console.log('Error Occured!');</script>";
-    echo "<script>alert('Error Occured! Please Ensure that all the fields are filled correctly');</script>";
+	echo "<script>console.log('Error Occured!');</script>";
+	echo "<script>alert('Error Occured! Please Ensure that all the fields are filled correctly');</script>";
   }
 }
 
@@ -106,6 +95,7 @@ if(isset($_POST['Create'])) {
   }
   label {
     font-weight: bold;
+    white-space: nowrap;
   }
   input {
     padding: 20px;
@@ -182,7 +172,7 @@ if(isset($_POST['Create'])) {
 			</div>
 			<div class="form-group">
 			  <div class="form-group">
-				<label for="name" class="col-sm-2 control-label">Choose the Category of Project</label>
+				<label for="name" class="col-sm-2 control-label">Choose a category</label>
 				<div class="col-sm-10">
 				  <select class="btn btn-primary dropdown-toggle" id="select_1" name="category" required>
 					<option value="Fashion">Fashion</option>
