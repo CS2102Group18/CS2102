@@ -95,7 +95,6 @@ if(isset($_POST['Create'])) {
   }
   label {
     font-weight: bold;
-    overflow: hidden;
     white-space: nowrap;
   }
   input {
