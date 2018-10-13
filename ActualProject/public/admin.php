@@ -3,7 +3,7 @@
     include '../php/member.php';
 	session_start();
 	if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
-		include 'db.php';
+		include '../php/db.php';
 		$queryUser = $_SESSION['username'];
 		$isAdmin = isMemberAdmin($db, $queryUser);
 		if(!$isAdmin){

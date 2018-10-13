@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
-include 'db.php';
+include '../php/db.php';
 session_start();
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
   // echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
@@ -129,7 +129,7 @@ if(isset($_POST['Create'])) {
               <a href="home.php" class="text-small nav-link px-2">Explore</a>
             </li>
             <?php
-            include 'db.php';
+            include '../php/db.php';
             $queryUser = $_SESSION['username'];
             $resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
             $rowAdmin = pg_num_rows($resultAdmin);

@@ -1,7 +1,7 @@
 <?php
   echo "Starting Session";
   session_start();
-  include 'db.php';
+  include '../php/db.php';
   include '../php/updateAdvertisedProject.php';
 
   $projectId = $_POST['projectId'];

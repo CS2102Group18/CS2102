@@ -73,7 +73,7 @@
 <body>
   <form action="createMember.php", method = "POST">
     <div class="container">
-      <h1>Register Account for Crowd Funding</h1>
+      <h1>Register Account for Crowd Fundingytutyutyuytuy</h1>
       <p>Please fill in this form to create an account.</p>
       <hr>
       <label for="User Name"><b>User Name</b></label>
@@ -100,8 +100,8 @@
 </body>
 
 <?php
-include 'db.php';
-include '../php/createMember.php';
+include '../php/db.php';
+include '../php/member.php';
 
 if (isset($_POST['submit'])) {
   if ($_POST[password] == $_POST[passwordRepeat]){

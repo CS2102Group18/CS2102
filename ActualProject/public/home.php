@@ -7,7 +7,7 @@ if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
 	header("location:login.php");
 }
 $UNAME = $_SESSION['username'];	//retrieve USERNAME
-include 'db.php';
+include '../php/db.php';
 $currentId = '0';
 
 //Pagination Implementation
