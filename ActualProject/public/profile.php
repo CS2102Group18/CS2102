@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
-	include '../public/php/updateMember.php';
-	include 'db.php';
+    include 'db.php';
+    include '../php/member.php';
+    include '../php/project.php';
+    include '../php/investment.php';
+    
 	session_start();
 	if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
 		//	echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
@@ -10,9 +13,9 @@
 	}
 	$UNAME = $_SESSION['username'];	//retrieve USERNAME
 
-	$resultBiography = pg_query($db, "SELECT biography FROM member WHERE username = '$UNAME'");
+	$resultBiography = getBiographyOfMember($db, $UNAME);
 	$rowBiography = pg_fetch_row($resultBiography);
-	$resultEmail = pg_query($db, "SELECT email FROM member WHERE username = '$UNAME'");
+	$resultEmail = getEmailOfMember($db, $UNAME);
 	$rowEmail = pg_fetch_row($resultEmail);
 
 	if(isset($_POST['update'])) {
@@ -50,24 +53,23 @@
 			$isUpdateEmail = true;
 		}
 
-		// $sqlUpdateEmail = pg_query($db, updateEmail($db, $UNAME, $email));
 		//If no password reset is required
 		if($matchPassword) {
 			echo"<script>console.log( 'Entered matchassword' );</script>";
 			if($isUpdatePassword) {
-				$sqlUpdatePassword = pg_query($db, "UPDATE member SET password='$password' WHERE username='$UNAME'");
+				$sqlUpdatePassword = updatePassword($db, $UNAME, $password);
 				if(!$sqlUpdatePassword) {
 					echo"<script>console.log( 'Error in update Password' );</script>";
 				}
 			}
 			if($isUpdateEmail) {
-				$sqlUpdateEmail = pg_query($db, "UPDATE member SET email='$email' WHERE username='$UNAME'");
+				$sqlUpdateEmail = updateEmail($db, $UNAME, $email);
 				if(!$sqlUpdateEmail) {
 					echo"<script>console.log( 'Error in update Email' );</script>";
 				}
 			}
 			if($isUpdateBiography) {
-				$sqlUpdateBiography = pg_query($db, "UPDATE member SET biography='$biography' WHERE username='$UNAME'");
+				$sqlUpdateBiography = updateBiography($db, $UNAME, $biography);
 				if(!$sqlUpdateBiography) {
 					echo "<script>alert('Update Biography');</script>";
 				}
@@ -83,10 +85,9 @@
 
 <?php
 	//php for My Projects
-	include '../public/php/updateMember.php';
 	//Need to obtain My Project Info: Project Name/title, Project Id, Amt Raised , Target Amt, Status
 	//First send the query to get the project List
-	$projectListResult = pg_query("SELECT * FROM advertised_project p WHERE p.entrepreneur = '$UNAME' ORDER BY p.title;");
+	$projectListResult = getAllAdvertisedProjectsByEntrepreneur($db, $UNAME);
 	$projectListSize = pg_num_rows($projectListResult);
 	echo "<script>console.log( 'Project List size test is: " . $projectListSize . "' );</script>";
 	$projectList = array();
@@ -101,7 +102,7 @@
 <?php
 	//php for My Investments
 	//First send the query to get the investment List
-	$investmentListResult = pg_query("SELECT * FROM advertised_project p, invest i WHERE i.proj_id=p.id AND i.investor='$UNAME' ORDER BY p.title;");
+	$investmentListResult = getAllInvestmentsOfInvestor($db, $UNAME);
 	$investmentListSize = pg_num_rows($investmentListResult);
 	echo "<script>console.log( 'Investment List size test is: " . $investmentListSize . "' );</script>";
 	$investmentList = array();
@@ -112,7 +113,6 @@
 		$i++;
 	}
 ?>
-
 
 <html>
 	<head>
@@ -166,16 +166,13 @@
 									<a href="home.php" class="text-small nav-link px-2">Explore</a>
 								</li>
 								<?php
-								include 'db.php';
-								$queryUser = $_SESSION['username'];
-								$resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
-								$rowAdmin = pg_num_rows($resultAdmin);
-								if($rowAdmin > 0){
-									echo '<li class="nav-item">';
-									echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
-									echo '</a>';
-									echo '</li>';
-								}
+                                    $isAdmin = isMemberAdmin($db, $UNAME);
+                                    if($isAdmin){
+                                        echo '<li class="nav-item">';
+                                        echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+                                        echo '</a>';
+                                        echo '</li>';
+                                    }
 								?>
 							</ul>
 							<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
