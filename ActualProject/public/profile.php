@@ -253,16 +253,14 @@
 												<td align="center" width="50"><?php echo ($projectRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Edit">
-														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForProject<?php echo $projectRow['id'];?>" >
-															<span class="glyphicon glyphicon-pencil"></span>
+														<input type="button" style="background:url(img/edit.png) no-repeat; background-size:20px 20px; border:0; width:20px; height:20px;" data-title="Edit" data-toggle="modal" data-target="#modalForProject<?php echo $projectRow['id'];?>" >
 														</input>
 													</p>
 												</td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Delete">
 														<input type="hidden" name="projId" value="<?php echo $projectRow['id'];?>" form="profileFormDeleteProject<?php echo $projectRow['id'];?>">
-														<input type="button" id="profileFormDeleteProjectButton<?php echo $projectRow['id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
-														<span class="glyphicon glyphicon-trash"></span>
+														<input type="button" id="profileFormDeleteProjectButton<?php echo $projectRow['id'];?>" style="background:url(img/trash.png) no-repeat; background-size:20px 20px; border:0; width:20px; height:20px;" data-title="Delete" data-toggle="modal" >
 													</p>
 												</td>
 											</tr>
@@ -388,15 +386,13 @@
 												<td align="center" width="50"><?php echo ($investmentRow['status']==0 ? "Ongoing" : "Fully Funded");?></td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Edit">
-														<input type="button" class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#modalForInvestment<?php echo $investmentRow['proj_id'];?>" >
-														<span class="glyphicon glyphicon-pencil"></span></input>
+														<input type="button" style="background:url(img/edit.png) no-repeat; background-size:20px 20px; border:0; width:20px; height:20px;" data-title="Edit" data-toggle="modal" data-target="#modalForInvestment<?php echo $investmentRow['proj_id'];?>" >
 													</p>
 												</td>
 												<td align="center" width="50">
 													<p data-placement="top" data-toggle="tooltip" title="Delete">
 														<input type="hidden" name="projId" value="<?php echo $investmentRow['proj_id'];?>" form="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>">
-														<input type="button" id="profileFormDeleteInvestmentButton<?php echo $investmentRow['proj_id'];?>" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" >
-															<span class="glyphicon glyphicon-trash"></span>
+														<input type="button" id="profileFormDeleteInvestmentButton<?php echo $investmentRow['proj_id'];?>" style="background:url(img/trash.png) no-repeat; background-size:20px 20px; border:0; width:20px; height:20px;" data-title="Delete" data-toggle="modal" >
 														</input>
 													</p>
 											</tr>
