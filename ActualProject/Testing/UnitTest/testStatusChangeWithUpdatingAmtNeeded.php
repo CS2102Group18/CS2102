@@ -2,7 +2,7 @@
     include './connectionToDatabase.php';
     include './displayTable.php';
     
-    include '../../php/updateAdvertisedProject.php';
+    include '../../php/project.php';
     
 	$db = getDB();
     

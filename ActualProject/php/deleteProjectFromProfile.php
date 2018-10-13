@@ -2,10 +2,10 @@
   echo "Starting Session";
   session_start();
   include 'db.php';
-  include '../php/deleteAdvertisedProject.php';
+  include 'project.php';
 
   $id = $_POST['projId'];
   deleteProject($db, $id);
 
-  header("location:profile.php");
+  header("location:../public/profile.php");
 ?>

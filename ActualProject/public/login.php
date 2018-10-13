@@ -69,7 +69,7 @@
 	<body>
 		<h2>Login Form</h2>
 
-		<form action="login-authenticator.php" method="POST">
+		<form action="../php/loginAuthenticator.php" method="POST">
 			<div class="imgcontainer">
 			<img src="img/login.png" alt="Avatar" class="avatar">
 			</div>

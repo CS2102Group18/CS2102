@@ -1,23 +1,23 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
+    include '../php/member.php';
 	session_start();
 	if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
-		include 'db.php';
+		include '../php/db.php';
 		$queryUser = $_SESSION['username'];
-		$result = pg_query($db, "SELECT is_admin FROM member WHERE username = '$queryUser' AND is_admin = 1");
-		$rowAdmin = pg_num_rows($result);
-		if($rowAdmin == 0){
+		$isAdmin = isMemberAdmin($db, $queryUser);
+		if(!$isAdmin){
 			header("location:home.php");
 		}
 		else {
 			//echo "You're logged into the admin's area " . $_SESSION['username'] . "!";
 		}
 	} else {
-		header("location:logout.php");
+		header("location:../php/logout.php");
 	}
 	
 	//Pagination Implementation
-	$resultPage = pg_query($db, "SELECT * FROM member WHERE is_admin = 0 ORDER BY username ASC");
+	$resultPage = getAllNonAdminMembers($db);
 	$numrows = pg_num_rows($resultPage);
 	//echo "num of rows = $numrows";
 	// num of rows to show per page
@@ -96,7 +96,7 @@
 					</a>
 				  </li>
 				</ul>
-				<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+				<button class="btn btn-primary btn-sm" name="logout"><a href="../php/logout.php" class="logout">Logout</a></button>
 			  </div>
 			</div>
 		  </div>
@@ -127,7 +127,7 @@
 							  <td><?php echo $projectRow['username'];?></td>
 							  <td><?php echo $projectRow['email'];?></td>
 							  <td>
-								<form id="myForm" action="deleteMember.php" method="POST">
+								<form id="myForm" action="../php/deleteMemberFromAdmin.php" method="POST">
 									<input type="hidden" name="deletedUser" value="<?php echo $projectRow['username'];?>" id="hiddenForm">
 									<button id="sub">Delete</button>
 								</form>

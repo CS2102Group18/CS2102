@@ -2,7 +2,7 @@
     include './connectionToDatabase.php';
     include './displayTable.php';
     
-    include '../../php/deleteInvest.php';
+    include '../../php/investment.php';
 	
     $db = getDB();
     
@@ -34,7 +34,7 @@
     echo "<br><br>";
     
     // Delete the member
-    deleteInvest($db, 'Shikamaru', 1);
+    deleteInvestment($db, 'Shikamaru', 1);
     
     echo "<u><b>AFTER Deletion</b></u>";
     echo "<br>";

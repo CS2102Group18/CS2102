@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <?php
-	include '../public/php/updateMember.php';
-	include 'db.php';
+    include '../php/db.php';
+    include '../php/member.php';
+    include '../php/project.php';
+    include '../php/investment.php';
+    
 	session_start();
 	if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
 		//	echo "You're logged into the Profile's area " . $_SESSION['username'] . "!";
@@ -10,9 +13,9 @@
 	}
 	$UNAME = $_SESSION['username'];	//retrieve USERNAME
 
-	$resultBiography = pg_query($db, "SELECT biography FROM member WHERE username = '$UNAME'");
+	$resultBiography = getBiographyOfMember($db, $UNAME);
 	$rowBiography = pg_fetch_row($resultBiography);
-	$resultEmail = pg_query($db, "SELECT email FROM member WHERE username = '$UNAME'");
+	$resultEmail = getEmailOfMember($db, $UNAME);
 	$rowEmail = pg_fetch_row($resultEmail);
 
 	if(isset($_POST['update'])) {
@@ -50,24 +53,23 @@
 			$isUpdateEmail = true;
 		}
 
-		// $sqlUpdateEmail = pg_query($db, updateEmail($db, $UNAME, $email));
 		//If no password reset is required
 		if($matchPassword) {
 			echo"<script>console.log( 'Entered matchassword' );</script>";
 			if($isUpdatePassword) {
-				$sqlUpdatePassword = pg_query($db, "UPDATE member SET password='$password' WHERE username='$UNAME'");
+				$sqlUpdatePassword = updatePassword($db, $UNAME, $password);
 				if(!$sqlUpdatePassword) {
 					echo"<script>console.log( 'Error in update Password' );</script>";
 				}
 			}
 			if($isUpdateEmail) {
-				$sqlUpdateEmail = pg_query($db, "UPDATE member SET email='$email' WHERE username='$UNAME'");
+				$sqlUpdateEmail = updateEmail($db, $UNAME, $email);
 				if(!$sqlUpdateEmail) {
 					echo"<script>console.log( 'Error in update Email' );</script>";
 				}
 			}
 			if($isUpdateBiography) {
-				$sqlUpdateBiography = pg_query($db, "UPDATE member SET biography='$biography' WHERE username='$UNAME'");
+				$sqlUpdateBiography = updateBiography($db, $UNAME, $biography);
 				if(!$sqlUpdateBiography) {
 					echo "<script>alert('Update Biography');</script>";
 				}
@@ -83,10 +85,9 @@
 
 <?php
 	//php for My Projects
-	include '../public/php/updateMember.php';
 	//Need to obtain My Project Info: Project Name/title, Project Id, Amt Raised , Target Amt, Status
 	//First send the query to get the project List
-	$projectListResult = pg_query("SELECT * FROM advertised_project p WHERE p.entrepreneur = '$UNAME' ORDER BY p.title;");
+	$projectListResult = getAllAdvertisedProjectsByEntrepreneur($db, $UNAME);
 	$projectListSize = pg_num_rows($projectListResult);
 	echo "<script>console.log( 'Project List size test is: " . $projectListSize . "' );</script>";
 	$projectList = array();
@@ -101,7 +102,7 @@
 <?php
 	//php for My Investments
 	//First send the query to get the investment List
-	$investmentListResult = pg_query("SELECT * FROM advertised_project p, invest i WHERE i.proj_id=p.id AND i.investor='$UNAME' ORDER BY p.title;");
+	$investmentListResult = getAllInvestmentsOfInvestor($db, $UNAME);
 	$investmentListSize = pg_num_rows($investmentListResult);
 	echo "<script>console.log( 'Investment List size test is: " . $investmentListSize . "' );</script>";
 	$investmentList = array();
@@ -112,7 +113,6 @@
 		$i++;
 	}
 ?>
-
 
 <html>
 	<head>
@@ -166,19 +166,16 @@
 									<a href="home.php" class="text-small nav-link px-2">Explore</a>
 								</li>
 								<?php
-								include 'db.php';
-								$queryUser = $_SESSION['username'];
-								$resultAdmin = pg_query($db, "SELECT * FROM member WHERE username = '$queryUser' AND is_admin = 1");
-								$rowAdmin = pg_num_rows($resultAdmin);
-								if($rowAdmin > 0){
-									echo '<li class="nav-item">';
-									echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
-									echo '</a>';
-									echo '</li>';
-								}
+                                    $isAdmin = isMemberAdmin($db, $UNAME);
+                                    if($isAdmin){
+                                        echo '<li class="nav-item">';
+                                        echo '<a href="admin.php" class="text-small nav-link px-2">Admin';
+                                        echo '</a>';
+                                        echo '</li>';
+                                    }
 								?>
 							</ul>
-							<button class="btn btn-primary btn-sm" name="logout"><a href="logout.php" class="logout">Logout</a></button>
+							<button class="btn btn-primary btn-sm" name="logout"><a href="../php/logout.php" class="logout">Logout</a></button>
 						</div>
 					</div>
 					</div>
@@ -227,7 +224,7 @@
 				<div id="menu1" class="tab-pane fade">
 					<h3>My Projects</h3>
 					<?php foreach($projectList as $projectRow): ?>
-						<form id="profileFormDeleteProject<?php echo $projectRow['id'];?>" action="deleteProfileProject.php" method="POST"></form>
+						<form id="profileFormDeleteProject<?php echo $projectRow['id'];?>" action="../php/deleteProjectFromProfile.php" method="POST"></form>
 					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
@@ -280,7 +277,7 @@
 										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $projectRow['id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="updateProject.php" method="POST" id="modalFormForProject<?php echo $projectRow['id'];?>">
+										<form action="../php/updateProjectFromProfile.php" method="POST" id="modalFormForProject<?php echo $projectRow['id'];?>">
 											<input type="hidden" name="projectId" value="<?php echo $projectRow['id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Description</label>
@@ -359,7 +356,7 @@
 				<div id="menu2" class="tab-pane fade">
 					<h3>My Investments</h3>
 					<?php foreach($investmentList as $investmentRow): ?>
-						<form id="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>" action="deleteProfileInvestment.php" method="POST"></form>
+						<form id="profileFormDeleteInvestment<?php echo $investmentRow['proj_id'];?>" action="../php/deleteInvestmentFromProfile.php" method="POST"></form>
 					<?php endforeach; ?>
 					<form action = "profile.php" method = "POST">
 						<div class="form-group row">
@@ -412,7 +409,7 @@
 										<span class="close" aria-label="Close"><span aria-hidden="true">#<?php echo $investmentRow['proj_id'];?></span></span>
 									</div>
 									<div class="modal-body">
-										<form action="updateMyInvestment.php" method="POST" id="modalFormForInvestment<?php echo $investmentRow['proj_id'];?>">
+										<form action="../php/updateInvestmentFromProfile.php" method="POST" id="modalFormForInvestment<?php echo $investmentRow['proj_id'];?>">
 											<input type="hidden" name="projectId" value="<?php echo $investmentRow['proj_id'];?>">
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Amount Invested</label>

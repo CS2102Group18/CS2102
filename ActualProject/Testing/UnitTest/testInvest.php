@@ -3,6 +3,7 @@
     include './displayTable.php';
 
     include '../../php/project.php';
+    include '../../php/investment.php';
     
     $db = getDB();
     
@@ -24,17 +25,40 @@
     echo "<br><br>";
     
     
-    // Update Title
-    $result = pg_query($db, updateProjectTitle($db, 1, 'I will follow my Nindo!'));
+    // New invest
+    investInProject($db, "Naruto", 2, "100");
     
-    echo "<u><b>AFTER updating</b></u>";
+    echo "<u><b>First Time Investing</b></u>";
     echo "<br>";
     displayTableProject($db);
+    echo "<br>";
+    displayTableInvest($db);
     echo "<br><br>";
     
     echo "<br><br>";
     echo "Things to note:";
     echo "<ul>";
-    echo "<li>The title of project with id=1 will change from 'Chasing a girl named Sakura' to 'I will follow my Nindo!'</li>";
+    echo "<li>The amt_raised in TABL advertised_project should have increased from 0 to 100</li>";
+    echo "<li>TABLE invest should have a record with Naruto investing 100</li>";
+    echo "</ul>";
+    echo "<br><br>";
+    
+    // New invest
+    investInProject($db, "Naruto", 2, "900");
+    
+    echo "<u><b>Second Time Investing</b></u>";
+    echo "<br>";
+    displayTableProject($db);
+    echo "<br>";
+    displayTableInvest($db);
+    echo "<br><br>";
+    echo "<br><br>";
+    
+    echo "<br><br>";
+    echo "Things to note:";
+    echo "<ul>";
+    echo "<li>The amt_raised in TABL advertised_project should have increased from 100 to 1000</li>";
+    echo "<li>The status in TABL advertised_project should have changed from 0 to 1</li>";
+    echo "<li>TABLE invest should have a record with Naruto investing 1000</li>";
     echo "</ul>";
 ?>  
