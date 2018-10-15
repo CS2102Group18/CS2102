@@ -1,10 +1,6 @@
 <?php
     // Search project by title, description, entrepreneur filter by category
     function searchProject($db, $category, $text) {
-       echo "<script>console.log('Category:' + '$category');</script>";
-       echo "<script>console.log('Text:' + '$text');</script>";
-       echo "<script>console.log('afsdfsdf');</script>";
-
         $text = trim($text);
         $query = "";
         if ($text=="" && $category=="") {
