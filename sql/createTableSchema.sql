@@ -13,7 +13,7 @@ CREATE TABLE advertised_project (
     description VARCHAR(2048) NOT NULL DEFAULT '',
     category VARCHAR(256) NOT NULL CHECK(category='Fashion' OR category='Technology' OR category='Games' OR category='Food' OR category='Music' OR category='Photography' OR category='Handicraft' OR category='Community'),
     start_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    duration TIME NOT NULL,
+    duration INTEGER NOT NULL,
     amt_needed NUMERIC(15,2) NOT NULL CHECK(amt_needed > 0),
     amt_raised NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_raised<=amt_needed AND amt_raised>=0),
     status INT NOT NULL DEFAULT 0 CHECK(status=0 OR status=1)

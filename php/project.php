@@ -1,7 +1,7 @@
 <?php
     // Create project
-    function createProject($db, $entrepreneur, $title, $description, $category, $amtNeeded) {
-        return pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed) VALUES('$entrepreneur','$title', '$description', '$category','$amtNeeded')");
+    function createProject($db, $entrepreneur, $title, $description, $category, $amtNeeded, $duration) {
+        return pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, amt_needed, duration) VALUES('$entrepreneur','$title', '$description', '$category','$amtNeeded', '$duration')");
     }
     
     // Update title of a given project

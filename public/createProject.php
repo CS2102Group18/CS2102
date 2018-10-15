@@ -17,14 +17,15 @@ if(isset($_POST['Create'])) {
   $getDescription = $_POST['description'];
   $getCategory = $_POST['category'];
   $getFunds = $_POST['amtNeeded'];
-
-  if(!empty($getTitle) && !empty($getDescription) && !empty($getCategory) && !empty($getFunds) && is_numeric($getFunds)) {
-    $projectResult = createProject($db, $UNAME, $getTitle, $getDescription, $getCategory, $getFunds);
+  $getDuration = $_POST['duration'];
+  
+  if(!empty($getDuration) && !empty($getTitle) && !empty($getDescription) && !empty($getCategory) && !empty($getFunds) && is_numeric($getFunds)) {
+    $projectResult = createProject($db, $UNAME, $getTitle, $getDescription, $getCategory, $getFunds, $getDuration);
     if($projectResult) {
       echo "<script>console.log('Entered Project Result!');</script>";
 	  echo "<script>alert('Successfully created project');</script>";
     } else {
-      echo "<script>alert('Error Occured there! Please Ensure that all the fields are filled correctly');</script>";
+      echo "<script>alert('Error Occured while updating database');</script>";
     }
   } else {
 	echo "<script>console.log('Error Occured!');</script>";
@@ -164,7 +165,13 @@ if(isset($_POST['Create'])) {
 			<div class="form-group">
 			  <label for="name" class="col-sm-2 control-label">Funds Required</label>
 			  <div class="col-sm-10">
-				<input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Entered the required amount for investment" required>
+				<input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Entered the required amount of funding" required>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="name" class="col-sm-2 control-label">No. of days for funding</label>
+			  <div class="col-sm-10">
+				<input type="text" class="form-control" name="duration" placeholder="Entered the number of days of funding">
 			  </div>
 			</div>
 			<div class="form-group">
