@@ -189,7 +189,7 @@ if(!result) {
                 <option value="Food">Food</option>
                 <option value="Music">Music</option>
                 <option value="Photography">Photography</option>
-                <option value="Handicraft">Hand</option>
+                <option value="Handicraft">Handicraft</option>
                 <option value="Community">Community</option>
               </select>
               <button class="btn btn-primary btn-sm" name="searchBtn" style = "margin-top: 1px; margin-left: 35px;">Search</a></button>
@@ -205,12 +205,12 @@ if(!result) {
                   <h5><?php echo $projectRow['title'];?>  <span class="badge badge-secondary">Expires on:
 						<?php
 						$date = new DateTime($projectRow['start_date']);
-						$duration = "P" . $projectRow['duration'] . "D";						
+						$duration = "P" . $projectRow['duration'] . "D";
 						$interval = new DateInterval($duration);
 						$date->add($interval);
 						echo $date->format('Y-m-d');
 						?>
-						</span> 
+						</span>
 						</h5>
                   <div class="mb-4">
                     <p><?php echo $projectRow['description'];?></p>
