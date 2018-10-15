@@ -15,7 +15,7 @@ if( isset($_POST['Login'])) {
 	  $userResult = pg_query($db, "SELECT * FROM member WHERE username = '$_POST[uid]' AND password = '$_POST[pw]'");
 	  $rowResult = pg_num_rows($userResult);
 	  if($rowResult == 0){
-		  header("location:../public/login.php");
+			echo "<script type='text/javascript'>alert('Wrong Username or Password'); window.location='../public/login.php';</script>";
 	  }
 	  else{
 		  header("location:../public/home.php");

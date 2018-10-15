@@ -2,7 +2,7 @@
 <?php
 include '../php/db.php';
 include '../php/member.php';
-
+include '../php/search.php';
 session_start();
 if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true) {
   //echo "You're logged into the member's area " . $_SESSION['username'] . "!";
@@ -51,6 +51,31 @@ while($row = pg_fetch_assoc($result)){
   $project[$i] = $row;
   $i++;
 }
+
+if(isset($_POST['searchBtn'])) {
+  $searchText =  $_POST['searchInput'];
+  $searchCategory = $_POST['category'];
+  $resultSearch = searchProject($db, $searchCategory, $searchText);
+
+  echo "<script>console.log('$searchText');</script>";
+  echo "<script>console.log('$searchCategory');</script>";
+
+  if(is_null($searchText) && is_null($searchCategory)) {
+    exit;
+  }
+
+  $j=0;
+  $project = array();
+  while($row = pg_fetch_assoc($resultSearch)) {
+    $project[$j] = $row;
+    $j++;
+  }
+
+  if(!$resultSearch) {
+    echo "<script type='text/javascript'>alert('No Result matched'); window.location='../public/home.php';</script>";
+  }
+}
+
 if(!result) {
   echo "Unable to retrieve result";
 }
@@ -97,10 +122,6 @@ if(!result) {
     margin-bottom: : 8px;
   }
 
-  searchBtn {
-     position: relative;
-     left: 28px;
-  }
   </style>
 </head>
 <form = "form-vertical" method="post" action="home.php">
@@ -154,13 +175,14 @@ if(!result) {
             <div class="col-12">
               <div id="custom-search-input">
                 <div class="input-group">
-                  <input type="text" class="search-query form-control" placeholder="Search" />
+                  <input type="text" class="search-query form-control" placeholder="Search" name = "searchInput" />
                 </div>
               </div>
             </div>
             <div class="col-10" id = 'category-list'>
-              <label for="name" class="col-sm-2 control-label">Search Under: </label>
-              <select>
+              <label for="name" class="col-sm-2 control-label" style = "margin-left: 100px;">Search Under: </label>
+              <select style = "margin-top: 3px; margin-left: 5px;" name = "category">
+                <option value="" selected disabled hidden>Category</option>
                 <option value="Fashion">Fashion</option>
                 <option value="Technology">Technology</option>
                 <option value="Games">Games</option>
@@ -170,7 +192,7 @@ if(!result) {
                 <option value="Handicraft">Hand</option>
                 <option value="Community">Community</option>
               </select>
-              <button class="btn btn-primary btn-sm" name="searchBtn">Search</a></button>
+              <button class="btn btn-primary btn-sm" name="searchBtn" style = "margin-top: 1px; margin-left: 35px;">Search</a></button>
             </div>
           </div>
         </div>
