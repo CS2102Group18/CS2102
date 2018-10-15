@@ -6,7 +6,7 @@
     pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('user', 'pass', 'user@cs2102.com', 'This is a user account')");
     pg_query($db, "INSERT INTO member(username, password) VALUES('sasuke', 'wg453g25')");     //Just an Entrepreneur
     pg_query($db, "INSERT INTO member(username, password) VALUES('shikamaru', 'g3423g45')");  //Just an Investor
-    pg_query($db, "INSERT INTO member(username, password, email) VALUES('Jiraya', '4v57i6bc5g', 'jirayathesage@konoha.com')");  // Neither entrepreneur nor investor
+    pg_query($db, "INSERT INTO member(username, password, email) VALUES('jiraya', '4v57i6bc5g', 'jirayathesage@konoha.com')");  // Neither entrepreneur nor investor
     pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('naruto', 'wer53g42g', 'naruto@konoha.com', 'I was the 7th Hokage of the Hidden Leaf Village.')");
     pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('kakashi', '3v4645u75j', 'kakashi@konoha.com', 'I was the 6th Hokage of the Hidden Leaf Village. I can summon dogs.')");
     pg_query($db, "INSERT INTO member(username, password, email, biography) VALUES('iruka', 'mo9w3ttwo', 'iruka@konohaacademy.com', 'I who served primarily as an instructor at the Academy until being promoted to Headmaster years later. I am both big-hearted, and soft-hearted. This is most often seen through my teaching methods, often giving a watchful eye over my students as they progress. This however, does not mean that I is a pushover, as I can be stern when the situation calls for it most  often seen when I shouts at my students in order to get them to obey me.')");
