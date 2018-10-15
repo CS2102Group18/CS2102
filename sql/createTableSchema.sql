@@ -13,8 +13,8 @@ CREATE TABLE advertised_project (
     description VARCHAR(2048) NOT NULL DEFAULT '',
     category VARCHAR(256) NOT NULL CHECK(category='Fashion' OR category='Technology' OR category='Games' OR category='Food' OR category='Music' OR category='Photography' OR category='Handicraft' OR category='Community'),
     start_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    duration TIME NOT NULL DEFAULT '00:00:00',
-    amt_needed NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_needed >= 0),
+    duration TIME NOT NULL,
+    amt_needed NUMERIC(15,2) NOT NULL CHECK(amt_needed > 0),
     amt_raised NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amt_raised<=amt_needed AND amt_raised>=0),
     status INT NOT NULL DEFAULT 0 CHECK(status=0 OR status=1)
 );
@@ -22,7 +22,7 @@ CREATE TABLE advertised_project (
 CREATE TABLE invest (
     investor VARCHAR(16) REFERENCES member(username) ON DELETE CASCADE,
     proj_id SERIAL REFERENCES advertised_project(id) ON DELETE CASCADE,
-    amount NUMERIC(15,2) NOT NULL DEFAULT '0.00' CHECK(amount >= 0),
+    amount NUMERIC(15,2) NOT NULL CHECK(amount > 0),
     PRIMARY KEY(investor, proj_id)
 );
 
