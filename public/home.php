@@ -298,46 +298,50 @@ if(!result) {
           <div class="col-4">
           </div>
           <div class="col-4" style="text-align: center;">
-            <?php
-            /******  build the pagination links ******/
-            // if not on page 1, don't show back links
-            if ($currentpage > 1) {
-              // show << link to go back to page 1
-              echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=1'><<</a> ";
-              // get previous page num
-              $prevpage = $currentpage - 1;
-              // show < link to go back to 1 page
-              echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage'><</a> ";
-            } // end if
-            // range of num links to show
-            $range = 3;
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						<?php
+						/******  build the pagination links ******/
+						// if not on page 1, don't show back links
+						if ($currentpage > 1) {
+						  // show << link to go back to page 1
+						  echo "<li class='page-item'><a class='page-link' href='{$_SERVER['PHP_SELF']}?currentpage=1'>First</a></li>";
+						  // get previous page num
+						  $prevpage = $currentpage - 1;
+						  // show < link to go back to 1 page
+						  echo "<li class='page-item'><a class='page-link' href='{$_SERVER['PHP_SELF']}?currentpage=$prevpage'>Previous</a></li>";
+						} // end if
+						// range of num links to show
+						$range = 3;
 
-            // loop to show links to range of pages around current page
-            for ($x = ($currentpage - $range); $x < (($currentpage + $range)  + 1); $x++) {
-              // if it's a valid page number...
-              if (($x > 0) && ($x <= $totalpages)) {
-                // if we're on current page...
-                if ($x == $currentpage) {
-                  // 'highlight' it but don't make a link
-                  echo " [<b>$x</b>] ";
-                  // if not current page...
-                } else {
-                  // make it a link
-                  echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x'>$x</a> ";
-                } // end else
-              } // end if
-            } // end for
-            // if not on last page, show forward and last page links
-            if ($currentpage != $totalpages) {
-              // get next page
-              $nextpage = $currentpage + 1;
-              // echo forward link for next page
-              echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'>></a> ";
-              // echo forward link for lastpage
-              echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'>>></a> ";
-            } // end if
-            /****** end build pagination links ******/
-            ?>
+						// loop to show links to range of pages around current page
+						for ($x = ($currentpage - $range); $x < (($currentpage + $range)  + 1); $x++) {
+						  // if it's a valid page number...
+						  if (($x > 0) && ($x <= $totalpages)) {
+							 // if we're on current page...
+							 if ($x == $currentpage) {
+								// 'highlight' it but don't make a link
+								echo "<li class='page-item'><a class='page-link' href='{$_SERVER['PHP_SELF']}?currentpage=$x'><b>$x</b></a></li>";
+								// if not current page...
+							 } else {
+								// make it a link
+								echo "<li class='page-item'><a class='page-link' href='{$_SERVER['PHP_SELF']}?currentpage=$x'>$x</a></li>";
+							 } // end else
+						  } // end if
+						} // end for
+						// if not on last page, show forward and last page links
+						if ($currentpage != $totalpages) {
+						  // get next page
+						  $nextpage = $currentpage + 1;
+						  // echo forward link for next page
+						  echo "<li class='page-item'><a class='page-link' href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'>Next</a></li>";
+						  // echo forward link for lastpage
+						  echo "<li class='page-item'><a class='page-link' href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'>Last</a></li>";
+						} // end if
+						/****** end build pagination links ******/
+						?>
+					</ul>
+				</nav>
           </div>
           <div class="col-4">
           </div>
