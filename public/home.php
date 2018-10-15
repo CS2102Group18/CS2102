@@ -42,7 +42,7 @@ if ($currentpage < 1) {
 // the offset of the list, based on current page
 $offset = ($currentpage - 1) * $rowsperpage;
 // get the info from the db
-$sql = "SELECT * FROM advertised_project LIMIT $rowsperpage OFFSET $offset";
+$sql = "SELECT * FROM advertised_project ORDER BY title LIMIT $rowsperpage OFFSET $offset";
 $result = pg_query($db, $sql);
 
 $i=0;
