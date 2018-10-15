@@ -200,9 +200,18 @@ if(!result) {
           <?php foreach($project as $projectRow): ?>
             <?php echo "<script> console.log('Iterating project') </script>"; ?>
             <div class="col-12 col-md-4" style="padding-top: 15px;">
-              <div class="card">
+              <div class="card border-dark mb-3">
                 <div class="card-body py-3">
-                  <h5><?php echo $projectRow['title'];?></h5>
+                  <h5><?php echo $projectRow['title'];?>  <span class="badge badge-secondary">Expires on:
+						<?php
+						$date = new DateTime($projectRow['start_date']);
+						$duration = "P" . $projectRow['duration'] . "D";						
+						$interval = new DateInterval($duration);
+						$date->add($interval);
+						echo $date->format('Y-m-d');
+						?>
+						</span> 
+						</h5>
                   <div class="mb-4">
                     <p><?php echo $projectRow['description'];?></p>
                   </div>
