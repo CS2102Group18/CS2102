@@ -4,16 +4,16 @@
 
     include '../../php/project.php';
     include '../../php/search.php';
-    
+
     $db = getDB();
-    
+
     // Insert members
     pg_query($db, "INSERT INTO member(username, password) VALUES('Mitsuki', '12r42345f')");
     pg_query($db, "INSERT INTO member(username, password) VALUES('Shikadai', 'wg453g25')");
     pg_query($db, "INSERT INTO member(username, password) VALUES('Boruto', 'fqwef32f')");
     pg_query($db, "INSERT INTO member(username, password) VALUES('Chocho', 'h45g33')");
     pg_query($db, "INSERT INTO member(username, password) VALUES('Iwabe', 'bvwv5g54')");
-    
+
     // Insert projects
     pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Mitsuki', 'What is my real will?', 'A journey to discover who is the real he.', 'Community', '10', 500)");
     pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Shikadai', 'What is intelligence', 'I make the best decision', 'Community', '200', 1000)");
@@ -22,27 +22,87 @@
     pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Chocho', 'Eating is the best thing in this world', 'Potato chips are my favourite', 'Food', '2040', 888)");
     pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Iwabe', 'Rock and roll!', 'Woohoo!', 'Games', '20', 1000)");
     pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Iwabe', 'We shall be the best ninja, right Boruto?', 'Yatta!', 'Fashion', '200', 1000)");
-    
+
     styleTable();
-    
+
     echo "<u><b>AFTER INSERTION</b></u>";
     echo "<br>";
     displayTableProject($db);
     echo "<br><br>";
     echo "------------------------------------------------------------------------------------------------------------------------------------------------";
     echo "<br><br>";
-    
+
+    // No search text and no filter applied
+    $text = "";
+    $category = "";
+	  $result = searchProject($db, $category, $text);
+
+    echo "<u><b>Search with no text and no category filter</b></u><br>";
+    echo "Search='$text' && Category='$category'";
+    echo "<br>";
+
+    displayResult($db, $result);
+
+    echo "<br><br>";
+    echo "Things to expect:";
+    echo "<ul>";
+    echo "<li>Should display all rows</li>";
+    echo "</ul>";
+    echo "<br><br>";
+    echo "------------------------------------------------------------------------------------------------------------------------------------------------";
+    echo "<br><br>";
+
+    // Has Search text but no category filter
+    $text = "Iwabe";
+    $category = "";
+	  $result = searchProject($db, $category, $text);
+
+    echo "<u><b>Has Search text but no category filter</b></u><br>";
+    echo "Search='$text' && Category='$category'";
+    echo "<br>";
+
+    displayResult($db, $result);
+
+    echo "<br><br>";
+    echo "Things to expect:";
+    echo "<ul>";
+    echo "<li>Should display 2 rows with projects advertised by Iwabe</li>";
+    echo "</ul>";
+    echo "<br><br>";
+    echo "------------------------------------------------------------------------------------------------------------------------------------------------";
+    echo "<br><br>";
+
+    // No Search text but has category filter
+    $text = "   ";
+    $category = "Community";
+	  $result = searchProject($db, $category, $text);
+
+    echo "<u><b>No Search text but has category filter</b></u><br>";
+    echo "Search='$text' && Category='$category'";
+    echo "<br>";
+
+    displayResult($db, $result);
+
+    echo "<br><br>";
+    echo "Things to expect:";
+    echo "<ul>";
+    echo "<li>Should display 2 rows with projects tagged as Community</li>";
+    echo "</ul>";
+    echo "<br><br>";
+    echo "------------------------------------------------------------------------------------------------------------------------------------------------";
+    echo "<br><br>";
+
     // Search by title and filter by category
     $text = "What is";
     $category = "Community";
-	$result = searchProject($db, $category, $text);
-    
+	  $result = searchProject($db, $category, $text);
+
     echo "<u><b>Search by title filter by category</b></u><br>";
     echo "Search='$text' && Category='$category'";
     echo "<br>";
 
     displayResult($db, $result);
-    
+
     echo "<br><br>";
     echo "Things to expect:";
     echo "<ul>";
@@ -53,18 +113,18 @@
     echo "<br><br>";
     echo "------------------------------------------------------------------------------------------------------------------------------------------------";
     echo "<br><br>";
-    
+
     // Search by description and filter by category
     $text = "Woohoo";
     $category = "Games";
-	$result = searchProject($db, $category, $text);
-    
+	  $result = searchProject($db, $category, $text);
+
     echo "<u><b>Search by description filter by category</b></u><br>";
     echo "Search='$text' && Category='$category'";
     echo "<br>";
-   
+
     displayResult($db, $result);
-    
+
     echo "<br><br>";
     echo "Things to note:";
     echo "<ul>";
@@ -75,18 +135,18 @@
     echo "<br><br>";
     echo "------------------------------------------------------------------------------------------------------------------------------------------------";
     echo "<br><br>";
-    
+
     // Search by entrepreneur and filter by category
     $text = "Chocho";
     $category = "Food";
-	$result = searchProject($db, $category, $text);
-    
+	  $result = searchProject($db, $category, $text);
+
     echo "<u><b>Search by entrepreneur filter by category</b></u><br>";
     echo "Search='$text' && Category='$category'";
     echo "<br>";
 
     displayResult($db, $result);
-    
+
     echo "<br><br>";
     echo "Things to expect:";
     echo "<ul>";
@@ -95,18 +155,18 @@
     echo "<br><br>";
     echo "------------------------------------------------------------------------------------------------------------------------------------------------";
     echo "<br><br>";
-    
+
     // Search text and filter by category
     $text = "Boruto";
     $category = "Fashion";
-	$result = searchProject($db, $category, $text);
-    
+	  $result = searchProject($db, $category, $text);
+
     echo "<u><b>Search text that appear in both title and entrepreneur by category</b></u><br>";
     echo "Search='$text' && Category='$category'";
     echo "<br>";
 
     displayResult($db, $result);
-    
+
     echo "<br><br>";
     echo "Things to expect:";
     echo "<ul>";
@@ -116,8 +176,8 @@
     echo "<li>This is because 'Boruto' appears in the title of the project, as well as the username of an entrepreneur</li>";
     echo "</ul>";
     echo "<br><br>";
-    
-    
+
+
     function displayResult($db, $result) {
         $col1 = NULL;
         $col2 = NULL;
@@ -201,4 +261,4 @@
         }
         echo "</table>";
     }
-?>  
+?>
