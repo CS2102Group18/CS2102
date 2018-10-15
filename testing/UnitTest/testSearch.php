@@ -15,13 +15,13 @@
     pg_query($db, "INSERT INTO member(username, password) VALUES('Iwabe', 'bvwv5g54')");
     
     // Insert projects
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Mitsuki', 'What is my real will?', 'A journey to discover who is the real he.', 'Community', '10:0:0', 500)");
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Shikadai', 'What is intelligence', 'I make the best decision', 'Community', '20:0:0', 1000)");
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Shikadai', 'We will figure this out', 'I make the best decision. Woohoo!', 'Games', '20:0:0', 1000)");
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Boruto', 'Fighting crime, trying to save the world', 'Just follow your nindo', 'Fashion', '15:0:0', 20)");
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Chocho', 'Eating is the best thing in this world', 'Potato chips are my favourite', 'Food', '00:20:40', 888)");
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Iwabe', 'Rock and roll!', 'Woohoo!', 'Games', '20:0:0', 1000)");
-    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Iwabe', 'We shall be the best ninja, right Boruto?', 'Yatta!', 'Fashion', '20:0:0', 1000)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Mitsuki', 'What is my real will?', 'A journey to discover who is the real he.', 'Community', '10', 500)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Shikadai', 'What is intelligence', 'I make the best decision', 'Community', '200', 1000)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Shikadai', 'We will figure this out', 'I make the best decision. Woohoo!', 'Games', '200', 1000)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Boruto', 'Fighting crime, trying to save the world', 'Just follow your nindo', 'Fashion', '50', 20)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Chocho', 'Eating is the best thing in this world', 'Potato chips are my favourite', 'Food', '2040', 888)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Iwabe', 'Rock and roll!', 'Woohoo!', 'Games', '20', 1000)");
+    pg_query($db, "INSERT INTO advertised_project(entrepreneur, title, description, category, duration, amt_needed) VALUES('Iwabe', 'We shall be the best ninja, right Boruto?', 'Yatta!', 'Fashion', '200', 1000)");
     
     styleTable();
     
