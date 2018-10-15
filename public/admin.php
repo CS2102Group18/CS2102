@@ -48,10 +48,10 @@
 	// get the info from the db 
 	$sql = "SELECT * FROM member WHERE is_admin = 0 ORDER BY username ASC LIMIT $rowsperpage OFFSET $offset";
 	$result = pg_query($db, $sql);
-	$project = array();
+	$member = array();
 	$i=0;
 	while($row = pg_fetch_assoc($result)){
-		$project[$i] = $row;
+		$member[$i] = $row;
 		$i++;
 	}
 	$UNAME = $_SESSION['username'];
@@ -122,18 +122,72 @@
 						</tr>
 					 </thead>
 					 <tbody>
-						<?php foreach($project as $projectRow): ?>
+						<?php foreach($member as $memberRow): ?>
 							<tr>
-							  <td><?php echo $projectRow['username'];?></td>
-							  <td><?php echo $projectRow['email'];?></td>
+							  <td><?php echo $memberRow['username'];?></td>
+							  <td><?php echo $memberRow['email'];?></td>
 							  <td>
 								<form id="myForm" action="../php/deleteMemberFromAdmin.php" method="POST">
-									<input type="hidden" name="deletedUser" value="<?php echo $projectRow['username'];?>" id="hiddenForm">
+									<input type="hidden" name="deletedUser" value="<?php echo $memberRow['username'];?>" id="hiddenForm">
 									<button id="sub">Delete</button>
 								</form>
-							  </td>
+								<!-- Button trigger modal -->
+								<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;"
+								data-toggle="modal" data-target="#exampleModalCenter" 
+								  onClick="displayPopupInformation('<?php echo $memberRow['username'];?>',
+								  '<?php echo $memberRow['password'];?>',
+								  '<?php echo $memberRow['email'];?>',
+								  '<?php echo $memberRow['biography'];?>')">Edit</a>
+								</div>
+							</td>
 							</tr>
 						<?php endforeach; ?>
+						
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered" role="document">
+							 <div class="modal-content">
+								<div class="modal-header">
+								  <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+								  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									 <span aria-hidden="true">&times;</span>
+								  </button>
+								</div>
+								<form action="../php/updateMemberFromAdmin.php" method="POST" id="modalFormPledge">
+								<div class="modal-body">
+									<div class="form-group" hidden="true">
+										<input type="text" class="form-control" id="modalCurUsername" name="currentUser"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Username:</label>
+										<input type="text" class="form-control" id="modalUsername" name="newUser"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Password:</label>
+										<input type="text" class="form-control" id="modalPassword" name="newPassword"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Email:</label>
+										<input type="text" class="form-control" id="modalEmail" name="newEmail"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Biography:</label>
+										<input type="text" class="form-control" id="modalBiography" name="newBiography"
+										value="">
+									</div>
+								</div>
+								</form>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								  <button type="submit" form="modalFormPledge" class="btn btn-primary" onClick="updateMemberInAdmin()">Save changes</button>
+								</div>
+							 </div>
+						  </div>
+						</div>
 					 </tbody>
 					</table>
 				</div>
@@ -190,6 +244,25 @@
 			</div>
 		</section>
 		<script src="script/custom.js" type="text/javascript">
+		</script>
+		<script>
+		function displayPopupInformation(username,password,email,biography) {
+			document.getElementById("modalCurUsername").value = username;
+			document.getElementById("modalUsername").value = username;
+			document.getElementById("modalPassword").value = password;
+			document.getElementById("modalEmail").value = email;
+			document.getElementById("modalBiography").value = biography;
+		}
+		
+		function updateMemberInAdmin() {
+			document.getElementById("modalFormPledge").submit();
+			<?php
+		       echo "console.log('Updating');";
+			   echo "console.log('$_POST[newPassword]');";
+			  // $update = pg_query($db, "UPDATE member SET username = '$_POST[newUser]', password = $_POST[newPassword], email = '$_POST[newEmail]', biography = '$_POST[newBiography]' WHERE username = '$_POST[currentUser]'");
+			  //$row = pg_fetch_assoc($update);
+			?>;
+		 }
 		</script>
 	</body>
 </html>

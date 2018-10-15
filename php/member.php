@@ -53,7 +53,7 @@
 
 	// Update Member
 	function updateMember($db, $currentUserName, $newUserName, $password, $email, $biography) {
-		$result = $pg_query($db, "UPDATE member SET username = $newUserName, password = $password, email = $email, biography = $biography WHERE userName = $currentUserName");
+		$result = $pg_query($db, "UPDATE member SET username = '$newUserName', password = $password, email = '$email', biography = '$biography' WHERE username = '$currentUserName'");
 	}
 
 ?>
