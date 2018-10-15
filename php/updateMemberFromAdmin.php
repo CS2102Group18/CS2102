@@ -5,14 +5,7 @@ include 'db.php';
 include 'member.php';
 
 //requires session input from linked php page
-$userToUpdate = $_SESSION['userToUpdate'];
-
-$newUserName = $_POST['newUsername'];
-$newPassword = $_POST['newPassword'];
-$newEmail = $_POST['newEmail'];
-$newBiography = $_POST['newBiography'];
-
-$result = updateMember($db, $userToUpdate, $newUserName, $newPassword, $newEmail, $newBiography);
+$result = pg_query($db, "UPDATE member SET username = '$_POST[newUser]', password = $_POST[newPassword], email = '$_POST[newEmail]', biography = '$_POST[newBiography]' WHERE username = '$_POST[currentUser]'");
 
 $row = pg_num_rows($result);
 if($row > 0) {

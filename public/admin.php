@@ -105,7 +105,7 @@
 			 <div class="container" style="padding-top: 25px">
 				<div class="row text-center mb-4">
 				  <div class="col">
-					<h2>Admin Page 123</h2>
+					<h2>Admin Page</h2>
 				  </div>
 				</div>
 			 </div>
@@ -132,17 +132,15 @@
 									<button id="sub">Delete</button>
 								</form>
 								<!-- Button trigger modal -->
-                        <div class="btn btn-primary " style="background-color: #e7e7e7; color: black;"> 
-                          <a href="" data-toggle="modal" data-target="#exampleModalCenter"
-                          onClick="displayPopupInformation(
-                          '<?php echo $memberRow['username'];?>',
-                          '<?php echo $memberRow['password'];?>',
-                          '<?php echo $memberRow['email'];?>',
-                          '<?php echo $memberRow['biography'];?>'
-								  )">Edit</a>
+								<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;"
+								data-toggle="modal" data-target="#exampleModalCenter" 
+								  onClick="displayPopupInformation('<?php echo $memberRow['username'];?>',
+								  '<?php echo $memberRow['password'];?>',
+								  '<?php echo $memberRow['email'];?>',
+								  '<?php echo $memberRow['biography'];?>')">Edit</a>
 								</div>
-							</tr>
 							</td>
+							</tr>
 						<?php endforeach; ?>
 						
 						<!-- Modal -->
@@ -155,33 +153,33 @@
 									 <span aria-hidden="true">&times;</span>
 								  </button>
 								</div>
-								<form action="admin.php" method="POST" id="modalFormPledge">
-									<div class="modal-body">
-										<div class="form-group" hidden="true">
-											<input type="text" class="form-control" id="modalCurUsername" name="currentUser"
-											value="">
-										</div>
-										<div class="form-group">
-											<label for="usr">Username:</label>
-											<input type="text" class="form-control" id="modalUsername"
-											value="">
-										</div>
-										<div class="form-group">
-											<label for="usr">Password:</label>
-											<input type="text" class="form-control" id="modalPassword" name="newPassword"
-											value="">
-										</div>
-										<div class="form-group">
-											<label for="usr">Email:</label>
-											<input type="text" class="form-control" id="modalEmail" name="newEmail"
-											value="">
-										</div>
-										<div class="form-group">
-											<label for="usr">Biography:</label>
-											<input type="text" class="form-control" id="modalBiography" name="newBiography"
-											value="">
-										</div>
+								<form action="../php/updateMemberFromAdmin.php" method="POST" id="modalFormPledge">
+								<div class="modal-body">
+									<div class="form-group" hidden="true">
+										<input type="text" class="form-control" id="modalCurUsername" name="currentUser"
+										value="">
 									</div>
+									<div class="form-group">
+										<label for="usr">Username:</label>
+										<input type="text" class="form-control" id="modalUsername" name="newUser"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Password:</label>
+										<input type="text" class="form-control" id="modalPassword" name="newPassword"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Email:</label>
+										<input type="text" class="form-control" id="modalEmail" name="newEmail"
+										value="">
+									</div>
+									<div class="form-group">
+										<label for="usr">Biography:</label>
+										<input type="text" class="form-control" id="modalBiography" name="newBiography"
+										value="">
+									</div>
+								</div>
 								</form>
 								<div class="modal-footer">
 								  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -257,12 +255,14 @@
 		}
 		
 		function updateMemberInAdmin() {
-			document.forms[0].submit();
+			document.getElementById("modalFormPledge").submit();
 			<?php
-			include '../php/member.php';
-			$update = updateMember($db, $_POST['currentUser'], $_POST['newUser'], $_POST['newPassword'], $_POST['newEmail'], $_POST['newBiography']);
+		       echo "console.log('Updating');";
+			   echo "console.log('$_POST[newPassword]');";
+			  // $update = pg_query($db, "UPDATE member SET username = '$_POST[newUser]', password = $_POST[newPassword], email = '$_POST[newEmail]', biography = '$_POST[newBiography]' WHERE username = '$_POST[currentUser]'");
+			  //$row = pg_fetch_assoc($update);
 			?>;
-		 }		 
+		 }
 		</script>
 	</body>
 </html>

@@ -14,4 +14,5 @@ else{
 	echo "Delete Failed";
 }
 header("location:../public/admin.php");
+die();
 ?>
