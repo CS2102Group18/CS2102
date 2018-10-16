@@ -9,6 +9,21 @@
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel");
 
+        echo "General Statistics \r\n";
+        $generalStats = getGeneralCountStats($db);
+        $flag = false;
+        while(false !== ($row = pg_fetch_assoc($generalStats))) {
+          if(!$flag) {
+            // display field/column names as first row
+            echo implode("\t", array_keys($row)) . "\r\n";
+            $flag = true;
+          }
+          array_walk($row, __NAMESPACE__ . '\cleanData');
+          echo implode("\t", array_values($row)) . "\r\n";
+        }
+
+        echo "\r\n\r\n";
+
         echo "Top 3 investors who invested the most amount \r\n";
         $highestInvestors = getTopThreeInvestors($db);
         $flag = false;
@@ -39,6 +54,34 @@
         echo "\r\n\r\n";
 
         exit;
+    }
+
+    // Get general count statistics
+    // Including number of admin, non-admin, fully_funded and ongoing projects
+    // Allow ties
+    function getGeneralCountStats($db) {
+        return pg_query($db, "SELECT header, count
+                              FROM(
+                                    SELECT 'admins' AS header, COUNT(*), '1' AS idx
+                                    FROM member a
+                                    WHERE is_admin = 1
+                                    UNION
+                                    SELECT 'non-admins', COUNT(*), '2' AS idx
+                                    FROM member m
+                                    WHERE is_admin = 0
+                                    UNION
+                                    SELECT 'total_projects', COUNT(*), '3' AS idx
+                                    FROM advertised_project p
+                                    UNION
+                                    SELECT 'fully_funded', COUNT(*), '4' AS idx
+                                    FROM advertised_project ff
+                                    WHERE status = 1
+                                    UNION
+                                    SELECT 'ongoing', COUNT(*), '5' AS idx
+                                    FROM advertised_project op
+                                    WHERE status = 0
+                                    ) AS subq
+                              ORDER BY idx;");
     }
 
     // Get top three investors who invested the most amount of money
