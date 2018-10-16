@@ -15,7 +15,7 @@
 	} else {
 		header("location:../php/logout.php");
 	}
-	
+	$UNAME = $_SESSION['username'];
 	//Pagination Implementation
 	$resultPage = getAllNonAdminMembers($db);
 	$numrows = pg_num_rows($resultPage);
@@ -54,7 +54,16 @@
 		$member[$i] = $row;
 		$i++;
 	}
-	$UNAME = $_SESSION['username'];
+	
+	$sql = "SELECT * FROM advertised_project";
+	$result = pg_query($db, $sql);
+	$project = array();
+	$i=0;
+	while($row = pg_fetch_assoc($result)){
+		$project[$i]= $row;
+		$i++;
+	}
+	
 ?>
 
 <html>
@@ -102,99 +111,108 @@
 		  </div>
 		</nav>
 		<section class="pb-0">
-			 <div class="container" style="padding-top: 25px">
-				<div class="row text-center mb-4">
-				  <div class="col">
-					<h2>Admin Page</h2>
-				  </div>
-				</div>
-			 </div>
-			 <div class="row">
-				<div class="col-2">
-				</div>
-				<div class="col-8">
-				  <table class="table table-bordered">
-					 <thead>
-						<tr>
-						  <th>Username</th>
-						  <th>Email</th>
-						  <th>Admin Action</th>
-						</tr>
-					 </thead>
-					 <tbody>
-						<?php foreach($member as $memberRow): ?>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			  <li class="nav-item">
+				<a class="nav-link active" id="editUsers-tab" data-toggle="tab" href="#editUsers" role="tab" aria-controls="editUsers" aria-selected="true">Edit Users</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="editProfile-tab" data-toggle="tab" href="#editProfile" role="tab" aria-controls="editProfile" aria-selected="false">Edit Projects</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="addUsers-tab" data-toggle="tab" href="#addUsers" role="tab" aria-controls="addUsers" aria-selected="false">Add Users</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="addProjects-tab" data-toggle="tab" href="#addProjects" role="tab" aria-controls="addProjects" aria-selected="false">Add Projects</a>
+			  </li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+			   <div class="tab-pane fade show active" id="editUsers" role="tabpanel" aria-labelledby="editUsers-tab">
+				 <div class="row">
+					<div class="col-2">
+					</div>
+					<div class="col-8">
+					  <table class="table table-bordered">
+						 <thead>
 							<tr>
-							  <td><?php echo $memberRow['username'];?></td>
-							  <td><?php echo $memberRow['email'];?></td>
-							  <td>
-								<form id="myForm" action="../php/deleteMemberFromAdmin.php" method="POST">
-									<input type="hidden" name="deletedUser" value="<?php echo $memberRow['username'];?>" id="hiddenForm">
-									<button id="sub">Delete</button>
-								</form>
-								<!-- Button trigger modal -->
-								<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;"
-								data-toggle="modal" data-target="#exampleModalCenter" 
-								  onClick="displayPopupInformation('<?php echo $memberRow['username'];?>',
-								  '<?php echo $memberRow['password'];?>',
-								  '<?php echo $memberRow['email'];?>',
-								  '<?php echo $memberRow['biography'];?>')">Edit</a>
-								</div>
-							</td>
+							  <th>Username</th>
+							  <th>Email</th>
+							  <th>Admin Action</th>
 							</tr>
-						<?php endforeach; ?>
-						
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						  <div class="modal-dialog modal-dialog-centered" role="document">
-							 <div class="modal-content">
-								<div class="modal-header">
-								  <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
-								  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									 <span aria-hidden="true">&times;</span>
-								  </button>
-								</div>
-								<form action="../php/updateMemberFromAdmin.php" method="POST" id="modalFormPledge">
-								<div class="modal-body">
-									<div class="form-group" hidden="true">
-										<input type="text" class="form-control" id="modalCurUsername" name="currentUser"
-										value="">
+						 </thead>
+						 <tbody>
+							<?php foreach($member as $memberRow): ?>
+								<tr>
+								  <td><?php echo $memberRow['username'];?></td>
+								  <td><?php echo $memberRow['email'];?></td>
+								  <td>
+									<form id="myForm" action="../php/deleteMemberFromAdmin.php" method="POST">
+										<input type="hidden" name="deletedUser" value="<?php echo $memberRow['username'];?>" id="hiddenForm">
+										<div class="btn btn-primary " style="background-color: #e7e7e7; color: black; width:70px;"" id="sub">Delete</div>
+									</form>
+									<!-- Button trigger modal -->
+									<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;width:70px"
+									data-toggle="modal" data-target="#exampleModalCenter" 
+									  onClick="displayPopupInformation('<?php echo $memberRow['username'];?>',
+									  '<?php echo $memberRow['password'];?>',
+									  '<?php echo $memberRow['email'];?>',
+									  '<?php echo $memberRow['biography'];?>')">Edit</a>
 									</div>
-									<div class="form-group">
-										<label for="usr">Username:</label>
-										<input type="text" class="form-control" id="modalUsername" name="newUser"
-										value="">
+								</td>
+								</tr>
+							<?php endforeach; ?>
+							
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered" role="document">
+								 <div class="modal-content">
+									<div class="modal-header">
+									  <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+									  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										 <span aria-hidden="true">&times;</span>
+									  </button>
 									</div>
-									<div class="form-group">
-										<label for="usr">Password:</label>
-										<input type="text" class="form-control" id="modalPassword" name="newPassword"
-										value="">
+									<form action="../php/updateMemberFromAdmin.php" method="POST" id="modalFormPledge">
+									<div class="modal-body">
+										<div class="form-group" hidden="true">
+											<input type="text" class="form-control" id="modalCurUsername" name="currentUser"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Username:</label>
+											<input type="text" class="form-control" id="modalUsername" name="newUser"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Password:</label>
+											<input type="text" class="form-control" id="modalPassword" name="newPassword"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Email:</label>
+											<input type="text" class="form-control" id="modalEmail" name="newEmail"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Biography:</label>
+											<input type="text" class="form-control" id="modalBiography" name="newBiography"
+											value="">
+										</div>
 									</div>
-									<div class="form-group">
-										<label for="usr">Email:</label>
-										<input type="text" class="form-control" id="modalEmail" name="newEmail"
-										value="">
+									</form>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									  <button type="submit" form="modalFormPledge" class="btn btn-primary" onClick="updateMemberInAdmin()">Save changes</button>
 									</div>
-									<div class="form-group">
-										<label for="usr">Biography:</label>
-										<input type="text" class="form-control" id="modalBiography" name="newBiography"
-										value="">
-									</div>
-								</div>
-								</form>
-								<div class="modal-footer">
-								  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								  <button type="submit" form="modalFormPledge" class="btn btn-primary" onClick="updateMemberInAdmin()">Save changes</button>
-								</div>
-							 </div>
-						  </div>
-						</div>
-					 </tbody>
-					</table>
+								 </div>
+							  </div>
+							</div>
+						 </tbody>
+						</table>
+					</div>
+					<div class="col-2">
+					</div>
 				</div>
-				<div class="col-2">
-				</div>
-			</div>
-			<div class = "row" style="padding-top: 25">
+				<div class = "row" style="padding-top: 25">
 				<div class="col-4">
 				</div>
 				<div class="col-4" style="text-align: center;">
@@ -241,6 +259,132 @@
 				</div>
 				<div class="col-4">
 				</div>
+				</div>
+			  </div>
+			  <div class="tab-pane fade" id="editProfile" role="tabpanel" aria-labelledby="editProfile-tab">
+			  	<div class="row">
+					<div class="col-2">
+					</div>
+					<div class="col-8">
+					  <table class="table table-bordered">
+						 <thead>
+							<tr>
+							  <th>Project ID</th>
+							  <th>Project Title</th>
+							  <th>Admin Action</th>
+							</tr>
+						 </thead>
+						 <tbody>
+							<?php foreach($project as $projectRow): ?>
+								<tr>
+								  <td><?php echo $projectRow['id'];?></td>
+								  <td><?php echo $projectRow['title'];?></td>
+								  <td>
+									<form id="deleteProjForm" action="../php/deleteProjectFromAdmin.php" method="POST">
+										<input type="hidden" name="deletedProject" value="<?php echo $projectRow['id'];?>" id="hiddenForm">
+										<div class="btn btn-primary " style="background-color: #e7e7e7; color: black; width:70px;"" id="deleteProj">Delete</div>
+									</form>
+									<!-- Button trigger modal -->
+									<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;width:70px"
+									data-toggle="modal" data-target="#projectModalCenter" 
+									  onClick="displayProjectPopupInformation(
+									  '<?php echo $projectRow['id'];?>',
+									  '<?php echo $projectRow['entrepreneur'];?>',
+									  '<?php echo $projectRow['title'];?>',
+									  '<?php echo $projectRow['description'];?>',
+									  '<?php echo $projectRow['category'];?>',
+									  '<?php echo $projectRow['start_date'];?>',
+									  '<?php echo $projectRow['duration'];?>',
+									  '<?php echo $projectRow['amt_needed'];?>',
+									  '<?php echo $projectRow['amt_raised'];?>',
+									  '<?php echo $projectRow['status'];?>')">Edit</a>
+									</div>
+								</td>
+								</tr>
+							<?php endforeach; ?>
+							
+							<!-- Modal -->
+							<div class="modal fade" id="projectModalCenter" tabindex="-1" role="dialog" aria-labelledby="projectModalCenterTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered" role="document">
+								 <div class="modal-content">
+									<div class="modal-header">
+									  <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+									  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										 <span aria-hidden="true">&times;</span>
+									  </button>
+									</div>
+									<form action="../php/updateProjectFromAdmin.php" method="POST" id="modalFormPledgeProject">
+									<div class="modal-body">
+										<div class="form-group">
+											<label for="usr">Id:</label>
+											<input type="text" class="form-control" id="modalProjectId" name="projectid"
+											value="" readonly="true">
+										</div>
+										<div class="form-group">
+											<label for="usr">Entrepreneur:</label>
+											<input type="text" class="form-control" id="modalEntrepreneur" name="entrepreneur"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Title:</label>
+											<input type="text" class="form-control" id="modalTitle" name="title"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Description:</label>
+											<input type="text" class="form-control" id="modalDescription" name="description"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Category:</label>
+											<input type="text" class="form-control" id="modalCategory" name="category"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Start Date:</label>
+											<input type="text" class="form-control" id="modalStartDate" name="startdate"
+											value="" disabled>
+										</div>
+										<div class="form-group">
+											<label for="usr">Duration:</label>
+											<input type="text" class="form-control" id="modalDuration" name="duration"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Amount needed:</label>
+											<input type="text" class="form-control" id="modalAmountNeeded" name="amountneeded"
+											value="">
+										</div>
+										<div class="form-group">
+											<label for="usr">Amount raised:</label>
+											<input type="text" class="form-control" id="modalAmountRaised" name="amountraised"
+											value="" disabled>
+										</div>
+										<div class="form-group">
+											<label for="usr">Status:</label>
+											<input type="text" class="form-control" id="modalStatus" name="status"
+											value="" disabled>
+										</div>
+									</div>
+									</form>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									  <button type="submit" form="modalFormPledgeProject" class="btn btn-primary" onClick="updateMemberInAdmin()">Save changes</button>
+									</div>
+								 </div>
+							  </div>
+							</div>
+						 </tbody>
+						</table>
+					</div>
+					<div class="col-2">
+					</div>
+				</div>
+			  </div>
+			  <div class="tab-pane fade" id="addUsers" role="tabpanel" aria-labelledby="addUsers-tab">
+			  </div>
+			  <div class="tab-pane fade" id="addProjects" role="tabpanel" aria-labelledby="addProjects-tab">
+			  </div>
 			</div>
 		</section>
 		<script src="script/custom.js" type="text/javascript">
@@ -254,6 +398,18 @@
 			document.getElementById("modalBiography").value = biography;
 		}
 		
+		function displayProjectPopupInformation(id,entrepreneur,title,description,category,startdate,duration,amtneeded,amtraised,status) {
+			document.getElementById("modalProjectId").value = id;
+			document.getElementById("modalEntrepreneur").value = entrepreneur;
+			document.getElementById("modalTitle").value = title;
+			document.getElementById("modalDescription").value = description;
+			document.getElementById("modalCategory").value = category;
+			document.getElementById("modalStartDate").value = startdate;
+			document.getElementById("modalDuration").value = duration;
+			document.getElementById("modalAmountNeeded").value = amtneeded;
+			document.getElementById("modalAmountRaised").value = amtraised;
+			document.getElementById("modalStatus").value = status;
+		}
 		function updateMemberInAdmin() {
 			document.getElementById("modalFormPledge").submit();
 			<?php
@@ -262,6 +418,9 @@
 			  // $update = pg_query($db, "UPDATE member SET username = '$_POST[newUser]', password = $_POST[newPassword], email = '$_POST[newEmail]', biography = '$_POST[newBiography]' WHERE username = '$_POST[currentUser]'");
 			  //$row = pg_fetch_assoc($update);
 			?>;
+		 }
+		 function updateProjectInAdmin() {
+			 document.getElementById("modalFormPledgeProject").submit();
 		 }
 		</script>
 	</body>
