@@ -124,6 +124,9 @@
 			  <li class="nav-item">
 				<a class="nav-link" id="addProjects-tab" data-toggle="tab" href="#addProjects" role="tab" aria-controls="addProjects" aria-selected="false">Add Projects</a>
 			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="report-tab" data-toggle="tab" href="#report" role="tab" aria-controls="report" aria-selected="false">Report Tab</a>
+			  </li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
 			   <div class="tab-pane fade show active" id="editUsers" role="tabpanel" aria-labelledby="editUsers-tab">
@@ -466,6 +469,11 @@
 					  </div>
 					  <button type="submit" class="btn btn-primary">Submit</button>
 				 </form>
+			 </div>
+			 <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+			 	<form action="../test/UnitTest/testGenerateReport.php" method="POST">
+					<button type="submit" class="btn btn-primary">Generate Report</button>
+				</form>
 			 </div>
 			</div>
 		</section>
