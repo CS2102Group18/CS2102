@@ -382,9 +382,91 @@
 				</div>
 			  </div>
 			  <div class="tab-pane fade" id="addUsers" role="tabpanel" aria-labelledby="addUsers-tab">
+				  <form action="../php/addMemberFromAdmin.php" method="POST">
+					  <div class="form-group row">
+						<label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+						<div class="col-sm-10">
+						  <input type="text" class="form-control" name="inputUsername" placeholder="Username">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+						<div class="col-sm-10">
+						  <input type="password" class="form-control" name="inputPassword" placeholder="Password">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+						<div class="col-sm-10">
+						  <input type="email" class="form-control" name="inputEmail" placeholder="email@example.com">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="inputBio" class="col-sm-2 col-form-label">Biography</label>
+						<div class="col-sm-10">
+						  <input type="text" class="form-control" name="inputBio" placeholder="Put biography in here!">
+						</div>
+					  </div>
+					  <button type="submit" class="btn btn-primary">Submit</button>
+				 </form>
 			  </div>
 			  <div class="tab-pane fade" id="addProjects" role="tabpanel" aria-labelledby="addProjects-tab">
-			  </div>
+				  <form action="../php/addProjectFromAdmin.php" method="POST">
+					  <div class="form-group row">
+						<label for="inputEntre" class="col-sm-2 col-form-label">Entrepreneur</label>
+						<div class="col-sm-10">
+						  <input type="text" class="form-control" name="inputEntrepreneur" placeholder="Entrepreneur username">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="inputTitle" class="col-sm-2 col-form-label">Project Title</label>
+						<div class="col-sm-10">
+						  <input type="text" class="form-control" name="inputTitle" placeholder="Project Title">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
+						<div class="col-sm-10">
+						  <input type="text" class="form-control" name="inputDescription" placeholder="Description">
+						</div>
+					  </div>
+					  <div class="col-auto my-1">
+						  <label class="mr-sm-2" for="inputCategory">Category</label>
+						  <select class="custom-select mr-sm-2" name="inputCategory">
+							<option selected>Choose...</option>
+							<option value="Fashion">Fashion</option>
+							<option value="Technology">Technology</option>
+							<option value="Games">Games</option>
+							<option value="Food">Food</option>
+							<option value="Music">Music</option>
+							<option value="Photography">Photography</option>
+							<option value="Handicraft">Handicraft</option>
+							<option value="Community">Community</option>
+						  </select>
+				      </div>
+					  <!--
+					  <div class="form-group row">
+						<label for="inputStartDate" class="col-sm-2 col-form-label">Start Date</label>
+						<div class="col-sm-10">
+						  <input type="date" class="form-control" name="inputStartDate" placeholder="YYYY-MM-DD">
+						</div>
+					  </div>
+					  -->
+					  <div class="form-group row">
+						<label for="inputDuration" class="col-sm-2 col-form-label">Duration</label>
+						<div class="col-sm-10">
+						  <input type="number" class="form-control" name="inputDuration" placeholder="Duration">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label for="inputAmountNeeded" class="col-sm-2 col-form-label">Funds Needed</label>
+						<div class="col-sm-10">
+						  <input type="number" class="form-control" name="inputAmountNeeded" placeholder="Amount needed for funds">
+						</div>
+					  </div>
+					  <button type="submit" class="btn btn-primary">Submit</button>
+				 </form>
+			 </div>
 			</div>
 		</section>
 		<script src="script/custom.js" type="text/javascript">
