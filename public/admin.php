@@ -431,8 +431,8 @@
 					  <div class="form-group row">
             <div class="col-auto my-1">
               <label class="mr-sm-2" for="inputEntre">Entrepreneur</label>
-						  <select class="custom-select mr-sm-2" name="inputEntre">
-							<option selected>Choose...</option>
+						  <select class="custom-select mr-sm-2" name="inputEntre" required>
+							<option value="" selected hidden>Choose...</option>
               <?php foreach($registeredMemberList as $registeredMemberRow): ?>
                 <option value="Fashion"><?php echo $registeredMemberRow['username'];?></option>
               <?php endforeach; ?>
@@ -442,7 +442,7 @@
 					  <div class="form-group row">
 						<label for="inputTitle" class="col-sm-2 col-form-label">Project Title</label>
 						<div class="col-sm-10">
-						  <input type="text" class="form-control" name="inputTitle" placeholder="Project Title">
+						  <input type="text" class="form-control" name="inputTitle" placeholder="Project Title" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
@@ -453,8 +453,8 @@
 					  </div>
 					  <div class="col-auto my-1">
 						  <label class="mr-sm-2" for="inputCategory">Category</label>
-						  <select class="custom-select mr-sm-2" name="inputCategory">
-							<option selected>Choose...</option>
+						  <select class="custom-select mr-sm-2" name="inputCategory" required>
+							<option value ="" selected hidden>Choose...</option>
 							<option value="Fashion">Fashion</option>
 							<option value="Technology">Technology</option>
 							<option value="Games">Games</option>
@@ -476,13 +476,13 @@
 					  <div class="form-group row">
 						<label for="inputDuration" class="col-sm-2 col-form-label">Duration</label>
 						<div class="col-sm-10">
-						  <input type="number" class="form-control" name="inputDuration" placeholder="Duration">
+						  <input type="number" class="form-control" name="inputDuration" placeholder="Duration" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
 						<label for="inputAmountNeeded" class="col-sm-2 col-form-label">Funds Needed</label>
 						<div class="col-sm-10">
-						  <input type="number" class="form-control" name="inputAmountNeeded" placeholder="Amount needed for funds">
+						  <input type="number" class="form-control" name="inputAmountNeeded" placeholder="Amount needed for funds" required>
 						</div>
 					  </div>
 					  <button type="submit" class="btn btn-primary">Submit</button>
