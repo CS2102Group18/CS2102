@@ -101,6 +101,10 @@
 				  <li class="nav-item">
 					<a href="home.php" class="text-small nav-link px-2">Explore</a>
 				  </li>
+          <li class="nav-item">
+            <a href="createProject.php" class="text-small nav-link px-2">Start a New Project
+            </a>
+          </li>
 				   <li class="nav-item">
 					<a href="admin.php" class="text-small nav-link px-2">Admin
 					</a>
