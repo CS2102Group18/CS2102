@@ -43,9 +43,9 @@
 	   $currentpage = 1;
 	} // end if
 
-	// the offset of the list, based on current page 
+	// the offset of the list, based on current page
 	$offset = ($currentpage - 1) * $rowsperpage;
-	// get the info from the db 
+	// get the info from the db
 	$sql = "SELECT * FROM member WHERE is_admin = 0 ORDER BY username ASC LIMIT $rowsperpage OFFSET $offset";
 	$result = pg_query($db, $sql);
 	$member = array();
@@ -54,7 +54,7 @@
 		$member[$i] = $row;
 		$i++;
 	}
-	
+
 	$sql = "SELECT * FROM advertised_project";
 	$result = pg_query($db, $sql);
 	$project = array();
@@ -63,13 +63,14 @@
 		$project[$i]= $row;
 		$i++;
 	}
-	
+
 ?>
 
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
 		<style>
 			a.logout {
 				color: white;
@@ -100,7 +101,7 @@
 				  <li class="nav-item">
 					<a href="home.php" class="text-small nav-link px-2">Explore</a>
 				  </li>
-				   <li class="nav-item">	
+				   <li class="nav-item">
 					<a href="admin.php" class="text-small nav-link px-2">Admin
 					</a>
 				  </li>
@@ -154,7 +155,7 @@
 									</form>
 									<!-- Button trigger modal -->
 									<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;width:70px"
-									data-toggle="modal" data-target="#exampleModalCenter" 
+									data-toggle="modal" data-target="#exampleModalCenter"
 									  onClick="displayPopupInformation('<?php echo $memberRow['username'];?>',
 									  '<?php echo $memberRow['password'];?>',
 									  '<?php echo $memberRow['email'];?>',
@@ -163,7 +164,7 @@
 								</td>
 								</tr>
 							<?php endforeach; ?>
-							
+
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 							  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -246,13 +247,13 @@
 								 // make it a link
 								 echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$x'>$x</a> ";
 							  } // end else
-						   } // end if 
+						   } // end if
 						} // end for
-						// if not on last page, show forward and last page links        
+						// if not on last page, show forward and last page links
 						if ($currentpage != $totalpages) {
 						   // get next page
 						   $nextpage = $currentpage + 1;
-							// echo forward link for next page 
+							// echo forward link for next page
 						   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$nextpage'>></a> ";
 						   // echo forward link for lastpage
 						   echo " <a href='{$_SERVER['PHP_SELF']}?currentpage=$totalpages'>>></a> ";
@@ -289,7 +290,7 @@
 									</form>
 									<!-- Button trigger modal -->
 									<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;width:70px"
-									data-toggle="modal" data-target="#projectModalCenter" 
+									data-toggle="modal" data-target="#projectModalCenter"
 									  onClick="displayProjectPopupInformation(
 									  '<?php echo $projectRow['id'];?>',
 									  '<?php echo $projectRow['entrepreneur'];?>',
@@ -305,7 +306,7 @@
 								</td>
 								</tr>
 							<?php endforeach; ?>
-							
+
 							<!-- Modal -->
 							<div class="modal fade" id="projectModalCenter" tabindex="-1" role="dialog" aria-labelledby="projectModalCenterTitle" aria-hidden="true">
 							  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -487,7 +488,7 @@
 			document.getElementById("modalEmail").value = email;
 			document.getElementById("modalBiography").value = biography;
 		}
-		
+
 		function displayProjectPopupInformation(id,entrepreneur,title,description,category,startdate,duration,amtneeded,amtraised,status) {
 			document.getElementById("modalProjectId").value = id;
 			document.getElementById("modalEntrepreneur").value = entrepreneur;
