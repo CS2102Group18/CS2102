@@ -39,6 +39,11 @@
 	  return pg_query($db, "SELECT * FROM member WHERE is_admin=0 ORDER BY username");
 	}
 
+	// Get all members including admin
+	function getAllRegisteredMembers($db) {
+		return pg_query($db, "SELECT * FROM member");
+	}
+
 	// Return true if specified member is an admin
 	function isMemberAdmin($db, $username) {
 	  $result = pg_query($db, "SELECT is_admin FROM member WHERE username = '$username'");
