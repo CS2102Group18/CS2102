@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="img/favicon.png"/>
   <style>
   body {
     font-family: Arial, Helvetica, sans-serif;
@@ -107,7 +108,7 @@ if (isset($_POST['submit'])) {
   if ($_POST[password] == $_POST[passwordRepeat]){
     $sqlCheckUsername = pg_query($db, "SELECT * FROM member WHERE username = '$_POST[username]'");
     $numRows = pg_num_rows($sqlCheckUsername);
-    
+
     if ($numRows > 0) {
 		echo "<script>alert('There is already an existing user!');</script>";
 	}

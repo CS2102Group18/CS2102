@@ -2,6 +2,7 @@
 <html>
 	<head>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/png" href="img/favicon.png"/>
 		  <style>
 		  body {font-family: Arial, Helvetica, sans-serif;}
 		  form {border: 3px solid #f1f1f1;}
@@ -71,7 +72,7 @@
 
 		<form action="../php/loginAuthenticator.php" method="POST">
 			<div class="imgcontainer">
-			<img src="img/login.png" alt="Avatar" class="avatar">
+			<img src="img/Punchstarter.png" alt="Avatar" class="avatar">
 			</div>
 
 			<div class="container">
