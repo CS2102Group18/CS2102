@@ -63,7 +63,19 @@
 		$project[$i]= $row;
 		$i++;
 	}
+?>
 
+<?php
+	//Get all registered members
+	$registeredMemberListResult = getAllRegisteredMembers($db);
+	$registeredMemberListSize = pg_num_rows($registeredMemberListResult);
+	$registeredMemberList = array();
+
+	$i=0;
+	while($row = pg_fetch_assoc($registeredMemberListResult)){
+		$registeredMemberList[$i] = $row;
+		$i++;
+	}
 ?>
 
 <html>
@@ -421,15 +433,20 @@
 			  <div class="tab-pane fade" id="addProjects" role="tabpanel" aria-labelledby="addProjects-tab">
 				  <form action="../php/addProjectFromAdmin.php" method="POST">
 					  <div class="form-group row">
-						<label for="inputEntre" class="col-sm-2 col-form-label">Entrepreneur</label>
-						<div class="col-sm-10">
-						  <input type="text" class="form-control" name="inputEntrepreneur" placeholder="Entrepreneur username">
-						</div>
+            <div class="col-auto my-1">
+              <label class="mr-sm-2" for="inputEntre">Entrepreneur</label>
+						  <select class="custom-select mr-sm-2" name="inputEntre" required>
+							<option value="" selected hidden>Choose...</option>
+              <?php foreach($registeredMemberList as $registeredMemberRow): ?>
+                <option value="Fashion"><?php echo $registeredMemberRow['username'];?></option>
+              <?php endforeach; ?>
+						  </select>
+				    </div>
 					  </div>
 					  <div class="form-group row">
 						<label for="inputTitle" class="col-sm-2 col-form-label">Project Title</label>
 						<div class="col-sm-10">
-						  <input type="text" class="form-control" name="inputTitle" placeholder="Project Title">
+						  <input type="text" class="form-control" name="inputTitle" placeholder="Project Title" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
@@ -440,8 +457,8 @@
 					  </div>
 					  <div class="col-auto my-1">
 						  <label class="mr-sm-2" for="inputCategory">Category</label>
-						  <select class="custom-select mr-sm-2" name="inputCategory">
-							<option selected>Choose...</option>
+						  <select class="custom-select mr-sm-2" name="inputCategory" required>
+							<option value ="" selected hidden>Choose...</option>
 							<option value="Fashion">Fashion</option>
 							<option value="Technology">Technology</option>
 							<option value="Games">Games</option>
@@ -451,7 +468,7 @@
 							<option value="Handicraft">Handicraft</option>
 							<option value="Community">Community</option>
 						  </select>
-				      </div>
+				    </div>
 					  <!--
 					  <div class="form-group row">
 						<label for="inputStartDate" class="col-sm-2 col-form-label">Start Date</label>
@@ -463,13 +480,13 @@
 					  <div class="form-group row">
 						<label for="inputDuration" class="col-sm-2 col-form-label">Duration</label>
 						<div class="col-sm-10">
-						  <input type="number" class="form-control" name="inputDuration" placeholder="Duration">
+						  <input type="number" class="form-control" name="inputDuration" placeholder="Duration" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
 						<label for="inputAmountNeeded" class="col-sm-2 col-form-label">Funds Needed</label>
 						<div class="col-sm-10">
-						  <input type="number" class="form-control" name="inputAmountNeeded" placeholder="Amount needed for funds">
+						  <input type="number" class="form-control" name="inputAmountNeeded" placeholder="Amount needed for funds" required>
 						</div>
 					  </div>
 					  <button type="submit" class="btn btn-primary">Submit</button>
