@@ -165,9 +165,9 @@
 								  <td><?php echo $memberRow['username'];?></td>
 								  <td><?php echo $memberRow['email'];?></td>
 								  <td>
-									<form id="myForm" action="../php/deleteMemberFromAdmin.php" method="POST">
-										<input type="hidden" name="deletedUser" value="<?php echo $memberRow['username'];?>" id="hiddenForm">
-										<div class="btn btn-primary " style="background-color: #e7e7e7; color: black; width:70px;"" id="sub">Delete</div>
+									<form id="deleteMember<?php echo $memberRow['username'];?>" action="../php/deleteMemberFromAdmin.php" method="POST">
+										<input type="hidden" name="deletedUser" value="<?php echo $memberRow['username'];?>">
+										<div class="btn btn-primary " style="background-color: #e7e7e7; color: black; width:70px;" onClick="deleteMemberInAdmin('<?php echo $memberRow['username'];?>')">Delete</div>
 									</form>
 									<!-- Button trigger modal -->
 									<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;width:70px"
@@ -300,9 +300,9 @@
 								  <td><?php echo $projectRow['id'];?></td>
 								  <td><?php echo $projectRow['title'];?></td>
 								  <td>
-									<form id="deleteProjForm" action="../php/deleteProjectFromAdmin.php" method="POST">
-										<input type="hidden" name="deletedProject" value="<?php echo $projectRow['id'];?>" id="hiddenForm">
-										<div class="btn btn-primary " style="background-color: #e7e7e7; color: black; width:70px;"" id="deleteProj">Delete</div>
+									<form id="deleteProject<?php echo $projectRow['id'];?>" action="../php/deleteProjectFromAdmin.php" method="POST">
+										<input type="hidden" name="deletedProject" value="<?php echo $projectRow['id'];?>">
+										<div class="btn btn-primary " style="background-color: #e7e7e7; color: black; width:70px;" onClick="deleteProjectInAdmin('<?php echo $projectRow['id'];?>')">Delete</div>
 									</form>
 									<!-- Button trigger modal -->
 									<div class="btn btn-primary " style="background-color: #e7e7e7; color: black;width:70px"
@@ -433,15 +433,15 @@
 			  <div class="tab-pane fade" id="addProjects" role="tabpanel" aria-labelledby="addProjects-tab">
 				  <form action="../php/addProjectFromAdmin.php" method="POST">
 					  <div class="form-group row">
-            <div class="col-auto my-1">
-              <label class="mr-sm-2" for="inputEntre">Entrepreneur</label>
-						  <select class="custom-select mr-sm-2" name="inputEntre" required>
+						<div class="col-auto my-1">
+						<label class="mr-sm-2" for="inputEntrepreneur">Entrepreneur</label>
+						  <select class="custom-select mr-sm-2" name="inputEntrepreneur" required>
 							<option value="" selected hidden>Choose...</option>
-              <?php foreach($registeredMemberList as $registeredMemberRow): ?>
-                <option value="Fashion"><?php echo $registeredMemberRow['username'];?></option>
-              <?php endforeach; ?>
+							  <?php foreach($registeredMemberList as $registeredMemberRow): ?>
+								 <option value="<?php echo $registeredMemberRow['username'];?>"><?php echo $registeredMemberRow['username'];?></option>
+							  <?php endforeach; ?>
 						  </select>
-				    </div>
+						</div>
 					  </div>
 					  <div class="form-group row">
 						<label for="inputTitle" class="col-sm-2 col-form-label">Project Title</label>
@@ -499,8 +499,6 @@
 			 </div>
 			</div>
 		</section>
-		<script src="script/custom.js" type="text/javascript">
-		</script>
 		<script>
 		function displayPopupInformation(username,password,email,biography) {
 			document.getElementById("modalCurUsername").value = username;
@@ -533,6 +531,13 @@
 		 }
 		 function updateProjectInAdmin() {
 			 document.getElementById("modalFormPledgeProject").submit();
+		 }
+		 
+		 function deleteMemberInAdmin(memberName){
+			 document.getElementById("deleteMember"+memberName).submit();
+		 }
+		 function deleteProjectInAdmin(project){
+			 document.getElementById("deleteProject"+project).submit();
 		 }
 		</script>
 	</body>
