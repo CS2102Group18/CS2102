@@ -402,7 +402,7 @@
 				</div>
 			  </div>
 			  <div class="tab-pane fade" id="addUsers" role="tabpanel" aria-labelledby="addUsers-tab">
-				  <form action="../php/addMemberFromAdmin.php" method="POST">
+				  <form id="addMemberForm"action="../php/addMemberFromAdmin.php" method="POST">
 					  <div class="form-group row">
 						<label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
 						<div class="col-sm-10">
@@ -427,7 +427,7 @@
 						  <input type="text" class="form-control" name="inputBio" placeholder="Put biography in here!">
 						</div>
 					  </div>
-					  <button type="submit" class="btn btn-primary">Submit</button>
+					  <button class="btn btn-primary" onClick="addMemberInAdmin()">Submit</button>
 				 </form>
 			  </div>
 			  <div class="tab-pane fade" id="addProjects" role="tabpanel" aria-labelledby="addProjects-tab">
@@ -538,6 +538,9 @@
 		 }
 		 function deleteProjectInAdmin(project){
 			 document.getElementById("deleteProject"+project).submit();
+		 }
+		 function addMemberInAdmin(){
+			 document.getElementById("addMemberForm").submit();
 		 }
 		</script>
 	</body>
