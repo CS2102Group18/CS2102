@@ -419,13 +419,13 @@
 					  <div class="form-group row">
 						<label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
 						<div class="col-sm-10">
-						  <input type="text" class="form-control" name="inputUsername" placeholder="Username">
+						  <input type="text" class="form-control" name="inputUsername" placeholder="Username" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
 						<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
 						<div class="col-sm-10">
-						  <input type="password" class="form-control" name="inputPassword" placeholder="Password">
+						  <input type="password" class="form-control" name="inputPassword" placeholder="Password" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
