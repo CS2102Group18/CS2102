@@ -74,11 +74,11 @@
 <body>
   <form action="createMember.php", method = "POST">
     <div class="container">
-      <h1>Register Account for Crowd Fundingytutyutyuytuy</h1>
+      <h1>Register Account for Crowd Funding</h1>
       <p>Please fill in this form to create an account.</p>
       <hr>
-      <label for="User Name"><b>User Name</b></label>
-      <input type="text" placeholder="Enter Desired User Name" name="username" required>
+      <label for="User Name"><b>Username</b></label>
+      <input type="text" placeholder="Enter Desired Username" name="username" required>
 
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Desired Password" name="password" required>
