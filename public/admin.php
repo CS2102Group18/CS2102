@@ -55,7 +55,7 @@
 		$i++;
 	}
 
-	$sql = "SELECT * FROM advertised_project";
+	$sql = "SELECT * FROM advertised_project ORDER BY id ASC";
 	$result = pg_query($db, $sql);
 	$project = array();
 	$i=0;
