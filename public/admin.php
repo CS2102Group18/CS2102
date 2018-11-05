@@ -328,7 +328,7 @@
 							  <div class="modal-dialog modal-dialog-centered" role="document">
 								 <div class="modal-content">
 									<div class="modal-header">
-									  <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+									  <h5 class="modal-title" id="exampleModalLongTitle">Edit Project</h5>
 									  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										 <span aria-hidden="true">&times;</span>
 									  </button>
@@ -357,8 +357,17 @@
 										</div>
 										<div class="form-group">
 											<label for="usr">Category:</label>
-											<input type="text" class="form-control" id="modalCategory" name="category"
-											value="">
+                      <select class="custom-select mr-sm-2" id="modalCategory" name = "category">
+                      <option value ="" selected hidden>Choose...</option>
+                      <option value="Fashion">Fashion</option>
+                      <option value="Technology">Technology</option>
+                      <option value="Games">Games</option>
+                      <option value="Food">Food</option>
+                      <option value="Music">Music</option>
+                      <option value="Photography">Photography</option>
+                      <option value="Handicraft">Handicraft</option>
+                      <option value="Community">Community</option>
+                      </select>
 										</div>
 										<div class="form-group">
 											<label for="usr">Start Date:</label>
@@ -532,7 +541,7 @@
 		 function updateProjectInAdmin() {
 			 document.getElementById("modalFormPledgeProject").submit();
 		 }
-		 
+
 		 function deleteMemberInAdmin(memberName){
 			 document.getElementById("deleteMember"+memberName).submit();
 		 }
