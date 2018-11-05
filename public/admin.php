@@ -195,12 +195,12 @@
 									<div class="modal-body">
 										<div class="form-group" hidden="true">
 											<input type="text" class="form-control" id="modalCurUsername" name="currentUser"
-											value="">
+											value="" readonly = "true">
 										</div>
 										<div class="form-group">
 											<label for="usr">Username:</label>
 											<input type="text" class="form-control" id="modalUsername" name="newUser"
-											value="">
+											value="" readonly = "true">
 										</div>
 										<div class="form-group">
 											<label for="usr">Password:</label>
