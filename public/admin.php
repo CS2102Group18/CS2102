@@ -342,8 +342,12 @@
 										</div>
 										<div class="form-group">
 											<label for="usr">Entrepreneur:</label>
-											<input type="text" class="form-control" id="modalEntrepreneur" name="entrepreneur"
-											value="">
+											<select class="custom-select mr-sm-2" id="modalEntrepreneur" name="entrepreneur" required>
+												<option value="" selected hidden>Choose...</option>
+												  <?php foreach($registeredMemberList as $registeredMemberRow): ?>
+													 <option value="<?php echo $registeredMemberRow['username'];?>"><?php echo $registeredMemberRow['username'];?></option>
+												  <?php endforeach; ?>
+											  </select>
 										</div>
 										<div class="form-group">
 											<label for="usr">Title:</label>
@@ -357,17 +361,17 @@
 										</div>
 										<div class="form-group">
 											<label for="usr">Category:</label>
-                      <select class="custom-select mr-sm-2" id="modalCategory" name = "category">
-                      <option value ="" selected hidden>Choose...</option>
-                      <option value="Fashion">Fashion</option>
-                      <option value="Technology">Technology</option>
-                      <option value="Games">Games</option>
-                      <option value="Food">Food</option>
-                      <option value="Music">Music</option>
-                      <option value="Photography">Photography</option>
-                      <option value="Handicraft">Handicraft</option>
-                      <option value="Community">Community</option>
-                      </select>
+											 <select class="custom-select mr-sm-2" id="modalCategory" name = "category">
+											 <option value ="" selected hidden>Choose...</option>
+											 <option value="Fashion">Fashion</option>
+											 <option value="Technology">Technology</option>
+											 <option value="Games">Games</option>
+											 <option value="Food">Food</option>
+											 <option value="Music">Music</option>
+											 <option value="Photography">Photography</option>
+											 <option value="Handicraft">Handicraft</option>
+											 <option value="Community">Community</option>
+											 </select>
 										</div>
 										<div class="form-group">
 											<label for="usr">Start Date:</label>
