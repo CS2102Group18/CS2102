@@ -170,13 +170,13 @@ if(isset($_POST['Create'])) {
 			<div class="form-group">
 			  <label for="name" class="col-sm-2 control-label">Funds Required</label>
 			  <div class="col-sm-10">
-				<input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Entered the required amount of funding" required>
+				<input type="text" class="form-control" id="name" name="amtNeeded" placeholder="Enter the required amount of funding" required>
 			  </div>
 			</div>
 			<div class="form-group">
 			  <label for="name" class="col-sm-2 control-label">No. of days for funding</label>
 			  <div class="col-sm-10">
-				<input type="text" class="form-control" name="duration" placeholder="Entered the number of days of funding">
+				<input type="text" class="form-control" name="duration" placeholder="Enter the number of days of funding">
 			  </div>
 			</div>
 			<div class="form-group">
