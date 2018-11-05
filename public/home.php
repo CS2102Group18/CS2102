@@ -220,8 +220,8 @@ if(!result) {
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-md-8">
-                      <div class="d-flex align-items-center">Amount needed : <?php echo $projectRow['amt_needed'];?></div>
-                      <div class="d-flex align-items-center">Amount raised : <?php echo $projectRow['amt_raised'];?></div>
+                      <div class="d-flex align-items-center">Amount needed : $<?php echo $projectRow['amt_needed'];?></div>
+                      <div class="d-flex align-items-center">Amount raised : $<?php echo $projectRow['amt_raised'];?></div>
                     </div>
                     <?php if($UNAME!=$projectRow['entrepreneur']): ?>
                       <div class="col-md-4">
@@ -356,9 +356,9 @@ if(!result) {
       document.getElementById("modalProjectTitle").innerHTML = title;
       document.getElementById("modalProjectDescription").innerHTML = description;
       document.getElementById("modalProjectStartDate").innerHTML = startDate;
-      document.getElementById("modalProjectDuration").innerHTML = duration;
-      document.getElementById("modalProjectAmtNeeded").innerHTML = amtNeeded;
-      document.getElementById("modalProjectAmtRaised").innerHTML = amtRaised;
+      document.getElementById("modalProjectDuration").innerHTML = duration + " days";
+      document.getElementById("modalProjectAmtNeeded").innerHTML = "$" + amtNeeded;
+      document.getElementById("modalProjectAmtRaised").innerHTML = "$" + amtRaised;
 
       var username = '<?php echo $UNAME?>';
 
