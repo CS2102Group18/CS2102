@@ -419,13 +419,13 @@
 					  <div class="form-group row">
 						<label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
 						<div class="col-sm-10">
-						  <input type="text" class="form-control" name="inputUsername" placeholder="Username" required>
+						  <input type="text" class="form-control" id="addInputUsername" name="inputUsername" placeholder="Username" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
 						<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
 						<div class="col-sm-10">
-						  <input type="password" class="form-control" name="inputPassword" placeholder="Password" required>
+						  <input type="password" class="form-control" id="addInputPassword" name="inputPassword" placeholder="Password" required>
 						</div>
 					  </div>
 					  <div class="form-group row">
@@ -553,6 +553,14 @@
 			 document.getElementById("deleteProject"+project).submit();
 		 }
 		 function addMemberInAdmin(){
+			 if(document.getElementById("addInputUsername").value == ""){
+				 alert("Username not filled")
+				 return;
+			 }
+			 if(document.getElementById("addInputPassword").value == ""){
+				 alert("Password not filled")
+				 return;
+			 }
 			 document.getElementById("addMemberForm").submit();
 		 }
 		</script>
