@@ -1,1 +1,0 @@
-worker: php public/login.php
