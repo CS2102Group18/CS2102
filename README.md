@@ -3,13 +3,13 @@ A catalogue of projects looking for crowdfunding. Entrepreneurs can advertise th
 
 Read our report [here](docs/Report.pdf)
 
-## Get started with Bitnami stacks - locally
+## Get started with Bitnami stacks - localhost
 1. Download and install the [stack](https://bitnami.com/tag/postgresql) for your operating system
 2. Navigate to /Bitnami/wappstack-7.1.21-0/apache2/htdocs
 3. Clone this [repository](https://github.com/CS2102Group18/CS2102.git) here
 4. Navigate to /Bitnami/wappstack-7.1.21-0 and launch manager-windows.exe
 5. Start all the servers
-6. Login to phppgadmin to create database and schema using sql codes from /Bitnami/wappstack-7.1.21-0/apache2/htdocs/sql/
+6. Login to phppgadmin to create database and schema using sql codes from <br>/Bitnami/wappstack-7.1.21-0/apache2/htdocs/sql/
 7. To populate database with initial data, type localhost/test/insertDummy.php in the URL bar
 8. Go to localhost/public/login.php to get started
 
